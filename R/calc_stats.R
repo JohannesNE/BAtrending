@@ -79,6 +79,7 @@ print.ba_analysis <- function(x) {
 
   cat(sprintf("%i paired measurements in %i subjects\n\n", n_obs, n_sub))
 
+  # Create label for CI if CI exists
   if (is.null(x$BA_stats_ci)) {
     CI_label <- NULL
     }
@@ -86,18 +87,23 @@ print.ba_analysis <- function(x) {
     CI_label <- sprintf("     [%2g%% CI]", attr(x$BA_stats_ci, "level") * 100)
   }
 
-  format_interval <- function(vec) sprintf("[%.3f; %.3f]", vec[1], vec[2])
+  # Function that formats a single line of results
+  format_line <- function(label, var) {
+    cat(format(label, width = 30), ":",
+        format(x$BA_stats[[var]], width = 6,
+               nsmall = 3),
+        sprintf("[% 2.3f; % 2.3f]", x$BA_stats_ci[[var]][1], x$BA_stats_ci[[var]][2]), "\n")
+  }
 
-  cat("Variance components:           est", CI_label, "\n")
-  cat("Interindividual variance (SD):", x$BA_stats$sd.id,
-      format_interval(x$BA_stats_ci$sd.id), "\n")
-  cat("Intraindividual variance (SD):", x$BA_stats$sd.residual, "\n")
-  cat("Total variance (SD)          :", x$BA_stats$sd.combined, "\n\n")
-
-  cat("Mean difference (alt - ref):", x$BA_stats$bias, "\n")
-  cat(sprintf("Limits of Agreement (95%%)  : [%.3f; %.3f]",
-              x$BA_stats$bias - 2 * x$BA_stats$sd.combined,
-              x$BA_stats$bias + 2 * x$BA_stats$sd.combined))
+  cat(format("", width = 30), "    est", CI_label, "\n")
+  format_line("Bias (alt - ref)", "bias")
+  format_line("Interindividual variance (SD)", "sd.id")
+  format_line("Intraindividual variance (SD)", "sd.residual")
+  format_line("Total variance (SD)", "sd.combined")
+  cat("\n")
+  cat("Limits of Agreement (95%)\n")
+  format_line("├ Upper limit", "loa.upr")
+  format_line("└ Lower limit", "loa.lwr")
 
   invisible(x)
 }

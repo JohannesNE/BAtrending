@@ -2,4 +2,5 @@
 
 S3method(confint,ba_analysis)
 S3method(print,ba_analysis)
+export(add_confint)
 export(compare_methods)
