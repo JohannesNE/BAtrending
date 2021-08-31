@@ -8,7 +8,8 @@
 #' @return
 #' @export
 #'
-#' @examples compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub")
+#' @examples
+#' compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub")
 compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE) {
   if (!is.data.frame(df)) stop("df must be of class data.frame")
 
@@ -25,7 +26,12 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE) {
     list(
     data = df,
     model = diff_model,
-    BA_stats = as.list(BA_stats)
+    BA_stats = as.list(BA_stats),
+    .var_names = list(
+      ref_col = ref_col,
+      alt_col = alt_col,
+      id_col = id_col
+    )
   ),
     class = "ba_analysis"
   )
