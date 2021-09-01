@@ -4,7 +4,7 @@
 \alias{plot_BA}
 \title{Title}
 \usage{
-plot_BA(x)
+plot_BA(ba_obj)
 }
 \arguments{
 \item{x}{}

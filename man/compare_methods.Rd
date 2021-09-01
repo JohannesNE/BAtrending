@@ -16,7 +16,7 @@ compare_methods(df, ref_col, alt_col, id_col, REML = TRUE)
 \item{id_col}{name of column containing unique subject id's}
 }
 \value{
-
+Bland Altman analysis object (of class ba_analysis)
 }
 \description{
 Compare methods

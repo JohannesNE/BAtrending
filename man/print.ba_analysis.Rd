@@ -4,7 +4,7 @@
 \alias{print.ba_analysis}
 \title{Print method}
 \usage{
-\method{print}{ba_analysis}(x)
+\method{print}{ba_analysis}(ba_obj)
 }
 \description{
 Print method

@@ -45,10 +45,10 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE) {
 #' @param level Confidence level (default is 0.95)
 #' @param nsim Number of bootstrap samples
 #'
-#' @return BA analysis object (`x`) with added confidence intervals
-#' @export
+#' @return
+#' BA analysis object (`x`) with added confidence intervals
 #'
-#' @examples
+#' @export
 add_confint <- function(ba_obj, level = 0.95, nsim = 2000) {
   stopifnot("ba_analysis" %in% class(ba_obj))
   BA_stats_ci <- confint.ba_analysis(ba_obj, level = level, nsim = nsim)
@@ -80,8 +80,8 @@ confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 2000) {
                        method="boot",
                        FUN = calc_BA_stats_from_model,
                        level = level,
-                       nsim = nsim,
-                       .progress = 'txt')
+                       nsim = nsim
+                       )
 }
 
 #' Print method
@@ -147,4 +147,24 @@ calc_BA_stats_from_model <- function(model) {
 
     loa.lwr = bias - 2*sd_combined,
     loa.upr = bias + 2*sd_combined)
+}
+
+gen_ba_stats_df <- function(ba_obj) {
+  wide_stat_df <- rbind(ba_obj$BA_stats,
+                        as.data.frame(ba_obj$BA_stats_ci))[1:3,] # Ensure 3 rows event with missing ci
+
+  row.names(wide_stat_df) <- c("est", "ci.lwr", "ci.upr")
+  long_stat_df <- as.data.frame(t(wide_stat_df))
+
+  # Row names to stat column
+  long_stat_df$stat <- row.names(long_stat_df)
+  row.names(long_stat_df) <- NULL
+
+  ba_labels <- c(bias = "Bias",
+                 loa.lwr = "95% LoA",
+                 loa.upr = "95% LoA")
+
+  long_stat_df$label <- ba_labels[long_stat_df$stat]
+
+  long_stat_df[,c(4,5,1:3)] # Reorder columns
 }

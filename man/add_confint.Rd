@@ -4,10 +4,10 @@
 \alias{add_confint}
 \title{Add confidence intervals to BA analysis object}
 \usage{
-add_confint(x, level = 0.95, nsim = 2000)
+add_confint(ba_obj, level = 0.95, nsim = 2000)
 }
 \arguments{
-\item{x}{BA analysis object}
+\item{ba_obj}{BA analysis object}
 
 \item{level}{Confidence level (default is 0.95)}
 
