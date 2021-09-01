@@ -42,7 +42,7 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
     }
     else {
         ci_shade <- ggplot2::geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = ci.lwr, ymax = ci.upr),
-                                  alpha = 0.2, fill = "gray",
+                                  alpha = 0.5, fill = "gray",
                                   data = BA_stats,
                                   inherit.aes = FALSE)
     }
