@@ -1,3 +1,5 @@
+set.seed(1)
+
 test_that("compare_methods works", {
     comp_tmp <- compare_methods(CO, "ic", "rv", id_col = "sub")
     expect_equal(comp_tmp$BA_stats$bias, 0.704, tolerance=1e-3)
@@ -13,3 +15,4 @@ test_that("confint works (not testing accuracy)", {
 })
 
 comp_co_w_ci_tmp <- add_confint(comp_co, nsim = 100)
+

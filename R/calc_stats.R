@@ -6,6 +6,8 @@
 #' @param id_col name of column containing unique subject id's
 #'
 #' @return
+#' Bland Altman analysis object (of class ba_analysis)
+#'
 #' @export
 #'
 #' @examples
@@ -39,7 +41,7 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE) {
 
 #' Add confidence intervals to BA analysis object
 #'
-#' @param x BA analysis object
+#' @param ba_obj BA analysis object
 #' @param level Confidence level (default is 0.95)
 #' @param nsim Number of bootstrap samples
 #'
@@ -47,9 +49,9 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE) {
 #' @export
 #'
 #' @examples
-add_confint <- function(x, level = 0.95, nsim = 2000) {
-  stopifnot("ba_analysis" %in% class(x))
-  BA_stats_ci <- confint.ba_analysis(x, level = level, nsim = nsim)
+add_confint <- function(ba_obj, level = 0.95, nsim = 2000) {
+  stopifnot("ba_analysis" %in% class(ba_obj))
+  BA_stats_ci <- confint.ba_analysis(ba_obj, level = level, nsim = nsim)
 
   # Set names of the CI matrix to the respective confidence levels
   # (dimnames(BA_stats_ci)[[2]])
@@ -57,16 +59,24 @@ add_confint <- function(x, level = 0.95, nsim = 2000) {
 
   BA_stats_ci_list <- split(BA_stats_ci, dimnames(BA_stats_ci)[[1]])
 
-  x$BA_stats_ci <- structure(BA_stats_ci_list, level = level)
-  x
+  ba_obj$BA_stats_ci <- structure(BA_stats_ci_list, level = level)
+  ba_obj
 }
 
 #' Calculate confidence interval
+#'
+#' @param ba_obj
+#' @param level
+#' @param nsim
+#'
+#' @return
+#' Matrix of bootstrap confidence intervals for BA statistics.
+#'
 #' @export
-confint.ba_analysis <- function(x, level = 0.95, nsim = 2000) {
+confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 2000) {
   message(sprintf("Creating %i bootstrap samples", nsim))
 
-  lme4::confint.merMod(x$model,
+  lme4::confint.merMod(ba_obj$model,
                        method="boot",
                        FUN = calc_BA_stats_from_model,
                        level = level,
@@ -76,29 +86,29 @@ confint.ba_analysis <- function(x, level = 0.95, nsim = 2000) {
 
 #' Print method
 #' @export
-print.ba_analysis <- function(x) {
+print.ba_analysis <- function(ba_obj) {
   ops <- options(digits = 3)
   on.exit(options(ops))
 
-  n_obs <- x$model@devcomp$dims[["n"]]
-  n_sub <- nlevels(x$model@flist[[1]])
+  n_obs <- ba_obj$model@devcomp$dims[["n"]]
+  n_sub <- nlevels(ba_obj$model@flist[[1]])
 
   cat(sprintf("%i paired measurements in %i subjects\n\n", n_obs, n_sub))
 
   # Create label for CI if CI exists
-  if (is.null(x$BA_stats_ci)) {
+  if (is.null(ba_obj$BA_stats_ci)) {
     CI_label <- NULL
     }
   else {
-    CI_label <- sprintf("     [%2g%% CI]", attr(x$BA_stats_ci, "level") * 100)
+    CI_label <- sprintf("     [%2g%% CI]", attr(ba_obj$BA_stats_ci, "level") * 100)
   }
 
   # Function that formats a single line of results
   format_line <- function(label, var) {
     cat(format(label, width = 30), ":",
-        format(x$BA_stats[[var]], width = 6,
+        format(ba_obj$BA_stats[[var]], width = 6,
                nsmall = 3),
-        sprintf("[% 2.3f; % 2.3f]", x$BA_stats_ci[[var]][1], x$BA_stats_ci[[var]][2]), "\n")
+        sprintf("[% 2.3f; % 2.3f]", ba_obj$BA_stats_ci[[var]][1], ba_obj$BA_stats_ci[[var]][2]), "\n")
   }
 
   cat(format("", width = 30), "    est", CI_label, "\n")
@@ -111,7 +121,7 @@ print.ba_analysis <- function(x) {
   format_line("├ Upper limit", "loa.upr")
   format_line("└ Lower limit", "loa.lwr")
 
-  invisible(x)
+  invisible(ba_obj)
 }
 
 calc_BA_stats_from_model <- function(model) {
