@@ -12,8 +12,13 @@
 #'
 #' @examples
 #' compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub")
-compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE) {
+compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE) {
   if (!is.data.frame(df)) stop("df must be of class data.frame")
+
+  if (logtrans) {
+    df[[ref_col]] <- log(df[[ref_col]])
+    df[[alt_col]] <- log(df[[alt_col]])
+  }
 
   df$diff <- df[[alt_col]] - df[[ref_col]]
   df$mean <- (df[[alt_col]] + df[[ref_col]]) / 2
@@ -35,7 +40,8 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE) {
       id_col = id_col
     )
   ),
-    class = "ba_analysis"
+    class = "ba_analysis",
+    logtrans = logtrans
   )
 }
 
@@ -74,7 +80,7 @@ add_confint <- function(ba_obj, level = 0.95, nsim = 2000) {
 #'
 #' @export
 confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 2000) {
-  message(sprintf("Creating %i bootstrap samples", nsim))
+  message(glue::glue("Creating {nsim} bootstrap samples"))
 
   lme4::confint.merMod(ba_obj$model,
                        method="boot",
@@ -84,45 +90,7 @@ confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 2000) {
                        )
 }
 
-#' Print method
-#' @export
-print.ba_analysis <- function(ba_obj) {
-  ops <- options(digits = 3)
-  on.exit(options(ops))
 
-  n_obs <- ba_obj$model@devcomp$dims[["n"]]
-  n_sub <- nlevels(ba_obj$model@flist[[1]])
-
-  cat(sprintf("%i paired measurements in %i subjects\n\n", n_obs, n_sub))
-
-  # Create label for CI if CI exists
-  if (is.null(ba_obj$BA_stats_ci)) {
-    CI_label <- NULL
-    }
-  else {
-    CI_label <- sprintf("     [%2g%% CI]", attr(ba_obj$BA_stats_ci, "level") * 100)
-  }
-
-  # Function that formats a single line of results
-  format_line <- function(label, var) {
-    cat(format(label, width = 30), ":",
-        format(ba_obj$BA_stats[[var]], width = 6,
-               nsmall = 3),
-        sprintf("[% 2.3f; % 2.3f]", ba_obj$BA_stats_ci[[var]][1], ba_obj$BA_stats_ci[[var]][2]), "\n")
-  }
-
-  cat(format("", width = 30), "    est", CI_label, "\n")
-  format_line("Bias (alt - ref)", "bias")
-  format_line("Interindividual variance (SD)", "sd.id")
-  format_line("Intraindividual variance (SD)", "sd.residual")
-  format_line("Total variance (SD)", "sd.combined")
-  cat("\n")
-  cat("Limits of Agreement (95%)\n")
-  format_line("├ Upper limit", "loa.upr")
-  format_line("└ Lower limit", "loa.lwr")
-
-  invisible(ba_obj)
-}
 
 calc_BA_stats_from_model <- function(model) {
 
