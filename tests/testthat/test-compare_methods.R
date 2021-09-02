@@ -10,14 +10,14 @@ comp_co <- compare_methods(CO, "ic", "rv", id_col = "sub")
 
 test_that("confint works (not testing accuracy)", {
     set.seed(1)
-    comp_co_w_ci_tmp <- suppressMessages(add_confint(comp_co, nsim = 100))
+    comp_co_w_ci_tmp <- suppressMessages(add_confint(comp_co, nsim = 100, .progress = "none"))
 
 
     expect_equal(unname(comp_co_w_ci_tmp$BA_stats_ci$loa.lwr), c(-2.20, -0.36), tolerance = 1)
 })
 
 set.seed(1)
-comp_co_w_ci <- suppressMessages(add_confint(comp_co, nsim = 100))
+comp_co_w_ci <- suppressMessages(add_confint(comp_co, nsim = 100, .progress = "none"))
 
 test_that("gen_ba_stats_df works without ci", {
     stats_wo_ci <- gen_ba_stats_df(comp_co)

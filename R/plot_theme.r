@@ -8,6 +8,11 @@ theme_ba <- function(..., base_size = 12) {
             axis.line.y = ggplot2::element_line(size =
                                                     .5, color = "black"),
             axis.text = ggplot2::element_text(size = rel(0.8)),
+            panel.grid.major = ggplot2::element_line(
+                color = "#454545",
+                size = 0.3,
+                linetype = "dotted"
+            ),
             panel.grid.minor = ggplot2::element_blank(),
             legend.key = ggplot2::element_blank(),
             plot.margin = ggplot2::unit(c(4, 4, 1, 1), "mm"),

@@ -4,7 +4,7 @@
 \alias{compare_methods}
 \title{Compare methods}
 \usage{
-compare_methods(df, ref_col, alt_col, id_col, REML = TRUE)
+compare_methods(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE)
 }
 \arguments{
 \item{df}{Data frame}

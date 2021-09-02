@@ -35,6 +35,11 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
     model = diff_model,
     BA_stats = as.list(BA_stats),
     .var_names = list(
+      ref_col = ifelse(logtrans, glue::glue("log({ref_col})"), ref_col),
+      alt_col = ifelse(logtrans, glue::glue("log({alt_col})"), alt_col),
+      id_col = id_col
+    ),
+    .raw_var_names = list(
       ref_col = ref_col,
       alt_col = alt_col,
       id_col = id_col
@@ -50,14 +55,15 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
 #' @param ba_obj BA analysis object
 #' @param level Confidence level (default is 0.95)
 #' @param nsim Number of bootstrap samples
-#'
+#' @param .progress see `?lme4::bootMer()`
+#'``
 #' @return
 #' BA analysis object (`x`) with added confidence intervals
 #'
 #' @export
-add_confint <- function(ba_obj, level = 0.95, nsim = 2000) {
+add_confint <- function(ba_obj, level = 0.95, nsim = 2000, .progress = "txt") {
   stopifnot("ba_analysis" %in% class(ba_obj))
-  BA_stats_ci <- confint.ba_analysis(ba_obj, level = level, nsim = nsim)
+  BA_stats_ci <- confint.ba_analysis(ba_obj, level = level, nsim = nsim,  .progress = .progress)
 
   # Set names of the CI matrix to the respective confidence levels
   # (dimnames(BA_stats_ci)[[2]])
@@ -79,14 +85,15 @@ add_confint <- function(ba_obj, level = 0.95, nsim = 2000) {
 #' Matrix of bootstrap confidence intervals for BA statistics.
 #'
 #' @export
-confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 2000) {
+confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 2000, .progress = "txt") {
   message(glue::glue("Creating {nsim} bootstrap samples"))
 
   lme4::confint.merMod(ba_obj$model,
                        method="boot",
                        FUN = calc_BA_stats_from_model,
                        level = level,
-                       nsim = nsim
+                       nsim = nsim,
+                       .progress = .progress,
                        )
 }
 

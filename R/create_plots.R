@@ -52,9 +52,8 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
         ci_shade +
         est_lines +
         ggplot2::geom_point(show.legend = subject_legend) +
-        ggplot2::scale_x_continuous(expand = ggplot2::expansion(add = c(0.5,1))) +
+        ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.1, 0.15))) +
         labs(title = "Bland Altman plot",
-             subtitle = "Absolute difference between methods",
              x = glue::glue("Mean
                             ({ba_obj$.var_names$ref_col} + {ba_obj$.var_names$alt_col}) / 2"),
              y = glue::glue("Difference
@@ -62,6 +61,60 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
         theme_ba()
 
     BA_plot
+}
+
+# Helper functions for plots
+breaks_from_vec <- function(x, vec = c(0.33, 0.5, 1, 2, 3),
+                            fallback_fun = scales::breaks_log(base = 1.5, n = 5)) {
+    # Selects breaks from a predefined vector of desired breaks. If less than
+    # 3 breaks are in range, use fallback function
+    res <- vec[vec < max(x) & vec > min(x)]
+    if (length(res) < 3) {
+        fallback_fun(x)
+    } else {
+        res
+    }
+}
+
+
+#' Exponentiate Y scale
+#'
+#' @param labels
+#' @export
+label_y_exp_percent <- function(labels = scales::percent, ...) {
+    list(ggplot2::scale_y_continuous(trans = "exp", labels = labels, ...),
+         ggplot2::coord_trans(y = "log")
+         )
+
+}
+
+
+#' Add secondary exponential Y scale
+#'
+#' @param labels
+#' @export
+scale_y2_exp_percent <- function(labels = scales::percent, ...) {
+    ggplot2::scale_y_continuous(sec.axis = ggplot2::sec_axis(trans = exp, labels = labels,
+                                                           breaks = breaks_from_vec, ...))
+}
+
+#' Exponentiate X scale
+#'
+#' @param labels
+#' @export
+label_x_exp_percent <- function(labels = scales::percent, ...) {
+    list(ggplot2::scale_x_continuous(trans = "exp", labels = labels, ...),
+         ggplot2::coord_trans(x = "log")
+    )
+}
+
+#' Add secondary exponential X scale
+#'
+#' @param labels
+#' @export
+scale_x2_exp_percent <- function(labels = scales::percent, ...) {
+    ggplot2::scale_x_continuous(sec.axis = ggplot2::sec_axis(trans = exp, labels = labels,
+                                                           breaks = breaks_from_vec, ...))
 }
 
 

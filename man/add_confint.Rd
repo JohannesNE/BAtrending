@@ -4,7 +4,7 @@
 \alias{add_confint}
 \title{Add confidence intervals to BA analysis object}
 \usage{
-add_confint(ba_obj, level = 0.95, nsim = 2000)
+add_confint(ba_obj, level = 0.95, nsim = 2000, ...)
 }
 \arguments{
 \item{ba_obj}{BA analysis object}
@@ -12,6 +12,8 @@ add_confint(ba_obj, level = 0.95, nsim = 2000)
 \item{level}{Confidence level (default is 0.95)}
 
 \item{nsim}{Number of bootstrap samples}
+
+\item{...}{passed to `lme4::confint.merMod()`}
 }
 \value{
 BA analysis object (`x`) with added confidence intervals
