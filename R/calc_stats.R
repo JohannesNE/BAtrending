@@ -15,13 +15,22 @@
 compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE) {
   if (!is.data.frame(df)) stop("df must be of class data.frame")
 
+  calc_mean_diff <- function(x_df){
+    x_df$diff <- x_df[[alt_col]] - x_df[[ref_col]]
+    x_df$mean <- (x_df[[alt_col]] + x_df[[ref_col]]) / 2
+    x_df
+  }
+
+  non_log_df <- NULL
   if (logtrans) {
+    non_log_df <- df
+    non_log_df <- calc_mean_diff(non_log_df)
+
     df[[ref_col]] <- log(df[[ref_col]])
     df[[alt_col]] <- log(df[[alt_col]])
   }
 
-  df$diff <- df[[alt_col]] - df[[ref_col]]
-  df$mean <- (df[[alt_col]] + df[[ref_col]]) / 2
+  df <- calc_mean_diff(df)
 
   diff_model <- lme4::lmer(as.formula(paste0("diff ~ 1 + (1 | ", id_col, ")")),
                            REML = REML, data = df)
@@ -43,7 +52,8 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
       ref_col = ref_col,
       alt_col = alt_col,
       id_col = id_col
-    )
+    ),
+    .non_log_data = non_log_df
   ),
     class = "ba_analysis",
     logtrans = logtrans
@@ -113,15 +123,21 @@ calc_BA_stats_from_model <- function(model) {
 
   stopifnot(length(sd_components) == 2) # Test
 
-  sd_combined <- sqrt(sum(sd_components^2))
+  sd.id <- unname(sd_components[1])
+  sd.residual <- unname(sd_components[2])
+  sd.combined <- sqrt(sd.id^2 + sd.residual^2)
+
+
 
   c(bias = bias,
-    sd.id = unname(sd_components[1]),
-    sd.residual = unname(sd_components[2]),
-    sd.combined = sd_combined,
+    sd.id = sd.id,
+    sd.residual = sd.residual,
+    sd.combined = sd.combined,
 
-    loa.lwr = bias - 2*sd_combined,
-    loa.upr = bias + 2*sd_combined)
+    loa.lwr = bias - 2*sd.combined,
+    loa.upr = bias + 2*sd.combined
+
+  )
 }
 
 gen_ba_stats_df <- function(ba_obj) {
@@ -143,3 +159,11 @@ gen_ba_stats_df <- function(ba_obj) {
 
   long_stat_df[,c(4,5,1:3)] # Reorder columns
 }
+
+calc_trending_loa <- function(sd_intra) {
+  2 * sqrt(2) * sd_intra
+}
+
+
+
+

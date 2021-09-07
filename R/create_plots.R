@@ -9,19 +9,37 @@
 #' @importFrom ggplot2 aes
 #' @export
 #'
-plot_BA <- function(ba_obj, subject_legend = FALSE) {
+plot_BA <- function(ba_obj, subject_legend = FALSE, normalize_log_loa = FALSE) {
     stopifnot("ba_analysis" %in% class(ba_obj))
 
     ba_obj_name <- deparse(substitute(ba_obj))
 
-    d <- ba_obj$data
+    if (normalize_log_loa) {
+        stopifnot(attr(ba_obj, "logtrans"))
+
+        d <- ba_obj$.non_log_data
+        name_var_ref <- ba_obj$.raw_var_names$ref_col
+        name_var_alt <- ba_obj$.rawvar_names$alt_col
+    } else {
+        d <- ba_obj$data
+        name_var_ref <- ba_obj$.var_names$ref_col
+        name_var_alt <- ba_obj$.var_names$alt_col
+    }
 
     # Generate data frame with BA statistics
     BA_stats <- gen_ba_stats_df(ba_obj)
     BA_stats <- BA_stats[BA_stats$stat %in% c("bias", "loa.lwr", "loa.upr"),]
 
     # Add list of geoms for est
-    est_lines <- list(
+    est_lines <- if (normalize_log_loa) {
+        list(
+            # Why does this formula work?
+            ggplot2::geom_abline(aes(slope = 2*(exp(est)-1)/(exp(est) + 1), intercept = 0),
+                                 linetype = 2, data = BA_stats)
+        )
+        }
+    else{
+        list(
         ggplot2::geom_hline(aes(yintercept = est),
                             linetype = 2,
                             data = BA_stats),
@@ -31,6 +49,7 @@ plot_BA <- function(ba_obj, subject_legend = FALSE) {
                            vjust = -0.5,
                            data = BA_stats, inherit.aes = FALSE)
         )
+    }
 
     # Add list of geoms for CIs
     if (is.null(ba_obj$BA_stats_ci)) {
@@ -41,10 +60,25 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
         ))
     }
     else {
-        ci_shade <- ggplot2::geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = ci.lwr, ymax = ci.upr),
+
+        ci_shade <- if (normalize_log_loa) {
+                ci_shade_df <- merge(BA_stats, tibble(x = c(min(d$mean)*0.95, max(d$mean)*1.05)))
+                ci_shade_df <- dplyr::mutate(ci_shade_df,
+                                             ci.lwr = x * 2*(exp(ci.lwr)-1)/(exp(ci.lwr) + 1),
+                                             ci.upr = x * 2*(exp(ci.upr)-1)/(exp(ci.upr) + 1))
+
+                # Why does this formula work?
+                ggplot2::geom_ribbon(aes(x = x, ymin = ci.lwr, ymax = ci.upr, group = stat),
+                                   alpha = 0.5, fill = "gray",
+                                   data = ci_shade_df,
+                                   inherit.aes = FALSE)
+
+            } else {
+                ggplot2::geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = ci.lwr, ymax = ci.upr),
                                   alpha = 0.5, fill = "gray",
                                   data = BA_stats,
                                   inherit.aes = FALSE)
+            }
     }
 
     BA_plot <- ggplot2::ggplot(d, aes(mean, diff, color = .data[[ba_obj$.var_names$id_col]])) +
@@ -55,9 +89,9 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
         ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.1, 0.15))) +
         labs(title = "Bland Altman plot",
              x = glue::glue("Mean
-                            ({ba_obj$.var_names$ref_col} + {ba_obj$.var_names$alt_col}) / 2"),
+                            ({name_var_ref} + {name_var_alt}) / 2"),
              y = glue::glue("Difference
-                            {ba_obj$.var_names$alt_col} - {ba_obj$.var_names$ref_col}")) +
+                            {name_var_alt} - {name_var_ref}")) +
         theme_ba()
 
     BA_plot

@@ -20,21 +20,41 @@ print.ba_analysis <- function(ba_obj) {
     }
 
     # Function that formats a single line of results
-    format_line <- function(label, var) {
+    format_line <- function(label, est, ci.lwr, ci.upr) {
         cat(format(label, width = 29), ": ",
-            sprintf("% 2.3f", ba_obj$BA_stats[[var]]),
-            sprintf("[% 2.3f; % 2.3f]", ba_obj$BA_stats_ci[[var]][1], ba_obj$BA_stats_ci[[var]][2]), "\n")
+            sprintf("% 2.3f", est),
+            sprintf("[% 2.3f; % 2.3f]", ci.lwr, ci.upr), "\n")
+    }
+
+    format_line_stat <- function(label, var) {
+        format_line(label,
+                    ba_obj$BA_stats[[var]],
+                    ba_obj$BA_stats_ci[[var]][1],
+                    ba_obj$BA_stats_ci[[var]][2])
     }
 
     cat(format("", width = 30), "    est", CI_label, "\n")
-    format_line("Bias (alt - ref)", "bias")
-    format_line("Interindividual variance (SD)", "sd.id")
-    format_line("Intraindividual variance (SD)", "sd.residual")
-    format_line("Total variance (SD)", "sd.combined")
+    format_line_stat("Bias (alt - ref)", "bias")
+    format_line_stat("Interindividual variance (SD)", "sd.id")
+    format_line_stat("Intraindividual variance (SD)", "sd.residual")
+    format_line_stat("Total variance (SD)", "sd.combined")
     cat("\n")
     cat("Limits of Agreement (95%)\n")
-    format_line("├ Upper limit", "loa.upr")
-    format_line("└ Lower limit", "loa.lwr")
+    format_line_stat("├ Upper limit", "loa.upr")
+    format_line_stat("└ Lower limit", "loa.lwr")
+    cat("\n")
+    cat("Trending\n")
+    cat("Limits of Agreement for trending (95%)\n")
+    format_line("├ Upper limit",
+                calc_trending_loa(ba_obj$BA_stats[["sd.residual"]]),
+                calc_trending_loa(ba_obj$BA_stats_ci[["sd.residual"]][1]),
+                calc_trending_loa(ba_obj$BA_stats_ci[["sd.residual"]][2])
+                )
+    format_line("└ Lower limit",
+        -calc_trending_loa(ba_obj$BA_stats[["sd.residual"]]),
+        -calc_trending_loa(ba_obj$BA_stats_ci[["sd.residual"]][1]),
+        -calc_trending_loa(ba_obj$BA_stats_ci[["sd.residual"]][2])
+    )
 
     invisible(ba_obj)
 }
