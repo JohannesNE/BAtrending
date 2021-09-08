@@ -19,7 +19,7 @@ plot_BA <- function(ba_obj, subject_legend = FALSE, normalize_log_loa = FALSE) {
 
         d <- ba_obj$.non_log_data
         name_var_ref <- ba_obj$.raw_var_names$ref_col
-        name_var_alt <- ba_obj$.rawvar_names$alt_col
+        name_var_alt <- ba_obj$.raw_var_names$alt_col
     } else {
         d <- ba_obj$data
         name_var_ref <- ba_obj$.var_names$ref_col
@@ -30,11 +30,10 @@ plot_BA <- function(ba_obj, subject_legend = FALSE, normalize_log_loa = FALSE) {
     BA_stats <- gen_ba_stats_df(ba_obj)
     BA_stats <- BA_stats[BA_stats$stat %in% c("bias", "loa.lwr", "loa.upr"),]
 
-    # Add list of geoms for est
+    # Create geoms for BA estimates
     est_lines <- if (normalize_log_loa) {
         list(
-            # Why does this formula work?
-            ggplot2::geom_abline(aes(slope = 2*(exp(est)-1)/(exp(est) + 1), intercept = 0),
+            ggplot2::geom_abline(aes(slope = log_estimate_to_mean_difference_slope(est), intercept = 0),
                                  linetype = 2, data = BA_stats)
         )
         }
@@ -62,12 +61,12 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
     else {
 
         ci_shade <- if (normalize_log_loa) {
+                # Create data from sloped ribbons
                 ci_shade_df <- merge(BA_stats, tibble(x = c(min(d$mean)*0.95, max(d$mean)*1.05)))
                 ci_shade_df <- dplyr::mutate(ci_shade_df,
-                                             ci.lwr = x * 2*(exp(ci.lwr)-1)/(exp(ci.lwr) + 1),
-                                             ci.upr = x * 2*(exp(ci.upr)-1)/(exp(ci.upr) + 1))
+                                             ci.lwr = x * log_estimate_to_mean_difference_slope(ci.lwr),
+                                             ci.upr = x * log_estimate_to_mean_difference_slope(ci.upr))
 
-                # Why does this formula work?
                 ggplot2::geom_ribbon(aes(x = x, ymin = ci.lwr, ymax = ci.upr, group = stat),
                                    alpha = 0.5, fill = "gray",
                                    data = ci_shade_df,
@@ -152,3 +151,8 @@ scale_x2_exp_percent <- function(labels = scales::percent, ...) {
 }
 
 
+# Helper functions
+log_estimate_to_mean_difference_slope <- function(est) {
+    # formula from https://doi.org/10.1016/j.jclinepi.2007.11.003
+    2*(exp(est)-1)/(exp(est) + 1)
+}
