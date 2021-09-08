@@ -38,6 +38,12 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
   # Extract variance components
   BA_stats <- calc_BA_stats_from_model(diff_model)
 
+  derived_BA_stats <- calc_derived_stats(BA_stats,
+                                         mean_val = mean(df$mean),
+                                         log = logtrans)
+
+  BA_stats <- c(BA_stats, derived_BA_stats)
+
   structure(
     list(
     data = df,
@@ -60,7 +66,7 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
   )
 }
 
-#' Add confidence intervals to BA analysis object
+#' Add confidence intervals to BA analysis object.
 #'
 #' @param ba_obj BA analysis object
 #' @param level Confidence level (default is 0.95)
@@ -75,11 +81,20 @@ add_confint <- function(ba_obj, level = 0.95, nsim = 2000, .progress = "txt") {
   stopifnot("ba_analysis" %in% class(ba_obj))
   BA_stats_ci <- confint.ba_analysis(ba_obj, level = level, nsim = nsim,  .progress = .progress)
 
+  derived_BA_stats_ci <- apply(BA_stats_ci, 2, calc_derived_stats,
+                               mean_val = mean(ba_obj$data$mean),
+                               log = attr(ba_obj, "logtrans"), simplify = FALSE)
+
+  derived_BA_stats_ci_df <- as.data.frame(derived_BA_stats_ci)
+  names(derived_BA_stats_ci_df) <- names(derived_BA_stats_ci)
+
+  BA_stats_ci <- rbind(BA_stats_ci, derived_BA_stats_ci_df)
+
   # Set names of the CI matrix to the respective confidence levels
   # (dimnames(BA_stats_ci)[[2]])
-  names(BA_stats_ci) <- rep(dimnames(BA_stats_ci)[[2]], each = dim(BA_stats_ci)[1])
+  #names(BA_stats_ci) <- rep(dimnames(BA_stats_ci)[[2]], each = dim(BA_stats_ci)[1])
 
-  BA_stats_ci_list <- split(BA_stats_ci, dimnames(BA_stats_ci)[[1]])
+  BA_stats_ci_list <- split(BA_stats_ci, factor(rownames(BA_stats_ci), levels = rownames(BA_stats_ci)))
 
   ba_obj$BA_stats_ci <- structure(BA_stats_ci_list, level = level)
   ba_obj
@@ -158,6 +173,28 @@ gen_ba_stats_df <- function(ba_obj) {
   long_stat_df$label <- ba_labels[long_stat_df$stat]
 
   long_stat_df[,c(4,5,1:3)] # Reorder columns
+}
+
+# Calculate derived statistics, that are simply rescaled versions of the
+# existing statistics. CI's can also simply be rescaled.
+calc_derived_stats <- function(ba_stats, mean_val, log = FALSE) {
+
+  if (log) {
+    # Mean error is nonsensical for log transformed data
+    mean_error_95 <- NULL
+    mean_error_individual_95 <- NULL
+  } else {
+    mean_error_95 <- (2 * ba_stats["sd.combined"]) / mean_val
+    mean_error_individual_95 <- (2 * ba_stats["sd.residual"]) / mean_val
+  }
+
+  loa_trending <- 2 * sqrt(2) * ba_stats["sd.residual"]
+
+  c(
+    mean.error.95 = unname(mean_error_95),
+    mean.error.individual.95 = unname(mean_error_individual_95),
+    loa.trending = unname(loa_trending)
+  )
 }
 
 calc_trending_loa <- function(sd_intra) {

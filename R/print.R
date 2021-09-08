@@ -46,14 +46,14 @@ print.ba_analysis <- function(ba_obj) {
     cat("Trending\n")
     cat("Limits of Agreement for trending (95%)\n")
     format_line("├ Upper limit",
-                calc_trending_loa(ba_obj$BA_stats[["sd.residual"]]),
-                calc_trending_loa(ba_obj$BA_stats_ci[["sd.residual"]][1]),
-                calc_trending_loa(ba_obj$BA_stats_ci[["sd.residual"]][2])
+                ba_obj$BA_stats[["loa.trending"]],
+                ba_obj$BA_stats_ci[["loa.trending"]][1],
+                ba_obj$BA_stats_ci[["loa.trending"]][2]
                 )
     format_line("└ Lower limit",
-        -calc_trending_loa(ba_obj$BA_stats[["sd.residual"]]),
-        -calc_trending_loa(ba_obj$BA_stats_ci[["sd.residual"]][1]),
-        -calc_trending_loa(ba_obj$BA_stats_ci[["sd.residual"]][2])
+        -ba_obj$BA_stats[["loa.trending"]],
+        -ba_obj$BA_stats_ci[["loa.trending"]][2],
+        -ba_obj$BA_stats_ci[["loa.trending"]][1]
     )
 
     invisible(ba_obj)
