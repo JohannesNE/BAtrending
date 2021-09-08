@@ -85,10 +85,11 @@ add_confint <- function(ba_obj, level = 0.95, nsim = 2000, .progress = "txt") {
                                mean_val = mean(ba_obj$data$mean),
                                log = attr(ba_obj, "logtrans"), simplify = FALSE)
 
-  derived_BA_stats_ci_df <- as.data.frame(derived_BA_stats_ci)
-  names(derived_BA_stats_ci_df) <- names(derived_BA_stats_ci)
+  derived_BA_stats_ci_mat <- as.matrix(
+    data.frame(derived_BA_stats_ci, check.names = FALSE)
+    )
 
-  BA_stats_ci <- rbind(BA_stats_ci, derived_BA_stats_ci_df)
+  BA_stats_ci <- rbind(BA_stats_ci, derived_BA_stats_ci_mat)
 
   # Set names of the CI matrix to the respective confidence levels
   # (dimnames(BA_stats_ci)[[2]])
