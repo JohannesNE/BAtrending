@@ -86,7 +86,7 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
         est_lines +
         ggplot2::geom_point(show.legend = subject_legend) +
         ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.1, 0.15))) +
-        labs(title = "Bland Altman plot",
+        ggplot2::labs(title = "Bland Altman plot",
              x = glue::glue("Mean
                             ({name_var_ref} + {name_var_alt}) / 2"),
              y = glue::glue("Difference

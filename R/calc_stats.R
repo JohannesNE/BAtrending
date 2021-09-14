@@ -21,6 +21,9 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
     x_df
   }
 
+  # Convert id to factor
+  df[[id_col]] <- factor(df[[id_col]])
+
   non_log_df <- NULL
   if (logtrans) {
     non_log_df <- df
@@ -143,12 +146,14 @@ calc_BA_stats_from_model <- function(model) {
   sd.residual <- unname(sd_components[2])
   sd.combined <- sqrt(sd.id^2 + sd.residual^2)
 
+  intraclass_correlation = sd.residual^2 / (sd.id^2 + sd.residual^2)
 
 
   c(bias = bias,
     sd.id = sd.id,
     sd.residual = sd.residual,
     sd.combined = sd.combined,
+    intraclass_correlation = intraclass_correlation,
 
     loa.lwr = bias - 2*sd.combined,
     loa.upr = bias + 2*sd.combined
@@ -182,18 +187,21 @@ calc_derived_stats <- function(ba_stats, mean_val, log = FALSE) {
 
   if (log) {
     # Mean error is nonsensical for log transformed data
-    mean_error_95 <- NULL
-    mean_error_individual_95 <- NULL
+    relative.sd.combined <- NULL
+    relative.sd.residual <- NULL
+    relative.sd.id <- NULL
   } else {
-    mean_error_95 <- (2 * ba_stats["sd.combined"]) / mean_val
-    mean_error_individual_95 <- (2 * ba_stats["sd.residual"]) / mean_val
+    relative.sd.combined <- ba_stats["sd.combined"] / mean_val
+    relative.sd.residual <- ba_stats["sd.residual"] / mean_val
+    relative.sd.id <- ba_stats["sd.id"] / mean_val
   }
 
   loa_trending <- 2 * sqrt(2) * ba_stats["sd.residual"]
 
   c(
-    mean.error.95 = unname(mean_error_95),
-    mean.error.individual.95 = unname(mean_error_individual_95),
+    relative.sd.combined = unname(relative.sd.combined),
+    relative.sd.residual = unname(relative.sd.residual),
+    relative.sd.id = unname(relative.sd.id),
     loa.trending = unname(loa_trending)
   )
 }

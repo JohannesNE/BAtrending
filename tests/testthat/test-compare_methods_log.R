@@ -14,7 +14,7 @@ test_that("gen_ba_stats_df works without ci", {
 
     expect_equal(stats_wo_ci$est[stats_wo_ci$stat == "bias"], 0.1454, tolerance = 1e-3)
     expect_equal(stats_wo_ci$ci.upr[stats_wo_ci$stat == "bias"], NA_real_)
-    expect_equal(nrow(stats_wo_ci), 7)
+    expect_equal(nrow(stats_wo_ci), 8)
 
 })
 
