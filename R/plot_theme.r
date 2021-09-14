@@ -15,6 +15,7 @@ theme_ba <- function(..., base_size = 12) {
             ),
             panel.grid.minor = ggplot2::element_blank(),
             legend.key = ggplot2::element_blank(),
+            legend.position = "bottom",
             plot.margin = ggplot2::unit(c(4, 4, 1, 1), "mm"),
             plot.title = ggplot2::element_text(
                 hjust = 0,
