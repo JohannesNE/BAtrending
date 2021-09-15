@@ -15,7 +15,12 @@ RoxygenNote: 7.1.1
 Imports: 
     glue,
     ggplot2,
-    lme4
+    lme4,
+    stats,
+    rlang,
+    dplyr,
+    scales
 Suggests: 
+    vdiffr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

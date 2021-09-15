@@ -1,4 +1,7 @@
-#' Print method
+#' Print method for ba_analysis objects
+#'
+#' @param ba_obj
+#'
 #' @export
 print.ba_analysis <- function(ba_obj) {
     ops <- options(digits = 3)
@@ -24,7 +27,7 @@ print.ba_analysis <- function(ba_obj) {
         if (is.null(est)) {
             return()
         }
-        cat(format(label, width = 29), ": ",
+        cat(format(label, width = 30), ": ",
             sprintf("% 2.3f", est),
             sprintf("[% 2.3f; % 2.3f]", ci.lwr, ci.upr), "\n")
     }
@@ -45,8 +48,8 @@ print.ba_analysis <- function(ba_obj) {
     format_line_stat("  Intra/Total variance", "intraclass_correlation")
     cat("\n")
     cat("Limits of Agreement (95%)\n")
-    format_line_stat("├ Upper limit", "loa.upr")
-    format_line_stat("└ Lower limit", "loa.lwr")
+    format_line_stat("\u251C Upper limit", "loa.upr")
+    format_line_stat("\u2514 Lower limit", "loa.lwr")
     cat("\n")
     format_line_stat("Mean error (95%)", "mean.error.95")
     cat("\n")
@@ -54,12 +57,12 @@ print.ba_analysis <- function(ba_obj) {
     format_line_stat("Intraindividual Mean error (95%)", "mean.error.individual.95")
     cat("\n")
     cat("Limits of Agreement for trending (95%)\n")
-    format_line("├ Upper limit",
+    format_line("\u251C Upper limit",
                 ba_obj$BA_stats[["loa.trending"]],
                 ba_obj$BA_stats_ci[["loa.trending"]][1],
                 ba_obj$BA_stats_ci[["loa.trending"]][2]
                 )
-    format_line("└ Lower limit",
+    format_line("\u2514 Lower limit",
         -1*ba_obj$BA_stats[["loa.trending"]],
         -1*ba_obj$BA_stats_ci[["loa.trending"]][2],
         -1*ba_obj$BA_stats_ci[["loa.trending"]][1]

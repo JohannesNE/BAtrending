@@ -14,6 +14,8 @@ compare_methods(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE)
 \item{alt_col}{name of column containing alternative measurements}
 
 \item{id_col}{name of column containing unique subject id's}
+
+\item{logtrans}{}
 }
 \value{
 Bland Altman analysis object (of class ba_analysis)

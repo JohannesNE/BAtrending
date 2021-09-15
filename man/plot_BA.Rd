@@ -2,18 +2,26 @@
 % Please edit documentation in R/create_plots.R
 \name{plot_BA}
 \alias{plot_BA}
-\title{Title}
+\title{Create Bland Altman Plot}
 \usage{
-plot_BA(ba_obj, exp = FALSE, subject_legend = FALSE)
+plot_BA(
+  ba_obj,
+  subject_legend = FALSE,
+  normalize_log_loa = FALSE,
+  exponentiate = FALSE,
+  use_non_log_x_values = TRUE
+)
 }
 \arguments{
-\item{x}{}
+\item{normalize_log_loa}{Plot BA estimates from log transformed data on raw data.}
+
+\item{use_non_log_x_values}{}
 }
 \value{
 
 }
 \description{
-Title
+Create Bland Altman Plot
 }
 \examples{
 

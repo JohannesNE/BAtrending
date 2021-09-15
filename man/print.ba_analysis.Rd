@@ -2,10 +2,13 @@
 % Please edit documentation in R/print.R
 \name{print.ba_analysis}
 \alias{print.ba_analysis}
-\title{Print method}
+\title{Print method for ba_analysis objects}
 \usage{
 \method{print}{ba_analysis}(ba_obj)
 }
+\arguments{
+\item{ba_obj}{}
+}
 \description{
-Print method
+Print method for ba_analysis objects
 }

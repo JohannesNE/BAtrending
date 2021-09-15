@@ -4,10 +4,10 @@
 \alias{confint.ba_analysis}
 \title{Calculate confidence interval}
 \usage{
-\method{confint}{ba_analysis}(ba_obj, level = 0.95, nsim = 2000, ...)
+\method{confint}{ba_analysis}(ba_obj, level = 0.95, nsim = 2000, .progress = "txt")
 }
 \arguments{
-\item{nsim}{}
+\item{.progress}{}
 }
 \value{
 Matrix of bootstrap confidence intervals for BA statistics.

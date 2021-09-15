@@ -4,6 +4,8 @@
 #' @param ref_col name of column containing reference measurements
 #' @param alt_col name of column containing alternative measurements
 #' @param id_col name of column containing unique subject id's
+#' @param REML
+#' @param logtrans
 #'
 #' @return
 #' Bland Altman analysis object (of class ba_analysis)
@@ -24,18 +26,18 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
   # Convert id to factor
   df[[id_col]] <- factor(df[[id_col]])
 
-  non_log_df <- NULL
-  if (logtrans) {
-    non_log_df <- df
-    non_log_df <- calc_mean_diff(non_log_df)
 
+  non_log_df <- df
+  non_log_df <- calc_mean_diff(non_log_df)
+
+  if (logtrans) {
     df[[ref_col]] <- log(df[[ref_col]])
     df[[alt_col]] <- log(df[[alt_col]])
   }
 
   df <- calc_mean_diff(df)
 
-  diff_model <- lme4::lmer(as.formula(paste0("diff ~ 1 + (1 | ", id_col, ")")),
+  diff_model <- lme4::lmer(stats::formula(paste0("diff ~ 1 + (1 | ", id_col, ")")),
                            REML = REML, data = df)
 
   # Extract variance components
@@ -109,6 +111,7 @@ add_confint <- function(ba_obj, level = 0.95, nsim = 2000, .progress = "txt") {
 #' @param ba_obj
 #' @param level
 #' @param nsim
+#' @param .progress
 #'
 #' @return
 #' Matrix of bootstrap confidence intervals for BA statistics.
