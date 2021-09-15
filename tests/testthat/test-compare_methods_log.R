@@ -6,11 +6,8 @@ test_that("compare_methods works", {
     expect_true(attr(comp_tmp, "logtrans"))
 })
 
-set.seed(1)
-comp_co <- compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE)
-
 test_that("gen_ba_stats_df works without ci", {
-    stats_wo_ci <- gen_ba_stats_df(comp_co)
+    stats_wo_ci <- gen_ba_stats_df(comp_co_log)
 
     expect_equal(stats_wo_ci$est[stats_wo_ci$stat == "bias"], 0.1454, tolerance = 1e-3)
     expect_equal(stats_wo_ci$ci.upr[stats_wo_ci$stat == "bias"], NA_real_)
