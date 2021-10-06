@@ -17,3 +17,8 @@ test_that("Standard BA plot w CI", {
     test_plot <- plot_BA(comp_co_log_w_ci)
     expect_doppelganger("Standard BA w CI", test_plot)
 })
+
+test_that("normalized log plot w ci", {
+        test_plot <- plot_normalized_log_BA(comp_co_log_w_ci)
+    expect_doppelganger("normalized log plot w ci", test_plot)
+})
