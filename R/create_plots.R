@@ -161,8 +161,8 @@ plot_normalized_log_BA <- function(ba_obj, subject_legend = FALSE) {
     BA_stats <- dplyr::mutate(BA_stats,
         label_w_val = sprintf("%s\n(%s = %s \u00D7 %.2f)", # unicode times
                               .data$label,
-                              .data$name_var_alt,
-                              .data$name_var_ref,
+                              name_var_alt,
+                              name_var_ref,
                               exp(.data$est)),
         slope = log_estimate_to_mean_difference_slope(.data$est))
 
