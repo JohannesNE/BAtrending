@@ -2,7 +2,7 @@ test_that("compare_methods works", {
     set.seed(1)
     comp_tmp <- compare_methods(CO, "ic", "rv", id_col = "sub")
     expect_equal(comp_tmp$BA_stats$bias, 0.704, tolerance=1e-3)
-    expect_equal(comp_tmp$BA_stats$sd.combined, 1.021, tolerance=1e-3)
+    expect_equal(comp_tmp$BA_stats$sd.total, 1.021, tolerance=1e-3)
 })
 
 test_that("confint works (not testing accuracy)", {
@@ -18,7 +18,7 @@ test_that("gen_ba_stats_df works without ci", {
 
     expect_equal(stats_wo_ci$est[stats_wo_ci$stat == "bias"], 0.704521)
     expect_equal(stats_wo_ci$ci.upr[stats_wo_ci$stat == "bias"], NA_real_)
-    expect_equal(nrow(stats_wo_ci), 11)
+    expect_equal(nrow(stats_wo_ci), 10)
 
 })
 

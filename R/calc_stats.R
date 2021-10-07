@@ -145,21 +145,21 @@ calc_BA_stats_from_model <- function(model) {
 
   stopifnot(length(sd_components) == 2) # Test
 
-  sd.id <- unname(sd_components[1])
-  sd.residual <- unname(sd_components[2])
-  sd.combined <- sqrt(sd.id^2 + sd.residual^2)
+  sd.between <- unname(sd_components[1])
+  sd.within <- unname(sd_components[2])
+  sd.total <- sqrt(sd.between^2 + sd.within^2)
 
-  intraclass_correlation = sd.residual^2 / (sd.id^2 + sd.residual^2)
+  intraclass_correlation = sd.within^2 / (sd.between^2 + sd.within^2)
 
 
   c(bias = bias,
-    sd.id = sd.id,
-    sd.residual = sd.residual,
-    sd.combined = sd.combined,
+    sd.between = sd.between,
+    sd.within = sd.within,
+    sd.total = sd.total,
     intraclass_correlation = intraclass_correlation,
 
-    loa.lwr = bias - 2*sd.combined,
-    loa.upr = bias + 2*sd.combined
+    loa.lwr = bias - 2*sd.total,
+    loa.upr = bias + 2*sd.total
 
   )
 }
@@ -188,24 +188,23 @@ gen_ba_stats_df <- function(ba_obj) {
 # existing statistics. CI's can also simply be rescaled.
 calc_derived_stats <- function(ba_stats, mean_val, log = FALSE) {
 
+  trending.loa <- 2 * sqrt(2) * ba_stats["sd.within"]
+
   if (log) {
     # Mean error is nonsensical for log transformed data
-    relative.sd.combined <- NULL
-    relative.sd.residual <- NULL
-    relative.sd.id <- NULL
+    percentage.error <- NULL
+    percentage.trending.error <- NULL
   } else {
-    relative.sd.combined <- ba_stats["sd.combined"] / mean_val
-    relative.sd.residual <- ba_stats["sd.residual"] / mean_val
-    relative.sd.id <- ba_stats["sd.id"] / mean_val
+    percentage.error <- 2*ba_stats["sd.total"] / mean_val
+    percentage.trending.error <- trending.loa / mean_val
   }
 
-  loa_trending <- 2 * sqrt(2) * ba_stats["sd.residual"]
 
   c(
-    relative.sd.combined = unname(relative.sd.combined),
-    relative.sd.residual = unname(relative.sd.residual),
-    relative.sd.id = unname(relative.sd.id),
-    loa.trending = unname(loa_trending)
+    trending.loa = unname(trending.loa),
+    percentage.error = unname(percentage.error),
+    percentage.trending.error = unname(percentage.trending.error)
+
   )
 }
 

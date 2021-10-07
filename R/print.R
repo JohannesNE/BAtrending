@@ -41,31 +41,31 @@ print.ba_analysis <- function(ba_obj) {
 
     cat(format("", width = 30), "    est", CI_label, "\n")
     format_line_stat("Bias (alt - ref)", "bias")
-    format_line_stat("Interindividual variation (SD)", "sd.id")
-    format_line_stat("Intraindividual variation (SD)", "sd.residual")
-    format_line_stat("Total variation (SD)", "sd.combined")
+    format_line_stat("Between subject variation (SD)", "sd.between")
+    format_line_stat("Within subject variation (SD)", "sd.within")
+    format_line_stat("Total variation (SD)", "sd.total")
     cat("Intraclass correlation\n")
-    format_line_stat("  Intra/Total variance", "intraclass_correlation")
+    format_line_stat("  Within/Total variance", "intraclass_correlation")
     cat("\n")
     cat("Limits of Agreement (95%)\n")
     format_line_stat("\u251C Upper limit", "loa.upr")
     format_line_stat("\u2514 Lower limit", "loa.lwr")
     cat("\n")
-    format_line_stat("Mean error (95%)", "mean.error.95")
+    format_line_stat("Percentage error (95%)", "percentage.error")
     cat("\n")
     cat("--- Trending ---\n")
-    format_line_stat("Intraindividual Mean error (95%)", "mean.error.individual.95")
+    format_line_stat("Percentage trending error (95%)", "percentage.trending.error")
     cat("\n")
     cat("Limits of Agreement for trending (95%)\n")
     format_line("\u251C Upper limit",
-                ba_obj$BA_stats[["loa.trending"]],
-                ba_obj$BA_stats_ci[["loa.trending"]][1],
-                ba_obj$BA_stats_ci[["loa.trending"]][2]
+                ba_obj$BA_stats[["trending.loa"]],
+                ba_obj$BA_stats_ci[["trending.loa"]][1],
+                ba_obj$BA_stats_ci[["trending.loa"]][2]
                 )
     format_line("\u2514 Lower limit",
-        -1*ba_obj$BA_stats[["loa.trending"]],
-        -1*ba_obj$BA_stats_ci[["loa.trending"]][2],
-        -1*ba_obj$BA_stats_ci[["loa.trending"]][1]
+        -1*ba_obj$BA_stats[["trending.loa"]],
+        -1*ba_obj$BA_stats_ci[["trending.loa"]][2],
+        -1*ba_obj$BA_stats_ci[["trending.loa"]][1]
     )
 
     invisible(ba_obj)
