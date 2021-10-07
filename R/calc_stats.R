@@ -82,7 +82,7 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
 #' BA analysis object (`x`) with added confidence intervals
 #'
 #' @export
-add_confint <- function(ba_obj, level = 0.95, nsim = 2000, .progress = "txt") {
+add_confint <- function(ba_obj, level = 0.95, nsim = 1999, .progress = "txt") {
   stopifnot("ba_analysis" %in% class(ba_obj))
   BA_stats_ci <- confint.ba_analysis(ba_obj, level = level, nsim = nsim,  .progress = .progress)
 
@@ -117,7 +117,7 @@ add_confint <- function(ba_obj, level = 0.95, nsim = 2000, .progress = "txt") {
 #' Matrix of bootstrap confidence intervals for BA statistics.
 #'
 #' @export
-confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 2000, .progress = "txt") {
+confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 1999, .progress = "txt") {
   message(glue::glue("Creating {nsim} bootstrap samples"))
 
   lme4::confint.merMod(ba_obj$model,
