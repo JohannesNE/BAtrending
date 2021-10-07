@@ -51,11 +51,9 @@ print.ba_analysis <- function(ba_obj) {
     format_line_stat("\u251C Upper limit", "loa.upr")
     format_line_stat("\u2514 Lower limit", "loa.lwr")
     cat("\n")
-    format_line_stat("Percentage error (95%)", "percentage.error")
+    format_line_stat("Perc. error (95%)", "percentage.error")
     cat("\n")
     cat("--- Trending ---\n")
-    format_line_stat("Percentage trending error (95%)", "percentage.trending.error")
-    cat("\n")
     cat("Limits of Agreement for trending (95%)\n")
     format_line("\u251C Upper limit",
                 ba_obj$BA_stats[["trending.loa"]],
@@ -67,6 +65,8 @@ print.ba_analysis <- function(ba_obj) {
         -1*ba_obj$BA_stats_ci[["trending.loa"]][2],
         -1*ba_obj$BA_stats_ci[["trending.loa"]][1]
     )
+    cat("\n")
+    format_line_stat("Perc. trending error (95%)", "percentage.trending.error")
 
     invisible(ba_obj)
 }
