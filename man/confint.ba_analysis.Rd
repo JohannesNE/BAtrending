@@ -4,7 +4,7 @@
 \alias{confint.ba_analysis}
 \title{Calculate confidence interval}
 \usage{
-\method{confint}{ba_analysis}(ba_obj, level = 0.95, nsim = 2000, .progress = "txt")
+\method{confint}{ba_analysis}(ba_obj, level = 0.95, nsim = 1999, .progress = "txt")
 }
 \arguments{
 \item{.progress}{}

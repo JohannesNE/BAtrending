@@ -4,7 +4,7 @@
 \alias{add_confint}
 \title{Add confidence intervals to BA analysis object.}
 \usage{
-add_confint(ba_obj, level = 0.95, nsim = 2000, .progress = "txt")
+add_confint(ba_obj, level = 0.95, nsim = 1999, .progress = "txt")
 }
 \arguments{
 \item{ba_obj}{BA analysis object}
