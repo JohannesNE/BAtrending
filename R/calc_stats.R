@@ -149,14 +149,14 @@ calc_BA_stats_from_model <- function(model) {
   sd.within <- unname(sd_components[2])
   sd.total <- sqrt(sd.between^2 + sd.within^2)
 
-  intraclass_correlation = sd.within^2 / (sd.between^2 + sd.within^2)
+  intraclass.correlation = sd.within^2 / (sd.between^2 + sd.within^2)
 
 
   c(bias = bias,
     sd.between = sd.between,
     sd.within = sd.within,
     sd.total = sd.total,
-    intraclass_correlation = intraclass_correlation,
+    intraclass.correlation = intraclass.correlation,
 
     loa.lwr = bias - 2*sd.total,
     loa.upr = bias + 2*sd.total

@@ -45,7 +45,7 @@ print.ba_analysis <- function(ba_obj) {
     format_line_stat("Within subject variation (SD)", "sd.within")
     format_line_stat("Total variation (SD)", "sd.total")
     cat("Intraclass correlation\n")
-    format_line_stat("  Within/Total variance", "intraclass_correlation")
+    format_line_stat("  Within/Total variance", "intraclass.correlation")
     cat("\n")
     cat("Limits of Agreement (95%)\n")
     format_line_stat("\u251C Upper limit", "loa.upr")
