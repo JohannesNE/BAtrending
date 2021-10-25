@@ -6,16 +6,22 @@
 \usage{
 plot_BA(
   ba_obj,
-  subject_legend = FALSE,
+  show_subject_legend = FALSE,
   normalize_log_loa = FALSE,
   exponentiate = FALSE,
   use_non_log_x_values = TRUE
 )
 }
 \arguments{
+\item{ba_obj}{BA analysis object}
+
+\item{show_subject_legend}{Show legend for subjects}
+
 \item{normalize_log_loa}{Plot BA estimates from log transformed data on raw data.}
 
-\item{use_non_log_x_values}{}
+\item{exponentiate}{Exponentiate values and parameters before plotting}
+
+\item{use_non_log_x_values}{Plot using `plot_normalized_log_BA()`}
 }
 \value{
 

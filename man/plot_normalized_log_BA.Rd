@@ -4,10 +4,10 @@
 \alias{plot_normalized_log_BA}
 \title{Plot BA estimates from log transformed data on raw data.}
 \usage{
-plot_normalized_log_BA(ba_obj, subject_legend = FALSE)
+plot_normalized_log_BA(ba_obj, show_subject_legend = FALSE)
 }
 \arguments{
-\item{subject_legend}{}
+\item{show_subject_legend}{}
 }
 \value{
 

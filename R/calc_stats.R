@@ -4,8 +4,8 @@
 #' @param ref_col name of column containing reference measurements
 #' @param alt_col name of column containing alternative measurements
 #' @param id_col name of column containing unique subject id's
-#' @param REML
-#' @param logtrans
+#' @param REML Use restricted maximum likelihood optimization in `lme4::lmer()`
+#' @param logtrans Log-transform measurements before fitting the model.
 #'
 #' @return
 #' Bland Altman analysis object (of class ba_analysis)
@@ -108,10 +108,7 @@ add_confint <- function(ba_obj, level = 0.95, nsim = 1999, .progress = "txt") {
 
 #' Calculate confidence interval
 #'
-#' @param ba_obj
-#' @param level
-#' @param nsim
-#' @param .progress
+#' @inheritParams add_confint
 #'
 #' @return
 #' Matrix of bootstrap confidence intervals for BA statistics.
@@ -188,28 +185,26 @@ gen_ba_stats_df <- function(ba_obj) {
 # existing statistics. CI's can also simply be rescaled.
 calc_derived_stats <- function(ba_stats, mean_val, log = FALSE) {
 
-  trending.loa <- 2 * sqrt(2) * ba_stats["sd.within"]
+  trending.precision <- 2 * ba_stats["sd.within"]
+  change.loa <- 2 * sqrt(2) * ba_stats["sd.within"]
 
   if (log) {
-    # Mean error is nonsensical for log transformed data
+    # Percentage error is nonsensical for log transformed data
     percentage.error <- NULL
-    percentage.trending.error <- NULL
+    percentage.trending.precision <- NULL
   } else {
     percentage.error <- 2*ba_stats["sd.total"] / mean_val
-    percentage.trending.error <- trending.loa / mean_val
+    percentage.trending.precision <- trending.precision / mean_val
   }
 
 
   c(
-    trending.loa = unname(trending.loa),
+    change.loa = unname(change.loa),
+    trending.precision = unname(trending.precision),
     percentage.error = unname(percentage.error),
-    percentage.trending.error = unname(percentage.trending.error)
+    percentage.trending.precision = unname(percentage.trending.precision)
 
   )
-}
-
-calc_trending_loa <- function(sd_intra) {
-  2 * sqrt(2) * sd_intra
 }
 
 

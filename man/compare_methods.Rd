@@ -15,7 +15,9 @@ compare_methods(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE)
 
 \item{id_col}{name of column containing unique subject id's}
 
-\item{logtrans}{}
+\item{REML}{Use restricted maximum likelihood optimization in `lme4::lmer()`}
+
+\item{logtrans}{Log-transform measurements before fitting the model.}
 }
 \value{
 Bland Altman analysis object (of class ba_analysis)

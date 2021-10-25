@@ -1,10 +1,10 @@
 #' Create Bland Altman Plot
 #'
-#' @param ba_obj
-#' @param subject_legend
+#' @param ba_obj BA analysis object
+#' @param show_subject_legend Show legend for subjects
 #' @param normalize_log_loa Plot BA estimates from log transformed data on raw data.
-#' @param exponentiate
-#' @param use_non_log_x_values
+#' @param exponentiate Exponentiate values and parameters before plotting
+#' @param use_non_log_x_values Plot using `plot_normalized_log_BA()`
 #'
 #' @return
 #'
@@ -13,13 +13,13 @@
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
 #' @export
-plot_BA <- function(ba_obj, subject_legend = FALSE,
+plot_BA <- function(ba_obj, show_subject_legend = FALSE,
                     normalize_log_loa = FALSE,
                     exponentiate = FALSE,
                     use_non_log_x_values = TRUE) {
     assert_BA_obj(ba_obj)
 
-    if (normalize_log_loa) return(plot_normalized_log_BA(ba_obj, subject_legend = subject_legend))
+    if (normalize_log_loa) return(plot_normalized_log_BA(ba_obj, show_subject_legend = show_subject_legend))
     data_is_log_transformed <- attr(ba_obj, "logtrans")
     if (exponentiate && !data_is_log_transformed) warning("Data was not log transformed by `compare_methods()`\nResults may be nonsesical")
 
@@ -70,18 +70,20 @@ plot_BA <- function(ba_obj, subject_legend = FALSE,
 
     BA_stats <- dplyr::mutate(
         BA_stats,
-        label_w_val = if (exponentiate)
+        label_w_val = if (exponentiate) {
+
             sprintf(
-                "%s\n(%s = %s \u00D7 %.2f)",
+                "%s\n(%s = %.2f \u00D7 %s)",
                 .data$label,
-                .data$raw_name_var_alt,
-                .data$raw_name_var_ref,
-                .data$est
+                raw_name_var_alt,
+                .data$est,
+                raw_name_var_ref
             )
-        else
+        } else {
             sprintf("%s (%+.2f)",
                     .data$label,
                     .data$est)
+        }
     )
 
 
@@ -122,7 +124,7 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
         ggplot2::geom_hline(yintercept = null_value, color = "gray") +
         ci_shade +
         est_lines +
-        ggplot2::geom_point(show.legend = subject_legend) +
+        ggplot2::geom_point(show.legend = show_subject_legend) +
         ggplot2::labs(x = x_name,
              y = y_name) +
         y_scale +
@@ -134,13 +136,13 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
 #' Plot BA estimates from log transformed data on raw data.
 #'
 #' @param ba_obj
-#' @param subject_legend
+#' @param show_subject_legend
 #'
 #' @return
 #' @export
 #'
 #' @examples
-plot_normalized_log_BA <- function(ba_obj, subject_legend = FALSE) {
+plot_normalized_log_BA <- function(ba_obj, show_subject_legend = FALSE) {
     assert_BA_obj(ba_obj)
     ba_obj_name <- deparse(substitute(ba_obj))
 
@@ -159,11 +161,12 @@ plot_normalized_log_BA <- function(ba_obj, subject_legend = FALSE) {
 
     # Create labels
     BA_stats <- dplyr::mutate(BA_stats,
-        label_w_val = sprintf("%s\n(%s = %s \u00D7 %.2f)", # unicode times
+        label_w_val = sprintf("%s\n(%s = %.2f \u00D7 %s)", # unicode times
                               .data$label,
                               name_var_alt,
-                              name_var_ref,
-                              exp(.data$est)),
+                              exp(.data$est),
+                              name_var_ref
+                              ),
         slope = log_estimate_to_mean_difference_slope(.data$est))
 
     est_lines <- list(
@@ -208,7 +211,7 @@ ba_obj_name
         ggplot2::geom_hline(yintercept = 0, color = "gray") +
         ci_shade +
         est_lines +
-        ggplot2::geom_point(show.legend = subject_legend) +
+        ggplot2::geom_point(show.legend = show_subject_legend) +
         ggplot2::labs(x = glue::glue("Mean
                             ({name_var_ref} + {name_var_alt}) / 2"),
                       y = glue::glue("Difference

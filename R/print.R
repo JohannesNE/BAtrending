@@ -47,26 +47,27 @@ print.ba_analysis <- function(ba_obj) {
     cat("Intraclass correlation\n")
     format_line_stat("  Within/Total variance", "intraclass.correlation")
     cat("\n")
-    cat("Limits of Agreement (95%)\n")
+    cat("Limits of agreement (95%)\n")
     format_line_stat("\u251C Upper limit", "loa.upr")
     format_line_stat("\u2514 Lower limit", "loa.lwr")
     cat("\n")
     format_line_stat("Perc. error (95%)", "percentage.error")
     cat("\n")
     cat("--- Trending ---\n")
-    cat("Limits of Agreement for trending (95%)\n")
+    format_line_stat("Trending precicion (95%)", "trending.precision")
+    format_line_stat("Perc. trending precision (95%)", "percentage.trending.precision")
+    cat("\n")
+    cat("Limits of agreement for changes (95%)\n")
     format_line("\u251C Upper limit",
-                ba_obj$BA_stats[["trending.loa"]],
-                ba_obj$BA_stats_ci[["trending.loa"]][1],
-                ba_obj$BA_stats_ci[["trending.loa"]][2]
+                ba_obj$BA_stats[["change.loa"]],
+                ba_obj$BA_stats_ci[["change.loa"]][1],
+                ba_obj$BA_stats_ci[["change.loa"]][2]
                 )
     format_line("\u2514 Lower limit",
-        -1*ba_obj$BA_stats[["trending.loa"]],
-        -1*ba_obj$BA_stats_ci[["trending.loa"]][2],
-        -1*ba_obj$BA_stats_ci[["trending.loa"]][1]
+        -1*ba_obj$BA_stats[["change.loa"]],
+        -1*ba_obj$BA_stats_ci[["change.loa"]][2],
+        -1*ba_obj$BA_stats_ci[["change.loa"]][1]
     )
-    cat("\n")
-    format_line_stat("Perc. trending error (95%)", "percentage.trending.error")
 
     invisible(ba_obj)
 }

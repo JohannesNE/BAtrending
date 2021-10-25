@@ -7,7 +7,14 @@
 \method{confint}{ba_analysis}(ba_obj, level = 0.95, nsim = 1999, .progress = "txt")
 }
 \arguments{
-\item{.progress}{}
+\item{ba_obj}{BA analysis object}
+
+\item{level}{Confidence level (default is 0.95)}
+
+\item{nsim}{Number of bootstrap samples}
+
+\item{.progress}{see `?lme4::bootMer()`
+``}
 }
 \value{
 Matrix of bootstrap confidence intervals for BA statistics.

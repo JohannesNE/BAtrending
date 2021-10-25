@@ -41,11 +41,11 @@
 <line x1='55.01' y1='361.28' x2='604.80' y2='428.99' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
 <line x1='55.01' y1='261.35' x2='604.80' y2='120.37' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
 <text x='605.87' y='268.29' style='font-size: 11.04px; font-family: sans;' textLength='21.48px' lengthAdjust='spacingAndGlyphs'>Bias</text>
-<text x='608.36' y='284.19' style='font-size: 11.04px; font-family: sans;' textLength='71.19px' lengthAdjust='spacingAndGlyphs'>(rv = ic × 1.16)</text>
+<text x='608.36' y='284.19' style='font-size: 11.04px; font-family: sans;' textLength='71.19px' lengthAdjust='spacingAndGlyphs'>(rv = 1.16 × ic)</text>
 <text x='607.04' y='424.84' style='font-size: 11.04px; font-family: sans;' textLength='44.81px' lengthAdjust='spacingAndGlyphs'>95% LoA</text>
-<text x='608.36' y='440.73' style='font-size: 11.04px; font-family: sans;' textLength='71.19px' lengthAdjust='spacingAndGlyphs'>(rv = ic × 0.77)</text>
+<text x='608.36' y='440.73' style='font-size: 11.04px; font-family: sans;' textLength='71.19px' lengthAdjust='spacingAndGlyphs'>(rv = 0.77 × ic)</text>
 <text x='607.04' y='116.22' style='font-size: 11.04px; font-family: sans;' textLength='44.81px' lengthAdjust='spacingAndGlyphs'>95% LoA</text>
-<text x='608.36' y='132.11' style='font-size: 11.04px; font-family: sans;' textLength='71.19px' lengthAdjust='spacingAndGlyphs'>(rv = ic × 1.73)</text>
+<text x='608.36' y='132.11' style='font-size: 11.04px; font-family: sans;' textLength='71.19px' lengthAdjust='spacingAndGlyphs'>(rv = 1.73 × ic)</text>
 <circle cx='559.03' cy='264.68' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
 <circle cx='486.56' cy='237.17' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
 <circle cx='579.81' cy='278.43' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />
