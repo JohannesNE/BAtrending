@@ -2,9 +2,9 @@
 #'
 #' @param ba_obj BA analysis object
 #' @param show_subject_legend Show legend for subjects
-#' @param normalize_log_loa Plot BA estimates from log transformed data on raw data.
+#' @param normalize_log_loa Plot using `plot_normalized_log_BA()`
 #' @param exponentiate Exponentiate values and parameters before plotting
-#' @param use_non_log_x_values Plot using `plot_normalized_log_BA()`
+#' @param use_non_log_x_values Plot BA estimates from log transformed data on raw data.
 #'
 #' @return
 #'
