@@ -20,6 +20,7 @@ plot_BA <- function(ba_obj, show_subject_legend = FALSE,
     assert_BA_obj(ba_obj)
 
     if (normalize_log_loa) return(plot_normalized_log_BA(ba_obj, show_subject_legend = show_subject_legend))
+    
     data_is_log_transformed <- attr(ba_obj, "logtrans")
     if (exponentiate && !data_is_log_transformed) warning("Data was not log transformed by `compare_methods()`\nResults may be nonsesical")
 
@@ -29,7 +30,17 @@ plot_BA <- function(ba_obj, show_subject_legend = FALSE,
     BA_stats <- gen_ba_stats_df(ba_obj)
     BA_stats <- BA_stats[BA_stats$stat %in% c("bias", "loa.lwr", "loa.upr"),]
 
+    # Check for CI
+    if (is.null(ba_obj$BA_stats_ci)) {
+        message(sprintf("The BA analysis object (%1$s) has no confidence intervals.
+To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
+        ba_obj_name
+        ))
+    }
+
     d <- ba_obj$data
+    if(use_non_log_x_values) d$mean <- ba_obj$.non_log_data$mean
+    
     name_var_ref <- ba_obj$.var_names$ref_col
     name_var_alt <- ba_obj$.var_names$alt_col
     raw_name_var_ref <- ba_obj$.raw_var_names$ref_col
@@ -51,7 +62,6 @@ plot_BA <- function(ba_obj, show_subject_legend = FALSE,
                         {name_var_alt} - {name_var_ref}")
     }
 
-    if(use_non_log_x_values) d$mean <- ba_obj$.non_log_data$mean
 
     if(exponentiate) {
         d$diff <- exp(d$diff)
@@ -103,10 +113,6 @@ plot_BA <- function(ba_obj, show_subject_legend = FALSE,
     # Add list of geoms for CIs
     if (is.null(ba_obj$BA_stats_ci)) {
         ci_shade <- NULL
-        message(sprintf("The BA analysis object (%1$s) has no confidence intervals.
-To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
-        ba_obj_name
-        ))
     }
     else {
 
@@ -153,6 +159,14 @@ plot_normalized_log_BA <- function(ba_obj, show_subject_legend = FALSE) {
     BA_stats <- gen_ba_stats_df(ba_obj)
     BA_stats <- BA_stats[BA_stats$stat %in% c("bias", "loa.lwr", "loa.upr"),]
 
+    # Check for CI
+    if (is.null(ba_obj$BA_stats_ci)) {
+        message(sprintf("The BA analysis object (%1$s) has no confidence intervals.
+To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
+        ba_obj_name
+        ))
+    }
+
 
     # Use non-log data and names for plotting
     d <- ba_obj$.non_log_data
@@ -185,10 +199,6 @@ plot_normalized_log_BA <- function(ba_obj, show_subject_legend = FALSE) {
     # Add list of geoms for CIs
     if (is.null(ba_obj$BA_stats_ci)) {
         ci_shade <- NULL
-        message(sprintf("The BA analysis object (%1$s) has no confidence intervals.
-To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
-ba_obj_name
-        ))
     }
     else {
         # Create data from sloped ribbons

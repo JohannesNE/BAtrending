@@ -9,9 +9,6 @@ plot_normalized_log_BA(ba_obj, show_subject_legend = FALSE)
 \arguments{
 \item{show_subject_legend}{}
 }
-\value{
-
-}
 \description{
 Plot BA estimates from log transformed data on raw data.
 }

@@ -23,12 +23,6 @@ plot_BA(
 
 \item{use_non_log_x_values}{Plot using `plot_normalized_log_BA()`}
 }
-\value{
-
-}
 \description{
 Create Bland Altman Plot
-}
-\examples{
-
 }

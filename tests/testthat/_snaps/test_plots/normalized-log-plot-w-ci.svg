@@ -28,15 +28,15 @@
 <polyline points='431.15,520.92 431.15,29.21 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='537.72,520.92 537.72,29.21 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <line x1='55.01' y1='328.86' x2='604.80' y2='328.86' style='stroke-width: 1.07; stroke: #BEBEBE; stroke-linecap: butt;' />
-<polygon points='65.59,297.15 595.57,235.79 595.57,318.48 65.59,325.33 ' style='stroke-width: 0.00; stroke: none; fill: #BEBEBE; fill-opacity: 0.50;' />
-<polyline points='65.59,297.15 595.57,235.79 ' style='stroke-width: 1.07; stroke: none;' />
-<polyline points='595.57,318.48 65.59,325.33 ' style='stroke-width: 1.07; stroke: none;' />
-<polygon points='65.59,338.79 595.57,358.01 595.57,498.57 65.59,386.68 ' style='stroke-width: 0.00; stroke: none; fill: #BEBEBE; fill-opacity: 0.50;' />
-<polyline points='65.59,338.79 595.57,358.01 ' style='stroke-width: 1.07; stroke: none;' />
-<polyline points='595.57,498.57 65.59,386.68 ' style='stroke-width: 1.07; stroke: none;' />
-<polygon points='65.59,234.39 595.57,51.56 595.57,200.08 65.59,284.99 ' style='stroke-width: 0.00; stroke: none; fill: #BEBEBE; fill-opacity: 0.50;' />
-<polyline points='65.59,234.39 595.57,51.56 ' style='stroke-width: 1.07; stroke: none;' />
-<polyline points='595.57,200.08 65.59,284.99 ' style='stroke-width: 1.07; stroke: none;' />
+<polygon points='65.59,297.15 595.57,235.79 595.57,318.48 65.59,325.33 ' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; fill: #BEBEBE; fill-opacity: 0.50;' />
+<polyline points='65.59,297.15 595.57,235.79 ' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt;' />
+<polyline points='595.57,318.48 65.59,325.33 ' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt;' />
+<polygon points='65.59,338.79 595.57,358.01 595.57,498.57 65.59,386.68 ' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; fill: #BEBEBE; fill-opacity: 0.50;' />
+<polyline points='65.59,338.79 595.57,358.01 ' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt;' />
+<polyline points='595.57,498.57 65.59,386.68 ' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt;' />
+<polygon points='65.59,234.39 595.57,51.56 595.57,200.08 65.59,284.99 ' style='stroke-width: 0.00; stroke: none; stroke-linecap: butt; fill: #BEBEBE; fill-opacity: 0.50;' />
+<polyline points='65.59,234.39 595.57,51.56 ' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt;' />
+<polyline points='595.57,200.08 65.59,284.99 ' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt;' />
 <line x1='55.01' y1='310.59' x2='604.80' y2='272.44' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
 <line x1='55.01' y1='361.28' x2='604.80' y2='428.99' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
 <line x1='55.01' y1='261.35' x2='604.80' y2='120.37' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
