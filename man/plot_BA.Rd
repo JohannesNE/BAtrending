@@ -17,12 +17,19 @@ plot_BA(
 
 \item{show_subject_legend}{Show legend for subjects}
 
-\item{normalize_log_loa}{Plot BA estimates from log transformed data on raw data.}
+\item{normalize_log_loa}{Plot using `plot_normalized_log_BA()`}
 
 \item{exponentiate}{Exponentiate values and parameters before plotting}
 
-\item{use_non_log_x_values}{Plot using `plot_normalized_log_BA()`}
+\item{use_non_log_x_values}{Plot BA estimates from log transformed data on raw data.}
+}
+\value{
+Bland Altman plot (ggplot)
 }
 \description{
 Create Bland Altman Plot
+}
+\examples{
+plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub"))
+
 }

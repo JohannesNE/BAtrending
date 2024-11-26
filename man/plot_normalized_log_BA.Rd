@@ -7,8 +7,17 @@
 plot_normalized_log_BA(ba_obj, show_subject_legend = FALSE)
 }
 \arguments{
-\item{show_subject_legend}{}
+\item{ba_obj}{BA analysis object}
+
+\item{show_subject_legend}{Show legend for subjects}
+}
+\value{
+Bland Altman style plot with relative differences plotted on absolute differences.
 }
 \description{
 Plot BA estimates from log transformed data on raw data.
+}
+\examples{
+plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE))
+
 }

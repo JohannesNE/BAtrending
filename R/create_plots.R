@@ -6,9 +6,9 @@
 #' @param exponentiate Exponentiate values and parameters before plotting
 #' @param use_non_log_x_values Plot BA estimates from log transformed data on raw data.
 #'
-#' @return
+#' @return Bland Altman plot (ggplot)
 #'
-#' @examples
+#' @examples plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub"))
 #'
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
@@ -78,16 +78,32 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
         y_scale = NULL
     }
 
-    BA_stats <- dplyr::mutate(
-        BA_stats,
-        label_w_val = if (exponentiate) {
+    ggplot2::ggplot(d, aes(mean, diff, color = .data[[ba_obj$.var_names$id_col]])) +
+        ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.1, 0.20))) +
+        ggplot2::geom_hline(yintercept = null_value, color = "gray") +
+        add_BA_stats_geom(BA_stats, exponentiated = exponentiate, name_ref = raw_name_var_ref, name_alt = raw_name_var_alt) +
+        ggplot2::geom_point(show.legend = show_subject_legend) +
+        ggplot2::labs(x = x_name,
+             y = y_name) +
+        y_scale +
+        theme_ba()
+
+
+}
+
+#' @importFrom ggplot2 aes
+#' @importFrom rlang .data
+add_BA_stats_geom <- function(BA_stats_df, exponentiated = FALSE, name_ref = "ref", name_alt = "alt") {
+    BA_stats_df <- dplyr::mutate(
+        BA_stats_df,
+        label_w_val = if (exponentiated) {
 
             sprintf(
                 "%s\n(%s = %.2f \u00D7 %s)",
                 .data$label,
-                raw_name_var_alt,
+                name_alt,
                 .data$est,
-                raw_name_var_ref
+                name_ref
             )
         } else {
             sprintf("%s (%+.2f)",
@@ -101,53 +117,73 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
     est_lines <- list(
         ggplot2::geom_hline(aes(yintercept = .data$est),
                             linetype = 2,
-                            data = BA_stats),
+                            data = BA_stats_df),
 
         ggplot2::geom_label(aes(x = Inf, y = .data$est, label = .data$label_w_val),
                            hjust = "inward", vjust = 0,
                            fill = NA, label.size = NA,
-                           data = BA_stats, inherit.aes = FALSE)
+                           data = BA_stats_df, inherit.aes = FALSE)
         )
 
 
     # Add list of geoms for CIs
-    if (is.null(ba_obj$BA_stats_ci)) {
+    if (is.na(BA_stats_df$ci.lwr[1])) {
         ci_shade <- NULL
     }
     else {
 
         ci_shade <- ggplot2::geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = .data$ci.lwr, ymax = .data$ci.upr),
                                   alpha = 0.5, fill = "gray",
-                                  data = BA_stats,
+                                  data = BA_stats_df,
                                   inherit.aes = FALSE)
 
     }
 
+    list(ci_shade, est_lines)
+}
 
+#' Manually add Bland Altman geometry to plot  
+#' 
+#' @param bias,loa.lwr,loa.upr estimates to be plotted. Optionally including confidence intervals
+#' as `c(est, ci.lwr, ci.upr)`.
+#' @param exponentiated Set true if estimates are exponentiated estimates from a model on log-transformed data.
+#' Treats estimates as ratios.
+#' @param name_ref,name_alt Name of reference and alternative method. Only used if `exponentiated = TRUE`
+#' 
+#' @export
+add_BA_stats_geom_manual <- function(bias, loa.lwr, loa.upr, 
+    exponentiated = FALSE,
+    name_ref = "ref",
+    name_alt = "alt") {
+    stopifnot(
+        length(bias) == length(loa.lwr),
+        length(bias) == length(loa.upr)
+    )
+    
+    # Pad NA if there is no CI
+    if (length(bias) == 1) {
+        bias[2:3] <- NA
+        loa.lwr[2:3] <- NA
+        loa.upr[2:3] <- NA
+    }
 
-    ggplot2::ggplot(d, aes(mean, diff, color = .data[[ba_obj$.var_names$id_col]])) +
-        ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.1, 0.20))) +
-        ggplot2::geom_hline(yintercept = null_value, color = "gray") +
-        ci_shade +
-        est_lines +
-        ggplot2::geom_point(show.legend = show_subject_legend) +
-        ggplot2::labs(x = x_name,
-             y = y_name) +
-        y_scale +
-        theme_ba()
+    BA_stats <- as.data.frame(rbind(bias, loa.lwr, loa.upr))
+    names(BA_stats) <- c("est", "ci.lwr", "ci.upr")
+    BA_stats$label <- c("Bias", "95% LoA", "95% LoA")
 
-
+    add_BA_stats_geom(BA_stats, exponentiated = exponentiated, name_alt = name_alt, name_ref = name_ref)
 }
 
 #' Plot BA estimates from log transformed data on raw data.
 #'
-#' @param ba_obj
-#' @param show_subject_legend
+#' @inheritParams plot_BA
 #'
-#' @return
+#' @return Bland Altman style plot with relative differences plotted on absolute differences.
+#'
+#' @examples 
+#' plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE))
+#' 
 #' @export
-#'
-#' @examples
 plot_normalized_log_BA <- function(ba_obj, show_subject_legend = FALSE) {
     assert_BA_obj(ba_obj)
     ba_obj_name <- deparse(substitute(ba_obj))
@@ -246,7 +282,6 @@ breaks_from_vec <- function(x, vec = c(0.33, 0.5, 0.66, 1, 1.5, 2, 3),
     }
 }
 
-# Helper functions
 log_estimate_to_mean_difference_slope <- function(est) {
     # formula from https://doi.org/10.1016/j.jclinepi.2007.11.003
     2*(exp(est)-1)/(exp(est) + 1)

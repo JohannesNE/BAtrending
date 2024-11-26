@@ -3,6 +3,7 @@
 S3method(as.data.frame,ba_analysis)
 S3method(confint,ba_analysis)
 S3method(print,ba_analysis)
+export(add_BA_stats_geom_manual)
 export(add_confint)
 export(compare_methods)
 export(plot_BA)

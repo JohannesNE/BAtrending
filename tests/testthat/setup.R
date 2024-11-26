@@ -15,3 +15,5 @@ try({
 try({
     comp_co_log_w_ci <- suppressMessages(add_confint(comp_co_log, nsim = 100, .progress = "none"))
 }, silent = FALSE)
+
+
