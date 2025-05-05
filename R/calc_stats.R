@@ -71,7 +71,7 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
   )
 }
 
-#' Add confidence intervals to BA analysis object.
+#' Add confidence intervals to BA analysis object. The confidence intervals are calculated with a percentile bootstrap (see `?lme4::confint.merMod` for details).
 #'
 #' @param ba_obj BA analysis object
 #' @param level Confidence level (default is 0.95)
@@ -125,8 +125,6 @@ confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 1999, .progress = "
                        .progress = .progress,
                        )
 }
-
-
 
 calc_BA_stats_from_model <- function(model) {
 
