@@ -46,23 +46,6 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
     raw_name_var_ref <- ba_obj$.raw_var_names$ref_col
     raw_name_var_alt <- ba_obj$.raw_var_names$alt_col
 
-    # Create axis names
-    x_name <- if(use_non_log_x_values) {
-        glue::glue("Mean
-                   ({raw_name_var_ref} + {raw_name_var_alt}) / 2")
-    } else {
-        glue::glue("Mean
-                   ({name_var_ref} + {name_var_alt}) / 2")
-    }
-    y_name <- if(exponentiate) {
-            glue::glue("Ratio
-                        {raw_name_var_alt} / {raw_name_var_ref}")
-        } else {
-            glue::glue("Difference
-                        {name_var_alt} - {name_var_ref}")
-    }
-
-
     if(exponentiate) {
         d$diff <- exp(d$diff)
         BA_stats$est <- exp(BA_stats$est)
@@ -83,8 +66,7 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
         ggplot2::geom_hline(yintercept = null_value, color = "gray") +
         add_BA_stats_geom(BA_stats, exponentiated = exponentiate, name_ref = raw_name_var_ref, name_alt = raw_name_var_alt) +
         ggplot2::geom_point(show.legend = show_subject_legend) +
-        ggplot2::labs(x = x_name,
-             y = y_name) +
+        create_axis_labels(ba_obj = ba_obj, use_non_log_x_values = use_non_log_x_values, exponentiate = exponentiate) +
         y_scale +
         theme_ba()
 
@@ -310,10 +292,10 @@ plot_residuals <- function(ba_obj, show_subject_legend = FALSE,
         custom_limits <- NULL
     }
 
-
     ggplot2::ggplot(d, aes(mean, diff, color = id)) +
         ggplot2::geom_hline(yintercept = 0, color = "gray") +
         ggplot2::geom_point(show.legend = show_subject_legend) +
+        create_axis_labels(ba_obj = ba_obj, use_non_log_x_values = use_non_log_x_values, exponentiate = exponentiate) +
         custom_limits + 
         theme_ba()
 }
@@ -343,4 +325,29 @@ set_limits <- function(vec, rel_exp = 0.05, abs_exp = 0) {
         range_vec[1] - expansion,
         range_vec[2] + expansion
     )
+}
+
+create_axis_labels <- function(ba_obj, use_non_log_x_values = TRUE, exponentiate = FALSE) {
+    name_var_ref <- ba_obj$.var_names$ref_col
+    name_var_alt <- ba_obj$.var_names$alt_col
+    raw_name_var_ref <- ba_obj$.raw_var_names$ref_col
+    raw_name_var_alt <- ba_obj$.raw_var_names$alt_col
+
+    # Create axis names
+    x_name <- if(use_non_log_x_values) {
+        glue::glue("Mean
+                   ({raw_name_var_ref} + {raw_name_var_alt}) / 2")
+    } else {
+        glue::glue("Mean
+                   ({name_var_ref} + {name_var_alt}) / 2")
+    }
+    y_name <- if(exponentiate) {
+            glue::glue("Ratio
+                        {raw_name_var_alt} / {raw_name_var_ref}")
+        } else {
+            glue::glue("Difference
+                        {name_var_alt} - {name_var_ref}")
+    }
+
+    ggplot2::labs(x = x_name, y = y_name)
 }
