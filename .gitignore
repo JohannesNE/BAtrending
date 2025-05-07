@@ -5,3 +5,5 @@
 .DS_Store
 
 tmp_scripts
+inst/doc
+**/.quarto/

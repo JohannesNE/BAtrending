@@ -1,21 +1,25 @@
 #' Compare methods
 #'
-#' @param df Data frame
-#' @param ref_col name of column containing reference measurements
-#' @param alt_col name of column containing alternative measurements
-#' @param id_col name of column containing unique subject id's
-#' @param REML Use restricted maximum likelihood optimization in `lme4::lmer()`
-#' @param logtrans Log-transform measurements before fitting the model.
+#' @param df Data frame.
+#' @param ref_col name of column containing reference measurements.
+#' @param alt_col name of column containing alternative measurements.
+#' @param id_col name of column containing unique subject id's.
+#' @param REML Use restricted maximum likelihood optimization in `lme4::lmer()`.
+#' @param logtrans Log-transform measurements before fitting the difference model.
+#' @param logtrans_mean Log-transform measurements before fitting the mean model.
 #'
-#' @return
+#' @returns 
 #' Bland Altman analysis object (of class ba_analysis)
 #'
 #' @export
 #'
 #' @examples
 #' compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub")
-compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE) {
+#' 
+compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE, logtrans_mean = FALSE) {
   if (!is.data.frame(df)) stop("df must be of class data.frame")
+  if (logtrans_mean && !logtrans) warning("It likely does not make sense to logtransform the mean model (logtrans_mean = TRUE) 
+  without logtransforming the difference model (logtrans = FALSE)")
 
   calc_mean_diff <- function(x_df){
     x_df$diff <- x_df[[alt_col]] - x_df[[ref_col]]
@@ -26,22 +30,27 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
   # Convert id to factor
   df[[id_col]] <- factor(df[[id_col]])
 
-
   non_log_df <- df
   non_log_df <- calc_mean_diff(non_log_df)
 
-  if (logtrans) {
-    df[[ref_col]] <- log(df[[ref_col]])
-    df[[alt_col]] <- log(df[[alt_col]])
-  }
+  log_df <- df
+  log_df[[ref_col]] <- log(df[[ref_col]])
+  log_df[[alt_col]] <- log(df[[alt_col]])
+  log_df <- calc_mean_diff(log_df)
 
-  df <- calc_mean_diff(df)
+  df <- if (logtrans) log_df else non_log_df
 
   diff_model <- lme4::lmer(stats::formula(paste0("diff ~ 1 + (1 | ", id_col, ")")),
                            REML = REML, data = df)
+  
+  mean_model <- lme4::lmer(stats::formula(paste0("mean ~ 1 + (1 | ", id_col, ")")),
+                           REML = REML, 
+                           data = if(logtrans_mean) log_df else non_log_df
+                          )
 
   # Extract variance components
   BA_stats <- calc_BA_stats_from_model(diff_model)
+  mean_stats <- calc_BA_stats_from_model(mean_model, incl_loa = FALSE)
 
   derived_BA_stats <- calc_derived_stats(BA_stats,
                                          mean_val = mean(df$mean),
@@ -52,8 +61,10 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
   structure(
     list(
     data = df,
-    model = diff_model,
+    diff_model = diff_model,
+    mean_model = mean_model,
     BA_stats = as.list(BA_stats),
+    mean_stats = as.list(mean_stats),
     .var_names = list(
       ref_col = ifelse(logtrans, glue::glue("log({ref_col})"), ref_col),
       alt_col = ifelse(logtrans, glue::glue("log({alt_col})"), alt_col),
@@ -77,7 +88,7 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
 #' @param level Confidence level (default is 0.95)
 #' @param nsim Number of bootstrap samples
 #' @param .progress see `?lme4::bootMer()`
-#'``
+#'
 #' @return
 #' BA analysis object (`x`) with added confidence intervals
 #'
@@ -117,7 +128,7 @@ add_confint <- function(ba_obj, level = 0.95, nsim = 1999, .progress = "txt") {
 confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 1999, .progress = "txt") {
   message(glue::glue("Creating {nsim} bootstrap samples"))
 
-  lme4::confint.merMod(ba_obj$model,
+  lme4::confint.merMod(ba_obj$diff_model,
                        method="boot",
                        FUN = calc_BA_stats_from_model,
                        level = level,
@@ -126,7 +137,7 @@ confint.ba_analysis <- function(ba_obj, level = 0.95, nsim = 1999, .progress = "
                        )
 }
 
-calc_BA_stats_from_model <- function(model) {
+calc_BA_stats_from_model <- function(model, incl_loa = TRUE) {
 
   bias <- lme4::fixef(model) # Get intercept from model
   stopifnot(length(bias) == 1) # Test
@@ -146,6 +157,14 @@ calc_BA_stats_from_model <- function(model) {
 
   intraclass.correlation = sd.between^2 / (sd.between^2 + sd.within^2)
 
+  if (incl_loa) {
+    loa <- c(
+      loa.lwr = bias - 2*sd.total,
+      loa.upr = bias + 2*sd.total
+    )
+  } else {
+    loa <- NULL
+  }
 
   c(bias = bias,
     sd.between = sd.between,
@@ -153,8 +172,7 @@ calc_BA_stats_from_model <- function(model) {
     sd.total = sd.total,
     intraclass.correlation = intraclass.correlation,
 
-    loa.lwr = bias - 2*sd.total,
-    loa.upr = bias + 2*sd.total
+    loa
 
   )
 }

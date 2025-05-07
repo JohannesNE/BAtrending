@@ -6,7 +6,7 @@
 #' @param exponentiate Exponentiate values and parameters before plotting
 #' @param use_non_log_x_values Plot BA estimates from log transformed data on raw data.
 #'
-#' @return Bland Altman plot (ggplot)
+#' @returns Bland Altman plot (ggplot)
 #'
 #' @examples plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub"))
 #'
@@ -267,6 +267,55 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
 
 
 
+}
+
+
+#' Plot intraindividual variation (model residuals) in differences and means.
+#'
+#' @inheritParams plot_BA
+#' @param keep_original_scale Plot the residuals on a plane with the scale of the original data.
+#' 
+#' @importFrom ggplot2 aes
+#' @importFrom rlang .data
+#' 
+#' @export
+plot_residuals <- function(ba_obj, show_subject_legend = FALSE,
+    keep_original_scale = TRUE,
+    normalize_log_loa = FALSE,
+    exponentiate = FALSE,
+    use_non_log_x_values = TRUE) {
+    
+    assert_BA_obj(ba_obj)
+    ba_obj_name <- deparse(substitute(ba_obj))
+
+    diff_residuals <- residuals(ba_obj$diff_model)
+    mean_residuals <- residuals(ba_obj$mean_model)
+
+    d <- data.frame(
+        id = ba_obj$data[[ba_obj$.var_names$id_col]],
+        diff = residuals(ba_obj$diff_model),
+        mean = residuals(ba_obj$mean_model)
+    )
+
+    # Find range of original data
+    if (keep_original_scale) {
+        range_width <- function(vec) max(vec) - min(vec)
+        org_diff_width <- range_width(ba_obj$data$diff)
+        org_mean_width <- range_width(ba_obj$data$mean)
+        custom_limits <- ggplot2::lims(
+            x = c(-0.5,0.5)*org_mean_width,
+            y = c(-0.5,0.5)*org_diff_width
+        )
+    } else {
+        custom_limits <- NULL
+    }
+
+
+    ggplot2::ggplot(d, aes(mean, diff, color = id)) +
+        ggplot2::geom_hline(yintercept = 0, color = "gray") +
+        ggplot2::geom_point(show.legend = show_subject_legend) +
+        custom_limits + 
+        theme_ba()
 }
 
 # Helper functions for plots

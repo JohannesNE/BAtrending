@@ -22,5 +22,8 @@ Imports:
     scales
 Suggests: 
     vdiffr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    knitr,
+    quarto
 Config/testthat/edition: 3
+VignetteBuilder: quarto

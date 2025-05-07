@@ -7,8 +7,8 @@ print.ba_analysis <- function(ba_obj) {
     ops <- options(digits = 3)
     on.exit(options(ops))
 
-    n_obs <- ba_obj$model@devcomp$dims[["n"]]
-    n_sub <- nlevels(ba_obj$model@flist[[1]])
+    n_obs <- ba_obj$diff_model@devcomp$dims[["n"]]
+    n_sub <- nlevels(ba_obj$diff_model@flist[[1]])
 
     txt_logtrans <- if (attr(ba_obj, "logtrans")) "(log transformed) " else ""
 

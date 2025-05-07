@@ -4,20 +4,30 @@
 \alias{compare_methods}
 \title{Compare methods}
 \usage{
-compare_methods(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE)
+compare_methods(
+  df,
+  ref_col,
+  alt_col,
+  id_col,
+  REML = TRUE,
+  logtrans = FALSE,
+  logtrans_mean = FALSE
+)
 }
 \arguments{
-\item{df}{Data frame}
+\item{df}{Data frame.}
 
-\item{ref_col}{name of column containing reference measurements}
+\item{ref_col}{name of column containing reference measurements.}
 
-\item{alt_col}{name of column containing alternative measurements}
+\item{alt_col}{name of column containing alternative measurements.}
 
-\item{id_col}{name of column containing unique subject id's}
+\item{id_col}{name of column containing unique subject id's.}
 
-\item{REML}{Use restricted maximum likelihood optimization in `lme4::lmer()`}
+\item{REML}{Use restricted maximum likelihood optimization in `lme4::lmer()`.}
 
-\item{logtrans}{Log-transform measurements before fitting the model.}
+\item{logtrans}{Log-transform measurements before fitting the difference model.}
+
+\item{logtrans_mean}{Log-transform measurements before fitting the mean model.}
 }
 \value{
 Bland Altman analysis object (of class ba_analysis)
@@ -27,4 +37,5 @@ Compare methods
 }
 \examples{
 compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub")
+
 }
