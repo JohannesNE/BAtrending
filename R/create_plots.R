@@ -2,9 +2,7 @@
 #'
 #' @param ba_obj BA analysis object
 #' @param show_subject_legend Show legend for subjects
-#' @param normalize_log_loa Plot using `plot_normalized_log_BA()`
-#' @param exponentiate Exponentiate values and parameters before plotting
-#' @param use_non_log_x_values Plot BA estimates from log transformed data on raw data.
+#' @param keep_log_scale Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting
 #'
 #' @returns Bland Altman plot (ggplot)
 #'
@@ -15,36 +13,28 @@
 #' @export
 plot_BA <- function(ba_obj, show_subject_legend = FALSE,
                     normalize_log_loa = FALSE,
-                    exponentiate = FALSE,
-                    use_non_log_x_values = TRUE) {
+                    keep_log_scale = FALSE) {
     assert_BA_obj(ba_obj)
 
-    if (normalize_log_loa) return(plot_normalized_log_BA(ba_obj, show_subject_legend = show_subject_legend))
-    
     data_is_log_transformed <- attr(ba_obj, "logtrans")
-    if (exponentiate && !data_is_log_transformed) warning("Data was not log transformed by `compare_methods()`\nResults may be nonsesical")
+    if (keep_log_scale && !data_is_log_transformed) stop("Data was not log transformed by `compare_methods()`")
 
     ba_obj_name <- deparse(substitute(ba_obj))
+    check_CI(ba_obj, ba_obj_name)
 
     # Generate data frame with BA statistics
     BA_stats <- gen_ba_stats_df(ba_obj)
     BA_stats <- BA_stats[BA_stats$stat %in% c("bias", "loa.lwr", "loa.upr"),]
 
-    # Check for CI
-    if (is.null(ba_obj$BA_stats_ci)) {
-        message(sprintf("The BA analysis object (%1$s) has no confidence intervals.
-To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
-        ba_obj_name
-        ))
-    }
 
     d <- ba_obj$data
-    if(use_non_log_x_values) d$mean <- ba_obj$.non_log_data$mean
+    d$mean <- ba_obj$.non_log_data$mean
     
     var_names <- ba_obj$.var_names
     var_names_raw <- ba_obj$.var_names_raw
 
-    if(exponentiate) {
+    if(data_is_log_transformed && !keep_log_scale) {
+        exponentiated <- TRUE
         d$diff <- exp(d$diff)
         BA_stats$est <- exp(BA_stats$est)
         BA_stats$ci.upr <- exp(BA_stats$ci.upr)
@@ -55,6 +45,7 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
                                                    breaks = breaks_from_vec),
                        ggplot2::coord_trans(y = "log"))
     } else {
+        exponentiated <- FALSE
         null_value <- 0
         y_scale = NULL
     }
@@ -62,9 +53,9 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
     ggplot2::ggplot(d, aes(mean, diff, color = .data[[var_names$id_col]])) +
         ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.1, 0.20))) +
         ggplot2::geom_hline(yintercept = null_value, color = "gray") +
-        add_BA_stats_geom(BA_stats, exponentiated = exponentiate, name_ref = var_names_raw$ref_col, name_alt = var_names_raw$alt_col) +
+        add_BA_stats_geom(BA_stats, exponentiated = exponentiated, name_ref = var_names_raw$ref_col, name_alt = var_names_raw$alt_col) +
         ggplot2::geom_point(show.legend = show_subject_legend) +
-        create_axis_labels(ba_obj = ba_obj, use_non_log_x_values = use_non_log_x_values, exponentiate = exponentiate) +
+        create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
         y_scale +
         theme_ba()
 
@@ -167,6 +158,7 @@ add_BA_stats_geom_manual <- function(bias, loa.lwr, loa.upr,
 plot_BA_normalized_log <- function(ba_obj, show_subject_legend = FALSE) {
     assert_BA_obj(ba_obj)
     ba_obj_name <- deparse(substitute(ba_obj))
+    check_CI(ba_obj, ba_obj_name)
 
     data_is_log_transformed <- attr(ba_obj, "logtrans")
     if(!data_is_log_transformed) stop("Plotting normalized log LoA is only valid for comparisons on the log-scale")
@@ -174,14 +166,6 @@ plot_BA_normalized_log <- function(ba_obj, show_subject_legend = FALSE) {
     # Generate data frame with BA statistics
     BA_stats <- gen_ba_stats_df(ba_obj)
     BA_stats <- BA_stats[BA_stats$stat %in% c("bias", "loa.lwr", "loa.upr"),]
-
-    # Check for CI
-    if (is.null(ba_obj$BA_stats_ci)) {
-        message(sprintf("The BA analysis object (%1$s) has no confidence intervals.
-To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
-        ba_obj_name
-        ))
-    }
 
 
     # Use non-log data and names for plotting
@@ -257,28 +241,42 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
 #' 
 #' @export
 plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
-    normalize_log_loa = FALSE,
-    exponentiate = FALSE,
-    use_non_log_x_values = TRUE) {
+    keep_log_scale = FALSE) {
     
     assert_BA_obj(ba_obj)
-    ba_obj_name <- deparse(substitute(ba_obj))
+
+    data_is_log_transformed <- attr(ba_obj, "logtrans")
+    if (keep_log_scale && !data_is_log_transformed) stop("Data was not log transformed by `compare_methods()`")
 
     diff_residuals <- residuals(ba_obj$diff_model)
     mean_residuals <- residuals(ba_obj$mean_model)
 
+    # Y axis
+    if(data_is_log_transformed && !keep_log_scale) {
+        exponentiated <- TRUE
+        diff_residuals <- exp(diff_residuals)
+
+        null_value <- 1
+        y_scale = list(ggplot2::scale_y_continuous(labels = scales::label_number(accuracy = 0.01),
+                                                   breaks = breaks_from_vec),
+                       ggplot2::coord_trans(y = "log"))
+    } else {
+        exponentiated <- FALSE
+        null_value <- 0
+        y_scale = NULL
+    }
+
     d <- data.frame(
         id = ba_obj$data[[ba_obj$.var_names$id_col]],
-        diff = residuals(ba_obj$diff_model),
-        mean = residuals(ba_obj$mean_model)
+        diff = diff_residuals,
+        mean = mean_residuals
     )
 
-    
-
     ggplot2::ggplot(d, aes(mean, diff, color = id)) +
-        ggplot2::geom_hline(yintercept = 0, color = "gray") +
+        ggplot2::geom_hline(yintercept = null_value, color = "gray") +
         ggplot2::geom_point(show.legend = show_subject_legend) +
-        create_axis_labels(ba_obj = ba_obj, use_non_log_x_values = use_non_log_x_values, exponentiate = exponentiate) +
+        y_scale +
+        create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
         theme_ba()
 }
 
@@ -332,13 +330,17 @@ plot_BA_complete <- function(
     show_subject_legend = FALSE,
     equal_scales = TRUE,
     normalize_log_loa = FALSE,
-    exponentiate = FALSE,
-    use_non_log_x_values = TRUE
-) {
+    keep_log_scale = FALSE
+    ) {
     assert_BA_obj(ba_obj)
 
-    # Create scatter plot
+    use_log_values <- 
 
+    # Create scatter plot
+    scatter_plot <- plot_BA_scatter(ba_obj, 
+        show_subject_legend = show_subject_legend,
+        use_log_values = !use_non_log_x_values,
+        exponentiate = exponentiate,) 
     
 
     # Find range of original BA plot
@@ -383,21 +385,17 @@ set_limits <- function(vec, rel_exp = 0.05, abs_exp = 0) {
     )
 }
 
-create_axis_labels <- function(ba_obj, use_non_log_x_values = TRUE, exponentiate = FALSE) {
+create_axis_labels <- function(ba_obj, exponentiated = FALSE) {
     name_var_ref <- ba_obj$.var_names$ref_col
     name_var_alt <- ba_obj$.var_names$alt_col
     raw_name_var_ref <- ba_obj$.var_names_raw$ref_col
     raw_name_var_alt <- ba_obj$.var_names_raw$alt_col
 
     # Create axis names
-    x_name <- if(use_non_log_x_values) {
-        glue::glue("Mean
+    x_name <- glue::glue("Mean
                    ({raw_name_var_ref} + {raw_name_var_alt}) / 2")
-    } else {
-        glue::glue("Mean
-                   ({name_var_ref} + {name_var_alt}) / 2")
-    }
-    y_name <- if(exponentiate) {
+    
+    y_name <- if(exponentiated) {
             glue::glue("Ratio
                         {raw_name_var_alt} / {raw_name_var_ref}")
         } else {
@@ -406,4 +404,14 @@ create_axis_labels <- function(ba_obj, use_non_log_x_values = TRUE, exponentiate
     }
 
     ggplot2::labs(x = x_name, y = y_name)
+}
+
+check_CI <- function(ba_obj, ba_obj_name = "ba_obj") {
+    # Check for CI
+    if (is.null(ba_obj$BA_stats_ci)) {
+        message(sprintf("The BA analysis object has no confidence intervals.
+To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
+        ba_obj_name
+        ))
+    }
 }

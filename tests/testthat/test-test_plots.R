@@ -9,17 +9,17 @@ test_that("Standard BA plot", {
 })
 
 test_that("Standard BA plot w CI", {
-    test_plot <- plot_BA(comp_co_log_w_ci)
-    expect_doppelganger("Standard BA w CI", test_plot)
+    test_plot <- plot_BA(comp_co_w_ci)
+    expect_doppelganger("Standard BA plot w CI", test_plot)
 })
 
-test_that("Standard BA plot w CI", {
-    test_plot <- plot_BA(comp_co_log_w_ci)
-    expect_doppelganger("Standard BA w CI", test_plot)
+test_that("Standard BA plot on log data w CI", {
+    test_plot <- plot_BA(comp_co_log_w_ci, keep_log_scale = TRUE)
+    expect_doppelganger("Standard BA plot on log data w CI", test_plot)
 })
 
 test_that("Ratio BA plot w CI", {
-    test_plot <- plot_BA(comp_co_log_w_ci, exponentiate = TRUE)
+    test_plot <- plot_BA(comp_co_log_w_ci, keep_log_scale = FALSE)
     expect_doppelganger("Ratio BA w CI", test_plot)
 })
 
@@ -58,4 +58,9 @@ test_that("Add manual BA geom, Ratio w CI", {
 test_that("Standard residuals plot", {
     test_plot <- plot_BA_residuals(comp_co)
     expect_doppelganger("Standard residuals plot", test_plot)
+})
+
+test_that("Residuals plot on log data", {
+    test_plot <- plot_BA_residuals(comp_co_log)
+    expect_doppelganger("Residuals plot on log data", test_plot)
 })

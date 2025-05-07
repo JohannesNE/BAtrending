@@ -9,8 +9,7 @@ plot_BA_complete(
   show_subject_legend = FALSE,
   equal_scales = TRUE,
   normalize_log_loa = FALSE,
-  exponentiate = FALSE,
-  use_non_log_x_values = TRUE
+  keep_log_scale = FALSE
 )
 }
 \arguments{
@@ -20,11 +19,7 @@ plot_BA_complete(
 
 \item{equal_scales}{Plot the residuals on a plane with the scale of the original data.}
 
-\item{normalize_log_loa}{Plot using `plot_normalized_log_BA()`}
-
-\item{exponentiate}{Exponentiate values and parameters before plotting}
-
-\item{use_non_log_x_values}{Plot BA estimates from log transformed data on raw data.}
+\item{keep_log_scale}{Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting}
 }
 \description{
 Creates a scatter plot, a standard Bland Altman plot and a residuals plot for assessing trending ability.

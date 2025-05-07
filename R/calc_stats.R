@@ -6,7 +6,6 @@
 #' @param id_col name of column containing unique subject id's.
 #' @param REML Use restricted maximum likelihood optimization in `lme4::lmer()`.
 #' @param logtrans Log-transform measurements before fitting the difference model.
-#' @param logtrans_mean Log-transform measurements before fitting the mean model.
 #'
 #' @returns 
 #' Bland Altman analysis object (of class ba_analysis)
@@ -16,10 +15,8 @@
 #' @examples
 #' compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub")
 #' 
-compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE, logtrans_mean = FALSE) {
+compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE) {
   if (!is.data.frame(df)) stop("df must be of class data.frame")
-  if (logtrans_mean && !logtrans) warning("It likely does not make sense to logtransform the mean model (logtrans_mean = TRUE) 
-  without logtransforming the difference model (logtrans = FALSE)")
 
   calc_mean_diff <- function(x_df){
     x_df$diff <- x_df[[alt_col]] - x_df[[ref_col]]
@@ -45,7 +42,7 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
   
   mean_model <- lme4::lmer(stats::formula(paste0("mean ~ 1 + (1 | ", id_col, ")")),
                            REML = REML, 
-                           data = if(logtrans_mean) log_df else non_log_df
+                           data = non_log_df
                           )
 
   # Extract variance components
