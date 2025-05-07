@@ -70,7 +70,7 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
       alt_col = ifelse(logtrans, glue::glue("log({alt_col})"), alt_col),
       id_col = id_col
     ),
-    .raw_var_names = list(
+    .var_names_raw = list(
       ref_col = ref_col,
       alt_col = alt_col,
       id_col = id_col

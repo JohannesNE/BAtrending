@@ -41,10 +41,8 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
     d <- ba_obj$data
     if(use_non_log_x_values) d$mean <- ba_obj$.non_log_data$mean
     
-    name_var_ref <- ba_obj$.var_names$ref_col
-    name_var_alt <- ba_obj$.var_names$alt_col
-    raw_name_var_ref <- ba_obj$.raw_var_names$ref_col
-    raw_name_var_alt <- ba_obj$.raw_var_names$alt_col
+    var_names <- ba_obj$.var_names
+    var_names_raw <- ba_obj$.var_names_raw
 
     if(exponentiate) {
         d$diff <- exp(d$diff)
@@ -61,10 +59,10 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
         y_scale = NULL
     }
 
-    ggplot2::ggplot(d, aes(mean, diff, color = .data[[ba_obj$.var_names$id_col]])) +
+    ggplot2::ggplot(d, aes(mean, diff, color = .data[[var_names$id_col]])) +
         ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.1, 0.20))) +
         ggplot2::geom_hline(yintercept = null_value, color = "gray") +
-        add_BA_stats_geom(BA_stats, exponentiated = exponentiate, name_ref = raw_name_var_ref, name_alt = raw_name_var_alt) +
+        add_BA_stats_geom(BA_stats, exponentiated = exponentiate, name_ref = var_names_raw$ref_col, name_alt = var_names_raw$alt_col) +
         ggplot2::geom_point(show.legend = show_subject_legend) +
         create_axis_labels(ba_obj = ba_obj, use_non_log_x_values = use_non_log_x_values, exponentiate = exponentiate) +
         y_scale +
@@ -188,16 +186,15 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
 
     # Use non-log data and names for plotting
     d <- ba_obj$.non_log_data
-    name_var_ref <- ba_obj$.raw_var_names$ref_col
-    name_var_alt <- ba_obj$.raw_var_names$alt_col
+    var_names <- ba_obj$.var_names_raw
 
     # Create labels
     BA_stats <- dplyr::mutate(BA_stats,
         label_w_val = sprintf("%s\n(%s = %.2f \u00D7 %s)", # unicode times
                               .data$label,
-                              name_var_alt,
+                              var_names$alt_col,
                               exp(.data$est),
-                              name_var_ref
+                              var_names$ref_col
                               ),
         slope = log_estimate_to_mean_difference_slope(.data$est))
 
@@ -241,9 +238,9 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
         est_lines +
         ggplot2::geom_point(show.legend = show_subject_legend) +
         ggplot2::labs(x = glue::glue("Mean
-                            ({name_var_ref} + {name_var_alt}) / 2"),
+                            ({var_names$ref_col} + {var_names$alt_col}) / 2"),
                       y = glue::glue("Difference
-                            {name_var_alt} - {name_var_ref}")) +
+                            {var_names$alt_col} - {var_names$ref_col}")) +
         theme_ba() +
         ggplot2::theme(plot.margin = ggplot2::margin(1, 8, 1, 1, unit = "lines"))
 
@@ -255,13 +252,11 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
 #' Plot intraindividual variation (model residuals) in differences and means.
 #'
 #' @inheritParams plot_BA
-#' @param keep_original_scale Plot the residuals on a plane with the scale of the original data.
 #' 
 #' @importFrom ggplot2 aes
 #' 
 #' @export
 plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
-    keep_original_scale = TRUE,
     normalize_log_loa = FALSE,
     exponentiate = FALSE,
     use_non_log_x_values = TRUE) {
@@ -278,8 +273,76 @@ plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
         mean = residuals(ba_obj$mean_model)
     )
 
-    # Find range of original data
-    if (keep_original_scale) {
+    
+
+    ggplot2::ggplot(d, aes(mean, diff, color = id)) +
+        ggplot2::geom_hline(yintercept = 0, color = "gray") +
+        ggplot2::geom_point(show.legend = show_subject_legend) +
+        create_axis_labels(ba_obj = ba_obj, use_non_log_x_values = use_non_log_x_values, exponentiate = exponentiate) +
+        theme_ba()
+}
+
+
+#' Make scatter plot of paired measurements in analysis.
+#'
+#' @inheritParams plot_BA
+#' 
+#' @importFrom ggplot2 aes
+#' @importFrom rlang .data
+#' 
+#' @export
+plot_BA_scatter <- function(ba_obj, show_subject_legend = FALSE,
+    use_log_values = FALSE) {
+    assert_BA_obj(ba_obj)
+    
+    data_is_log_transformed <- attr(ba_obj, "logtrans")
+    if (use_log_values && !data_is_log_transformed) stop("Data was not log transformed by `compare_methods()`")
+    
+    var_names <- ba_obj$.var_names
+    var_names_raw <- ba_obj$.var_names_raw
+    
+    if (use_log_values) {
+        d <- ba_obj$data
+        label_names <- var_names
+    } else {
+        d <- ba_obj$.non_log_data
+        label_names <- var_names_raw
+    }
+
+    ggplot2::ggplot(d, aes(
+            .data[[var_names_raw$ref_col]], 
+            .data[[var_names_raw$alt_col]], 
+            color = .data[[var_names$id_col]])) +
+        ggplot2::geom_abline(intercept = 0, slope = 1, color = "gray") +
+        ggplot2::geom_point(show.legend = show_subject_legend) +
+        ggplot2::labs(x=label_names$ref_col, y=label_names$alt_col) +
+        theme_ba()
+}
+
+#' Plot all plots in extended Bland Altman analysis.
+#' 
+#' Creates a scatter plot, a standard Bland Altman plot and a residuals plot for assessing trending ability.
+#'
+#' @inheritParams plot_BA
+#' @param equal_scales Plot the residuals on a plane with the scale of the original data.
+#' 
+#' @importFrom ggplot2 aes
+plot_BA_complete <- function(
+    ba_obj,
+    show_subject_legend = FALSE,
+    equal_scales = TRUE,
+    normalize_log_loa = FALSE,
+    exponentiate = FALSE,
+    use_non_log_x_values = TRUE
+) {
+    assert_BA_obj(ba_obj)
+
+    # Create scatter plot
+
+    
+
+    # Find range of original BA plot
+    if (equal_scales) {
         range_width <- function(vec) max(vec) - min(vec)
         org_diff_width <- range_width(ba_obj$data$diff)
         org_mean_width <- range_width(ba_obj$data$mean)
@@ -290,31 +353,6 @@ plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
     } else {
         custom_limits <- NULL
     }
-
-    ggplot2::ggplot(d, aes(mean, diff, color = id)) +
-        ggplot2::geom_hline(yintercept = 0, color = "gray") +
-        ggplot2::geom_point(show.legend = show_subject_legend) +
-        create_axis_labels(ba_obj = ba_obj, use_non_log_x_values = use_non_log_x_values, exponentiate = exponentiate) +
-        custom_limits + 
-        theme_ba()
-}
-
-
-#' Plot all plots in Bland Altman analysis.
-#'
-#' @inheritParams plot_BA
-#' 
-#' @importFrom ggplot2 aes
-plot_BA_complete <- function(
-    ba_obj,
-    show_subject_legend = FALSE,
-    keep_original_scale = TRUE,
-    normalize_log_loa = FALSE,
-    exponentiate = FALSE,
-    use_non_log_x_values = TRUE
-) {
-    assert_BA_obj(ba_obj)
-    
 
 }
 
@@ -348,8 +386,8 @@ set_limits <- function(vec, rel_exp = 0.05, abs_exp = 0) {
 create_axis_labels <- function(ba_obj, use_non_log_x_values = TRUE, exponentiate = FALSE) {
     name_var_ref <- ba_obj$.var_names$ref_col
     name_var_alt <- ba_obj$.var_names$alt_col
-    raw_name_var_ref <- ba_obj$.raw_var_names$ref_col
-    raw_name_var_alt <- ba_obj$.raw_var_names$alt_col
+    raw_name_var_ref <- ba_obj$.var_names_raw$ref_col
+    raw_name_var_alt <- ba_obj$.var_names_raw$alt_col
 
     # Create axis names
     x_name <- if(use_non_log_x_values) {
