@@ -4,12 +4,14 @@
 \alias{plot_BA_scatter}
 \title{Make scatter plot of paired measurements in analysis.}
 \usage{
-plot_BA_scatter(ba_obj, show_subject_legend = FALSE, use_log_values = FALSE)
+plot_BA_scatter(ba_obj, show_subject_legend = FALSE, keep_log_scale = FALSE)
 }
 \arguments{
 \item{ba_obj}{BA analysis object}
 
 \item{show_subject_legend}{Show legend for subjects}
+
+\item{keep_log_scale}{Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting}
 }
 \description{
 Make scatter plot of paired measurements in analysis.

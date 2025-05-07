@@ -19,7 +19,8 @@ Imports:
     stats,
     rlang,
     dplyr,
-    scales
+    scales,
+    patchwork
 Suggests: 
     vdiffr,
     testthat (>= 3.0.0),

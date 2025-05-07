@@ -280,7 +280,6 @@ plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
         theme_ba()
 }
 
-
 #' Make scatter plot of paired measurements in analysis.
 #'
 #' @inheritParams plot_BA
@@ -290,16 +289,16 @@ plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
 #' 
 #' @export
 plot_BA_scatter <- function(ba_obj, show_subject_legend = FALSE,
-    use_log_values = FALSE) {
+    keep_log_scale = FALSE) {
     assert_BA_obj(ba_obj)
     
     data_is_log_transformed <- attr(ba_obj, "logtrans")
-    if (use_log_values && !data_is_log_transformed) stop("Data was not log transformed by `compare_methods()`")
+    if (keep_log_scale && !data_is_log_transformed) stop("Data was not log transformed by `compare_methods()`")
     
     var_names <- ba_obj$.var_names
     var_names_raw <- ba_obj$.var_names_raw
     
-    if (use_log_values) {
+    if (keep_log_scale) {
         d <- ba_obj$data
         label_names <- var_names
     } else {
@@ -324,7 +323,7 @@ plot_BA_scatter <- function(ba_obj, show_subject_legend = FALSE,
 #' @inheritParams plot_BA
 #' @param equal_scales Plot the residuals on a plane with the scale of the original data.
 #' 
-#' @importFrom ggplot2 aes
+#' @export
 plot_BA_complete <- function(
     ba_obj,
     show_subject_legend = FALSE,
@@ -334,27 +333,45 @@ plot_BA_complete <- function(
     ) {
     assert_BA_obj(ba_obj)
 
-    use_log_values <- 
-
     # Create scatter plot
     scatter_plot <- plot_BA_scatter(ba_obj, 
         show_subject_legend = show_subject_legend,
-        use_log_values = !use_non_log_x_values,
-        exponentiate = exponentiate,) 
+        keep_log_scale = keep_log_scale) 
+    
+    # Create Bland Altman plot
+    if (normalize_log_loa) {
+        BA_plot <- plot_BA_normalized_log(ba_obj, show_subject_legend = show_subject_legend)
+    } else {
+        BA_plot <- plot_BA(ba_obj,
+            show_subject_legend = show_subject_legend,
+            keep_log_scale = keep_log_scale)
+    }
+    
+    # Create residuals plot
+    residuals_plot <- plot_BA_residuals(ba_obj, 
+        show_subject_legend = show_subject_legend,
+        keep_log_scale = keep_log_scale)
+    
+    if (equal_scales) {
+        # TODO set scales for residual plot
+    }
+    
+    # Combine plots
+    patchwork::wrap_plots(scatter_plot, BA_plot, residuals_plot)
     
 
-    # Find range of original BA plot
-    if (equal_scales) {
-        range_width <- function(vec) max(vec) - min(vec)
-        org_diff_width <- range_width(ba_obj$data$diff)
-        org_mean_width <- range_width(ba_obj$data$mean)
-        custom_limits <- ggplot2::lims(
-            x = c(-0.5,0.5)*org_mean_width,
-            y = c(-0.5,0.5)*org_diff_width
-        )
-    } else {
-        custom_limits <- NULL
-    }
+    # # Find range of original BA plot
+    # if (equal_scales) {
+    #     range_width <- function(vec) max(vec) - min(vec)
+    #     org_diff_width <- range_width(ba_obj$data$diff)
+    #     org_mean_width <- range_width(ba_obj$data$mean)
+    #     custom_limits <- ggplot2::lims(
+    #         x = c(-0.5,0.5)*org_mean_width,
+    #         y = c(-0.5,0.5)*org_diff_width
+    #     )
+    # } else {
+    #     custom_limits <- NULL
+    # }
 
 }
 
