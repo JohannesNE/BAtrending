@@ -24,7 +24,7 @@ test_that("Ratio BA plot w CI", {
 })
 
 test_that("normalized log plot w ci", {
-        test_plot <- plot_normalized_log_BA(comp_co_log_w_ci)
+        test_plot <- plot_BA_normalized_log(comp_co_log_w_ci)
     expect_doppelganger("normalized log plot w ci", test_plot)
 })
 
@@ -53,4 +53,9 @@ test_that("Add manual BA geom, Ratio w CI", {
         )
 
     expect_doppelganger("Manual BA, Ratio w CI", test_plot)
+})
+
+test_that("Standard residuals plot", {
+    test_plot <- plot_BA_residuals(comp_co)
+    expect_doppelganger("Standard residuals plot", test_plot)
 })

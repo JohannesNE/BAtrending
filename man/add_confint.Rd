@@ -13,8 +13,7 @@ add_confint(ba_obj, level = 0.95, nsim = 1999, .progress = "txt")
 
 \item{nsim}{Number of bootstrap samples}
 
-\item{.progress}{see `?lme4::bootMer()`
-``}
+\item{.progress}{see `?lme4::bootMer()`}
 }
 \value{
 BA analysis object (`x`) with added confidence intervals

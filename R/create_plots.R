@@ -166,7 +166,7 @@ add_BA_stats_geom_manual <- function(bias, loa.lwr, loa.upr,
 #' plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE))
 #' 
 #' @export
-plot_normalized_log_BA <- function(ba_obj, show_subject_legend = FALSE) {
+plot_BA_normalized_log <- function(ba_obj, show_subject_legend = FALSE) {
     assert_BA_obj(ba_obj)
     ba_obj_name <- deparse(substitute(ba_obj))
 
@@ -258,10 +258,9 @@ To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
 #' @param keep_original_scale Plot the residuals on a plane with the scale of the original data.
 #' 
 #' @importFrom ggplot2 aes
-#' @importFrom rlang .data
 #' 
 #' @export
-plot_residuals <- function(ba_obj, show_subject_legend = FALSE,
+plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
     keep_original_scale = TRUE,
     normalize_log_loa = FALSE,
     exponentiate = FALSE,
@@ -298,6 +297,25 @@ plot_residuals <- function(ba_obj, show_subject_legend = FALSE,
         create_axis_labels(ba_obj = ba_obj, use_non_log_x_values = use_non_log_x_values, exponentiate = exponentiate) +
         custom_limits + 
         theme_ba()
+}
+
+
+#' Plot all plots in Bland Altman analysis.
+#'
+#' @inheritParams plot_BA
+#' 
+#' @importFrom ggplot2 aes
+plot_BA_complete <- function(
+    ba_obj,
+    show_subject_legend = FALSE,
+    keep_original_scale = TRUE,
+    normalize_log_loa = FALSE,
+    exponentiate = FALSE,
+    use_non_log_x_values = TRUE
+) {
+    assert_BA_obj(ba_obj)
+    
+
 }
 
 # Helper functions for plots

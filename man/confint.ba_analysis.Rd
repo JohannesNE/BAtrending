@@ -13,8 +13,7 @@
 
 \item{nsim}{Number of bootstrap samples}
 
-\item{.progress}{see `?lme4::bootMer()`
-``}
+\item{.progress}{see `?lme4::bootMer()`}
 }
 \value{
 Matrix of bootstrap confidence intervals for BA statistics.
