@@ -4,12 +4,18 @@
 \alias{plot_BA_normalized_log}
 \title{Plot BA estimates from log transformed data on raw data.}
 \usage{
-plot_BA_normalized_log(ba_obj, show_subject_legend = FALSE)
+plot_BA_normalized_log(
+  ba_obj,
+  show_subject_legend = FALSE,
+  fix_aspect_ratio = FALSE
+)
 }
 \arguments{
 \item{ba_obj}{BA analysis object}
 
 \item{show_subject_legend}{Show legend for subjects}
+
+\item{fix_aspect_ratio}{Use aspect ratio of 1 between X and Y axis (sets `coord_fixed()`)}
 }
 \value{
 Bland Altman style plot with relative differences plotted on absolute differences.

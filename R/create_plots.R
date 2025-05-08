@@ -1,6 +1,7 @@
 #' Create Bland Altman Plot
 #'
 #' @param ba_obj BA analysis object
+#' @param fix_aspect_ratio Use aspect ratio of 1 between X and Y axis (sets `coord_fixed()`)
 #' @param show_subject_legend Show legend for subjects
 #' @param keep_log_scale Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting
 #'
@@ -11,13 +12,15 @@
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
 #' @export
-plot_BA <- function(ba_obj, show_subject_legend = FALSE,
-                    normalize_log_loa = FALSE,
+plot_BA <- function(ba_obj, 
+                    fix_aspect_ratio = FALSE,
+                    show_subject_legend = FALSE,
                     keep_log_scale = FALSE) {
     assert_BA_obj(ba_obj)
 
     data_is_log_transformed <- attr(ba_obj, "logtrans")
     if (keep_log_scale && !data_is_log_transformed) stop("Data was not log transformed by `compare_methods()`")
+    if (fix_aspect_ratio && data_is_log_transformed) warning("Cant fix aspect ratio on log transformed data")
 
     ba_obj_name <- deparse(substitute(ba_obj))
     check_CI(ba_obj, ba_obj_name)
@@ -41,13 +44,18 @@ plot_BA <- function(ba_obj, show_subject_legend = FALSE,
         BA_stats$ci.lwr <- exp(BA_stats$ci.lwr)
 
         null_value <- 1
-        y_scale = list(ggplot2::scale_y_continuous(labels = scales::label_number(accuracy = 0.01),
+        y_scale_and_coord = list(ggplot2::scale_y_continuous(labels = scales::label_number(accuracy = 0.01),
                                                    breaks = breaks_from_vec),
                        ggplot2::coord_trans(y = "log", clip = "off"))
     } else {
         exponentiated <- FALSE
         null_value <- 0
-        y_scale = NULL
+        if(fix_aspect_ratio) {
+            y_scale_and_coord <- ggplot2::coord_fixed(clip = "off")
+        } else {
+            y_scale_and_coord <- ggplot2::coord_cartesian(clip = "off")
+        }
+
     }
 
     ggplot2::ggplot(d, aes(mean, diff, color = .data[[var_names$id_col]])) +
@@ -56,7 +64,7 @@ plot_BA <- function(ba_obj, show_subject_legend = FALSE,
         add_BA_stats_geom(BA_stats, exponentiated = exponentiated, name_ref = var_names_raw$ref_col, name_alt = var_names_raw$alt_col) +
         ggplot2::geom_point(show.legend = show_subject_legend) +
         create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
-        y_scale +
+        y_scale_and_coord +
         theme_ba()
 
 
@@ -155,7 +163,11 @@ add_BA_stats_geom_manual <- function(bias, loa.lwr, loa.upr,
 #' plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE))
 #' 
 #' @export
-plot_BA_normalized_log <- function(ba_obj, show_subject_legend = FALSE) {
+plot_BA_normalized_log <- function(
+    ba_obj, 
+    show_subject_legend = FALSE,
+    fix_aspect_ratio = FALSE
+) {
     assert_BA_obj(ba_obj)
     ba_obj_name <- deparse(substitute(ba_obj))
     check_CI(ba_obj, ba_obj_name)
@@ -215,6 +227,12 @@ plot_BA_normalized_log <- function(ba_obj, show_subject_legend = FALSE) {
 
     }
 
+    if(fix_aspect_ratio) {
+        plot_coord <- ggplot2::coord_fixed(clip = "off")
+    } else {
+        plot_coord <- ggplot2::coord_cartesian(clip = "off")
+    }
+
     ggplot2::ggplot(d, aes(.data$mean, .data$diff, color = .data[[ba_obj$.var_names$id_col]])) +
         ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0)) +
         ggplot2::geom_hline(yintercept = 0, color = "gray") +
@@ -225,6 +243,7 @@ plot_BA_normalized_log <- function(ba_obj, show_subject_legend = FALSE) {
                             ({var_names$ref_col} + {var_names$alt_col}) / 2"),
                       y = glue::glue("Difference
                             {var_names$alt_col} - {var_names$ref_col}")) +
+        plot_coord + 
         theme_ba() +
         ggplot2::theme(plot.margin = ggplot2::margin(1, 8, 1, 1, unit = "lines"))
 
@@ -241,7 +260,10 @@ plot_BA_normalized_log <- function(ba_obj, show_subject_legend = FALSE) {
 #' @importFrom rlang .data
 #' 
 #' @export
-plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
+plot_BA_residuals <- function(
+    ba_obj, 
+    fix_aspect_ratio = FALSE,
+    show_subject_legend = FALSE,
     keep_log_scale = FALSE) {
     
     assert_BA_obj(ba_obj)
@@ -258,13 +280,17 @@ plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
         diff_residuals <- exp(diff_residuals)
 
         null_value <- 1
-        y_scale = list(ggplot2::scale_y_continuous(labels = scales::label_number(accuracy = 0.01),
+        y_scale_and_coord = list(ggplot2::scale_y_continuous(labels = scales::label_number(accuracy = 0.01),
                                                    breaks = breaks_from_vec),
                        ggplot2::coord_trans(y = "log"))
     } else {
         exponentiated <- FALSE
         null_value <- 0
-        y_scale = NULL
+        if(fix_aspect_ratio) {
+            y_scale_and_coord <- ggplot2::coord_fixed(clip = "off")
+        } else {
+            y_scale_and_coord <- ggplot2::coord_cartesian(clip = "off")
+        }
     }
 
     d <- ba_obj$data
@@ -274,7 +300,7 @@ plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
     ggplot2::ggplot(d, aes(mean_residuals, diff_residuals, color = .data[[ba_obj$.var_names$id_col]])) +
         ggplot2::geom_hline(yintercept = null_value, color = "gray") +
         ggplot2::geom_point(show.legend = show_subject_legend) +
-        y_scale +
+        y_scale_and_coord +
         create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
         theme_ba()
 }
@@ -287,7 +313,10 @@ plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
 #' @importFrom rlang .data
 #' 
 #' @export
-plot_BA_scatter <- function(ba_obj, show_subject_legend = FALSE,
+plot_BA_scatter <- function(
+    ba_obj, 
+    fix_aspect_ratio = FALSE,
+    show_subject_legend = FALSE,
     keep_log_scale = FALSE) {
     assert_BA_obj(ba_obj)
     
@@ -305,6 +334,8 @@ plot_BA_scatter <- function(ba_obj, show_subject_legend = FALSE,
         label_names <- var_names_raw
     }
 
+    plot_coord <- if(fix_aspect_ratio) ggplot2::coord_fixed() else NULL
+
     ggplot2::ggplot(d, aes(
             .data[[var_names_raw$ref_col]], 
             .data[[var_names_raw$alt_col]], 
@@ -312,6 +343,7 @@ plot_BA_scatter <- function(ba_obj, show_subject_legend = FALSE,
         ggplot2::geom_abline(intercept = 0, slope = 1, color = "gray") +
         ggplot2::geom_point(show.legend = show_subject_legend) +
         ggplot2::labs(x=label_names$ref_col, y=label_names$alt_col) +
+        plot_coord +
         theme_ba()
 }
 
@@ -325,6 +357,7 @@ plot_BA_scatter <- function(ba_obj, show_subject_legend = FALSE,
 #' @export
 plot_BA_combine <- function(
     ba_obj,
+    fix_aspect_ratio = FALSE,
     show_subject_legend = FALSE,
     equal_scales = TRUE,
     keep_log_scale = FALSE
@@ -333,16 +366,19 @@ plot_BA_combine <- function(
 
     # Create scatter plot
     scatter_plot <- plot_BA_scatter(ba_obj, 
+        fix_aspect_ratio,
         show_subject_legend = show_subject_legend,
         keep_log_scale = keep_log_scale) 
     
     # Create Bland Altman plot
     BA_plot <- plot_BA(ba_obj,
         show_subject_legend = show_subject_legend,
+        fix_aspect_ratio,
         keep_log_scale = keep_log_scale)
     
     # Create residuals plot
     residuals_plot <- plot_BA_residuals(ba_obj, 
+        fix_aspect_ratio,
         show_subject_legend = show_subject_legend,
         keep_log_scale = keep_log_scale)
     

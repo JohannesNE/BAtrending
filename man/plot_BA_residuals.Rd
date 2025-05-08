@@ -4,10 +4,17 @@
 \alias{plot_BA_residuals}
 \title{Plot intraindividual variation (model residuals) in differences and means.}
 \usage{
-plot_BA_residuals(ba_obj, show_subject_legend = FALSE, keep_log_scale = FALSE)
+plot_BA_residuals(
+  ba_obj,
+  fix_aspect_ratio = FALSE,
+  show_subject_legend = FALSE,
+  keep_log_scale = FALSE
+)
 }
 \arguments{
 \item{ba_obj}{BA analysis object}
+
+\item{fix_aspect_ratio}{Use aspect ratio of 1 between X and Y axis (sets `coord_fixed()`)}
 
 \item{show_subject_legend}{Show legend for subjects}
 

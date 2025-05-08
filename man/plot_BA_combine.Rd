@@ -6,6 +6,7 @@
 \usage{
 plot_BA_combine(
   ba_obj,
+  fix_aspect_ratio = FALSE,
   show_subject_legend = FALSE,
   equal_scales = TRUE,
   keep_log_scale = FALSE
@@ -13,6 +14,8 @@ plot_BA_combine(
 }
 \arguments{
 \item{ba_obj}{BA analysis object}
+
+\item{fix_aspect_ratio}{Use aspect ratio of 1 between X and Y axis (sets `coord_fixed()`)}
 
 \item{show_subject_legend}{Show legend for subjects}
 

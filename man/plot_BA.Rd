@@ -6,13 +6,15 @@
 \usage{
 plot_BA(
   ba_obj,
+  fix_aspect_ratio = FALSE,
   show_subject_legend = FALSE,
-  normalize_log_loa = FALSE,
   keep_log_scale = FALSE
 )
 }
 \arguments{
 \item{ba_obj}{BA analysis object}
+
+\item{fix_aspect_ratio}{Use aspect ratio of 1 between X and Y axis (sets `coord_fixed()`)}
 
 \item{show_subject_legend}{Show legend for subjects}
 

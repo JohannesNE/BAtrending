@@ -84,3 +84,8 @@ test_that("Combined plot with legend", {
     test_plot <- plot_BA_combine(comp_co, show_subject_legend = TRUE)
     expect_doppelganger("Combined plot with legend", test_plot)
 })
+
+test_that("Combined plot with fixed aspect ratio", {
+    test_plot <- plot_BA_combine(comp_co, fix_aspect_ratio = TRUE)
+    expect_doppelganger("Combined plot with fixed aspect ratio", test_plot)
+})
