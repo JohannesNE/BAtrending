@@ -64,3 +64,18 @@ test_that("Residuals plot on log data", {
     test_plot <- plot_BA_residuals(comp_co_log)
     expect_doppelganger("Residuals plot on log data", test_plot)
 })
+
+test_that("Combined plot with standard scale", {
+    test_plot <- plot_BA_combine(comp_co)
+    expect_doppelganger("Combined plot with standard scale", test_plot)
+})
+
+test_that("Combined plot with log scale", {
+    test_plot <- plot_BA_combine(comp_co_log, keep_log_scale = TRUE)
+    expect_doppelganger("Combined plot with log scale", test_plot)
+})
+
+test_that("Combined plot with ratio scale", {
+    test_plot <- plot_BA_combine(comp_co_log)
+    expect_doppelganger("Combined plot with ratio scale", test_plot)
+})
