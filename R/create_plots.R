@@ -238,6 +238,7 @@ plot_BA_normalized_log <- function(ba_obj, show_subject_legend = FALSE) {
 #' @inheritParams plot_BA
 #' 
 #' @importFrom ggplot2 aes
+#' @importFrom rlang .data
 #' 
 #' @export
 plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
@@ -266,13 +267,11 @@ plot_BA_residuals <- function(ba_obj, show_subject_legend = FALSE,
         y_scale = NULL
     }
 
-    d <- data.frame(
-        id = ba_obj$data[[ba_obj$.var_names$id_col]],
-        diff = diff_residuals,
-        mean = mean_residuals
-    )
+    d <- ba_obj$data
+    d$mean_residuals <- mean_residuals
+    d$diff_residuals <- diff_residuals
 
-    ggplot2::ggplot(d, aes(mean, diff, color = id)) +
+    ggplot2::ggplot(d, aes(mean_residuals, diff_residuals, color = .data[[ba_obj$.var_names$id_col]])) +
         ggplot2::geom_hline(yintercept = null_value, color = "gray") +
         ggplot2::geom_point(show.legend = show_subject_legend) +
         y_scale +

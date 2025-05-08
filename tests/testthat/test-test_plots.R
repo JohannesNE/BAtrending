@@ -79,3 +79,8 @@ test_that("Combined plot with ratio scale", {
     test_plot <- plot_BA_combine(comp_co_log)
     expect_doppelganger("Combined plot with ratio scale", test_plot)
 })
+
+test_that("Combined plot with legend", {
+    test_plot <- plot_BA_combine(comp_co, show_subject_legend = TRUE)
+    expect_doppelganger("Combined plot with legend", test_plot)
+})

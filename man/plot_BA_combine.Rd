@@ -8,7 +8,6 @@ plot_BA_combine(
   ba_obj,
   show_subject_legend = FALSE,
   equal_scales = TRUE,
-  normalize_log_loa = FALSE,
   keep_log_scale = FALSE
 )
 }
