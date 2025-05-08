@@ -43,7 +43,7 @@ plot_BA <- function(ba_obj, show_subject_legend = FALSE,
         null_value <- 1
         y_scale = list(ggplot2::scale_y_continuous(labels = scales::label_number(accuracy = 0.01),
                                                    breaks = breaks_from_vec),
-                       ggplot2::coord_trans(y = "log"))
+                       ggplot2::coord_trans(y = "log", clip = "off"))
     } else {
         exponentiated <- FALSE
         null_value <- 0
@@ -324,7 +324,7 @@ plot_BA_scatter <- function(ba_obj, show_subject_legend = FALSE,
 #' @param equal_scales Plot the residuals on a plane with the scale of the original data.
 #' 
 #' @export
-plot_BA_complete <- function(
+plot_BA_combine <- function(
     ba_obj,
     show_subject_legend = FALSE,
     equal_scales = TRUE,
@@ -340,6 +340,7 @@ plot_BA_complete <- function(
     
     # Create Bland Altman plot
     if (normalize_log_loa) {
+        # TODO Should probably not be included in the combined plot
         BA_plot <- plot_BA_normalized_log(ba_obj, show_subject_legend = show_subject_legend)
     } else {
         BA_plot <- plot_BA(ba_obj,
@@ -353,8 +354,36 @@ plot_BA_complete <- function(
         keep_log_scale = keep_log_scale)
     
     if (equal_scales) {
-        # TODO set scales for residual plot
-    }
+        ratio_scale <- attr(ba_obj, "logtrans") && !keep_log_scale
+
+        # Find limits of BA_plot
+        BA_plot_build <- ggplot2::ggplot_build(BA_plot)
+        
+        # Data Ranges
+        # y_data_range <- BA_plot_build$layout$panel_scales_y[[1]]$range$range 
+        # x_data_range <- BA_plot_build$layout$panel_scales_x[[1]]$range$range 
+
+        # Panel limits
+        y_panel_limits <- BA_plot_build$layout$panel_params[[1]]$y.range
+        x_panel_limits <- BA_plot_build$layout$panel_params[[1]]$x.range
+        
+        if(ratio_scale) {
+            y_scale <- ggplot2::scale_y_continuous(
+                limits = exp(y_panel_limits), 
+                expand = c(0,0),
+                labels = scales::label_number(accuracy = 0.01),
+                breaks = breaks_from_vec
+            )
+        } else {
+            y_scale <- ggplot2::scale_y_continuous(limits = y_panel_limits, expand = c(0,0))
+        }
+
+        # Set scales for residual plot
+        residuals_plot <- residuals_plot + 
+            ggplot2::scale_x_continuous(limits = x_panel_limits - mean(x_panel_limits, expand = c(0,0))) + 
+            y_scale
+
+        }
     
     # Combine plots
     patchwork::wrap_plots(scatter_plot, BA_plot, residuals_plot)
