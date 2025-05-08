@@ -328,7 +328,6 @@ plot_BA_combine <- function(
     ba_obj,
     show_subject_legend = FALSE,
     equal_scales = TRUE,
-    normalize_log_loa = FALSE,
     keep_log_scale = FALSE
     ) {
     assert_BA_obj(ba_obj)
@@ -339,14 +338,9 @@ plot_BA_combine <- function(
         keep_log_scale = keep_log_scale) 
     
     # Create Bland Altman plot
-    if (normalize_log_loa) {
-        # TODO Should probably not be included in the combined plot
-        BA_plot <- plot_BA_normalized_log(ba_obj, show_subject_legend = show_subject_legend)
-    } else {
-        BA_plot <- plot_BA(ba_obj,
-            show_subject_legend = show_subject_legend,
-            keep_log_scale = keep_log_scale)
-    }
+    BA_plot <- plot_BA(ba_obj,
+        show_subject_legend = show_subject_legend,
+        keep_log_scale = keep_log_scale)
     
     # Create residuals plot
     residuals_plot <- plot_BA_residuals(ba_obj, 
@@ -386,22 +380,8 @@ plot_BA_combine <- function(
         }
     
     # Combine plots
-    patchwork::wrap_plots(scatter_plot, BA_plot, residuals_plot)
+    patchwork::wrap_plots(scatter_plot, BA_plot, residuals_plot, guides = "collect")
     
-
-    # # Find range of original BA plot
-    # if (equal_scales) {
-    #     range_width <- function(vec) max(vec) - min(vec)
-    #     org_diff_width <- range_width(ba_obj$data$diff)
-    #     org_mean_width <- range_width(ba_obj$data$mean)
-    #     custom_limits <- ggplot2::lims(
-    #         x = c(-0.5,0.5)*org_mean_width,
-    #         y = c(-0.5,0.5)*org_diff_width
-    #     )
-    # } else {
-    #     custom_limits <- NULL
-    # }
-
 }
 
 # Helper functions for plots
