@@ -9,7 +9,8 @@ plot_BA_combine(
   fix_aspect_ratio = FALSE,
   show_subject_legend = FALSE,
   equal_scales = TRUE,
-  keep_log_scale = FALSE
+  keep_log_scale = FALSE,
+  return_as_list = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ plot_BA_combine(
 \item{equal_scales}{Plot the residuals on a plane with the scale of the original data.}
 
 \item{keep_log_scale}{Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting}
+
+\item{return_as_list}{Return the three plots in a list. If `FALSE`, the plots are combined using {patchwork}.}
 }
 \description{
 Creates a scatter plot, a standard Bland Altman plot and a residuals plot for assessing trending ability.

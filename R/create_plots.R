@@ -353,6 +353,7 @@ plot_BA_scatter <- function(
 #'
 #' @inheritParams plot_BA
 #' @param equal_scales Plot the residuals on a plane with the scale of the original data.
+#' @param return_as_list Return the three plots in a list. If `FALSE`, the plots are combined using {patchwork}.
 #' 
 #' @export
 plot_BA_combine <- function(
@@ -360,7 +361,8 @@ plot_BA_combine <- function(
     fix_aspect_ratio = FALSE,
     show_subject_legend = FALSE,
     equal_scales = TRUE,
-    keep_log_scale = FALSE
+    keep_log_scale = FALSE,
+    return_as_list = FALSE
     ) {
     assert_BA_obj(ba_obj)
 
@@ -415,7 +417,11 @@ plot_BA_combine <- function(
         }
     
     # Combine plots
-    patchwork::wrap_plots(scatter_plot, BA_plot, residuals_plot, guides = "collect")
+    if (return_as_list) {
+        list(scatter_plot = scatter_plot, BA_plot = BA_plot, residuals_plot = residuals_plot)
+    } else {
+        patchwork::wrap_plots(scatter_plot, BA_plot, residuals_plot, guides = "collect")
+    }
     
 }
 

@@ -89,3 +89,9 @@ test_that("Combined plot with fixed aspect ratio", {
     test_plot <- plot_BA_combine(comp_co, fix_aspect_ratio = TRUE)
     expect_doppelganger("Combined plot with fixed aspect ratio", test_plot)
 })
+
+test_that("Combined plot can return list", {
+    test_plot_list <- plot_BA_combine(comp_co, return_as_list = TRUE)
+    expect_type(test_plot_list, "list")
+    expect_named(test_plot_list, c("scatter_plot", "BA_plot", "residuals_plot"))
+})
