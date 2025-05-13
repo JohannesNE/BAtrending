@@ -1,0 +1,17 @@
+paperCit <- bibentry(
+  bibtype = "Article",
+  title   = "BATrending paper",
+  author  = c(
+    person("YourFirstName", "YourLastName", role = "aut"),
+    person("CoauthorFirstName", "CoauthorLastName", role = "aut")
+    # Add more authors as needed
+  ),
+  journal = "Journal of Important Research", 
+  year    = "2023",
+  volume  = "10",
+  number  = "2",
+  pages   = "123--456",
+  doi     = "10.xxxx/your.paper.doi.here",
+
+  footer  = 'Please also cite the ‘lme4’ package, upon which ‘BAtrending’ relies heavily. See `citation("lme4")`.'
+)
