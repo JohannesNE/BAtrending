@@ -7,3 +7,5 @@
 tmp_scripts
 inst/doc
 **/.quarto/
+README.html
+*_cache/

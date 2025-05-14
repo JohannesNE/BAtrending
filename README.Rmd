@@ -1,0 +1,67 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# BAtrending
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+A package for conveniently conducting a Bland-Altman including assessment of trending ability.
+
+## Installation
+
+You can install BAtrending from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("JohannesNE/BAtrending")
+```
+
+or 
+
+``` r
+devtools::install_github("JohannesNE/BAtrending")
+```
+
+## Example
+
+BAtrending package includes a small sample dataset, `CO`. It contains paired measurements of cardiac output (CO) with two methods: radionuclide ventriculography (rv) and impedance cardiography (ic). The dataset was published in [Bland JM, Altman DG. (1999) Measuring agreement in method comparison studies. Statistical Methods in Medical Research 8, 135-160](https://doi.org/10.1177/096228029900800204).
+
+The `CO` dataset has 60 measurements in 12 subjects.
+
+```{r example, cache = TRUE}
+library(BAtrending)
+
+compare_CO <- compare_methods(CO, 
+                              ref_col = "rv", 
+                              alt_col = "ic", 
+                              id_col = "sub")
+# Bootstrap confidence intervals
+compare_CO <- add_confint(compare_CO)
+
+plot_BA_combine(compare_CO, fix_aspect_ratio = TRUE)
+```
+
+The object (`compare_CO`) returned by `compare_methods()` contains a number of parameters from both the standard Bland-Altman analysis and for assessing trending ability. The `print()` method gives an overview: 
+
+```{r, R.options = list(width = 300)}
+compare_CO
+```
+
+## Citation
+
+```{r, results = 'asis'}
+citation("BAtrending")
+```
