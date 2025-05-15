@@ -26,6 +26,8 @@ Bland Altman analysis object (of class ba_analysis)
 Compare methods
 }
 \examples{
-compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub")
+data(CO)
+compare_methods(CO, ref_col = rv, alt_col = ic, id_col = sub)
+compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub") # also works
 
 }

@@ -5,6 +5,17 @@ test_that("compare_methods works", {
     expect_equal(comp_tmp$BA_stats$sd.total, 1.021, tolerance=1e-3)
 })
 
+test_that("compare_methods uses NSE", {
+    set.seed(1)
+    comp_tmp <- compare_methods(CO, ic, rv, id_col = sub)
+    expect_equal(comp_tmp$BA_stats$bias, 0.704, tolerance=1e-3)
+    expect_equal(comp_tmp$BA_stats$sd.total, 1.021, tolerance=1e-3)
+})
+
+test_that("compare_methods throws appropriate error", {
+    expect_error(compare_methods(CO, CO, rv, id_col = sub), "The following columns are missing from df: CO")
+})
+
 test_that("confint works (not testing accuracy)", {
     set.seed(1)
     comp_co_w_ci_tmp <- suppressMessages(add_confint(comp_co, nsim = 100, .progress = "none"))
@@ -28,3 +39,4 @@ test_that("gen_ba_stats_df works with ci", {
     expect_equal(stats_w_ci$est[stats_w_ci$stat == "bias"], 0.704521)
     expect_equal(stats_w_ci$ci.upr[stats_w_ci$stat == "loa.upr"], 3.68674, tolerance = 1e-4)
 })
+

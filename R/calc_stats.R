@@ -13,34 +13,50 @@
 #' @export
 #'
 #' @examples
-#' compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub")
+#' data(CO)
+#' compare_methods(CO, ref_col = rv, alt_col = ic, id_col = sub)
+#' compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub") # also works
 #' 
 compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE) {
   if (!is.data.frame(df)) stop("df must be of class data.frame")
+  
+  # Capture column names using rlang for NSE
+  # This allows ref_col, alt_col, id_col to be passed as unquoted names or strings
+  ref_col_name <- rlang::as_name(rlang::enquo(ref_col))
+  alt_col_name <- rlang::as_name(rlang::enquo(alt_col))
+  id_col_name <- rlang::as_name(rlang::enquo(id_col))
+
+  # Check if columns exist in the dataframe
+  required_cols <- c(ref_col_name, alt_col_name, id_col_name)
+  missing_cols <- setdiff(required_cols, names(df))
+  if (length(missing_cols) > 0) {
+    stop(paste("The following columns are missing from df:", paste(missing_cols, collapse = ", ")))
+  }
 
   calc_mean_diff <- function(x_df){
-    x_df$diff <- x_df[[alt_col]] - x_df[[ref_col]]
-    x_df$mean <- (x_df[[alt_col]] + x_df[[ref_col]]) / 2
+    x_df$diff <- x_df[[alt_col_name]] - x_df[[ref_col_name]]
+    x_df$mean <- (x_df[[alt_col_name]] + x_df[[ref_col_name]]) / 2
     x_df
   }
 
   # Convert id to factor
-  df[[id_col]] <- factor(df[[id_col]])
+  df[[id_col_name]] <- factor(df[[id_col_name]])
 
   non_log_df <- df
   non_log_df <- calc_mean_diff(non_log_df)
 
   log_df <- df
-  log_df[[ref_col]] <- log(df[[ref_col]])
-  log_df[[alt_col]] <- log(df[[alt_col]])
+  log_df[[ref_col_name]] <- log(df[[ref_col_name]])
+  log_df[[alt_col_name]] <- log(df[[alt_col_name]])
   log_df <- calc_mean_diff(log_df)
 
-  df <- if (logtrans) log_df else non_log_df
+  # The data frame used for the main model
+  main_df <- if (logtrans) log_df else non_log_df
 
-  diff_model <- lme4::lmer(stats::formula(paste0("diff ~ 1 + (1 | ", id_col, ")")),
-                           REML = REML, data = df)
+  diff_model <- lme4::lmer(stats::formula(paste0("diff ~ 1 + (1 | ", id_col_name, ")")),
+                           REML = REML, data = main_df)
   
-  mean_model <- lme4::lmer(stats::formula(paste0("mean ~ 1 + (1 | ", id_col, ")")),
+  mean_model <- lme4::lmer(stats::formula(paste0("mean ~ 1 + (1 | ", id_col_name, ")")),
                            REML = REML, 
                            data = non_log_df
                           )
@@ -50,27 +66,27 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
   mean_stats <- calc_BA_stats_from_model(mean_model, incl_loa = FALSE)
 
   derived_BA_stats <- calc_derived_stats(BA_stats,
-                                         mean_val = mean(df$mean),
+                                         mean_val = mean(main_df$mean),
                                          log = logtrans)
 
   BA_stats <- c(BA_stats, derived_BA_stats)
 
   structure(
     list(
-    data = df,
+    data = main_df,
     diff_model = diff_model,
     mean_model = mean_model,
     BA_stats = as.list(BA_stats),
     mean_stats = as.list(mean_stats),
     .var_names = list(
-      ref_col = ifelse(logtrans, glue::glue("log({ref_col})"), ref_col),
-      alt_col = ifelse(logtrans, glue::glue("log({alt_col})"), alt_col),
-      id_col = id_col
+      ref_col = ifelse(logtrans, glue::glue("log({ref_col_name})"), ref_col_name),
+      alt_col = ifelse(logtrans, glue::glue("log({alt_col_name})"), alt_col_name),
+      id_col = id_col_name
     ),
     .var_names_raw = list(
-      ref_col = ref_col,
-      alt_col = alt_col,
-      id_col = id_col
+      ref_col = ref_col_name,
+      alt_col = alt_col_name,
+      id_col = id_col_name
     ),
     .non_log_data = non_log_df
   ),
