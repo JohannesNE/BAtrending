@@ -149,13 +149,6 @@
 <text x='143.12' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>7</text>
 <text x='95.26' y='552.23' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='8.67px' lengthAdjust='spacingAndGlyphs'>ic</text>
 <text transform='translate(16.57,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='10.00px' lengthAdjust='spacingAndGlyphs'>rv</text>
-</g>
-<defs>
-  <clipPath id='cpMjEyLjU0fDMzNy41MXwzNC4xMnw1MjcuMDE='>
-    <rect x='212.54' y='34.12' width='124.98' height='492.89' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpMjEyLjU0fDMzNy41MXwzNC4xMnw1MjcuMDE=)'>
 <polyline points='212.54,469.39 337.51,469.39 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='212.54,365.39 337.51,365.39 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='212.54,261.40 337.51,261.40 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
@@ -234,8 +227,6 @@
 <circle cx='254.84' cy='261.40' r='1.95' style='stroke-width: 0.71; stroke: #FF64B0; fill: #FF64B0;' />
 <circle cx='259.97' cy='292.60' r='1.95' style='stroke-width: 0.71; stroke: #FF64B0; fill: #FF64B0;' />
 <circle cx='265.09' cy='303.00' r='1.95' style='stroke-width: 0.71; stroke: #FF64B0; fill: #FF64B0;' />
-</g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='207.16' y='472.69' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='8.54px' lengthAdjust='spacingAndGlyphs'>-1</text>
 <text x='207.16' y='368.70' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='207.16' y='264.70' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>1</text>
@@ -248,13 +239,6 @@
 <text x='275.02' y='565.19' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='57.02px' lengthAdjust='spacingAndGlyphs'>(ic + rv) / 2</text>
 <text transform='translate(180.18,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='54.70px' lengthAdjust='spacingAndGlyphs'>Difference</text>
 <text transform='translate(193.14,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='29.33px' lengthAdjust='spacingAndGlyphs'>rv - ic</text>
-</g>
-<defs>
-  <clipPath id='cpMzkyLjMwfDUxNy4yOHwzNC4xMnw1MjcuMDE='>
-    <rect x='392.30' y='34.12' width='124.98' height='492.89' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpMzkyLjMwfDUxNy4yOHwzNC4xMnw1MjcuMDE=)'>
 <polyline points='392.30,469.39 517.28,469.39 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='392.30,365.39 517.28,365.39 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='392.30,261.40 517.28,261.40 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
@@ -324,8 +308,6 @@
 <circle cx='450.23' cy='338.91' r='1.95' style='stroke-width: 0.71; stroke: #FF64B0; fill: #FF64B0;' />
 <circle cx='454.89' cy='370.11' r='1.95' style='stroke-width: 0.71; stroke: #FF64B0; fill: #FF64B0;' />
 <circle cx='459.55' cy='380.51' r='1.95' style='stroke-width: 0.71; stroke: #FF64B0; fill: #FF64B0;' />
-</g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='386.92' y='472.69' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='8.54px' lengthAdjust='spacingAndGlyphs'>-1</text>
 <text x='386.92' y='368.70' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='386.92' y='264.70' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>1</text>

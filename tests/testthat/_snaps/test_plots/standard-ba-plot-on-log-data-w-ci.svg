@@ -18,13 +18,6 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-</g>
-<defs>
-  <clipPath id='cpNTYuODB8NzA4LjY2fDI2LjE1fDUzMi40OQ=='>
-    <rect x='56.80' y='26.15' width='651.87' height='506.34' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpNTYuODB8NzA4LjY2fDI2LjE1fDUzMi40OQ==)'>
 <polyline points='56.80,528.92 708.66,528.92 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='56.80,433.41 708.66,433.41 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='56.80,337.90 708.66,337.90 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
@@ -107,8 +100,6 @@
 <circle cx='277.47' cy='248.64' r='1.95' style='stroke-width: 0.71; stroke: #FF64B0; fill: #FF64B0;' />
 <circle cx='304.20' cy='279.00' r='1.95' style='stroke-width: 0.71; stroke: #FF64B0; fill: #FF64B0;' />
 <circle cx='330.93' cy='290.08' r='1.95' style='stroke-width: 0.71; stroke: #FF64B0; fill: #FF64B0;' />
-</g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='51.42' y='532.23' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='21.88px' lengthAdjust='spacingAndGlyphs'>-0.50</text>
 <text x='51.42' y='436.71' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='21.88px' lengthAdjust='spacingAndGlyphs'>-0.25</text>
 <text x='51.42' y='341.20' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>0.00</text>
