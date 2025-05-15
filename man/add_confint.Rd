@@ -4,7 +4,13 @@
 \alias{add_confint}
 \title{Add confidence intervals to BA analysis object. The confidence intervals are calculated with a percentile bootstrap (see `?lme4::confint.merMod` for details).}
 \usage{
-add_confint(ba_obj, level = 0.95, nsim = 1999, .progress = "txt")
+add_confint(
+  ba_obj,
+  level = 0.95,
+  nsim = 1999,
+  .progress = "txt",
+  PBargs = list(style = 3)
+)
 }
 \arguments{
 \item{ba_obj}{BA analysis object}
@@ -13,7 +19,7 @@ add_confint(ba_obj, level = 0.95, nsim = 1999, .progress = "txt")
 
 \item{nsim}{Number of bootstrap samples}
 
-\item{.progress}{see `?lme4::bootMer()`}
+\item{.progress, PBargs}{see `?lme4::bootMer()`}
 }
 \value{
 BA analysis object (`x`) with added confidence intervals

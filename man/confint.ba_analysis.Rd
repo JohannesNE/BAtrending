@@ -4,7 +4,13 @@
 \alias{confint.ba_analysis}
 \title{Calculate confidence interval}
 \usage{
-\method{confint}{ba_analysis}(ba_obj, level = 0.95, nsim = 1999, .progress = "txt")
+\method{confint}{ba_analysis}(
+  ba_obj,
+  level = 0.95,
+  nsim = 1999,
+  .progress = "txt",
+  PBargs = list(style = 3)
+)
 }
 \arguments{
 \item{ba_obj}{BA analysis object}
@@ -13,7 +19,7 @@
 
 \item{nsim}{Number of bootstrap samples}
 
-\item{.progress}{see `?lme4::bootMer()`}
+\item{.progress, PBargs}{see `?lme4::bootMer()`}
 }
 \value{
 Matrix of bootstrap confidence intervals for BA statistics.
