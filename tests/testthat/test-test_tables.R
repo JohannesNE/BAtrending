@@ -16,3 +16,7 @@ test_that("BA_table works without CI", {
 test_that("BA_table works with CI", {
   expect_snapshot(BA_table(comp_co_w_ci))
 })
+
+test_that("BA_table works with log and CI", {
+  expect_snapshot(BA_table(comp_co_log_w_ci))
+})

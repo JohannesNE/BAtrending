@@ -4,7 +4,7 @@
 \alias{BA_table}
 \title{Create a table with the results of the Bland-Altman analysis}
 \usage{
-BA_table(ba_obj, decimals = 2, decimals_pct = 1)
+BA_table(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale = FALSE)
 }
 \arguments{
 \item{ba_obj}{An object created with `BAtrending::compare_methods()`.}
@@ -12,6 +12,8 @@ BA_table(ba_obj, decimals = 2, decimals_pct = 1)
 \item{decimals}{A single numeric value specifying the number of decimal places for estimates and confidence intervals.}
 
 \item{decimals_pct}{A single numeric value specifying the number of decimal places for percentage statistics.}
+
+\item{keep_log_scale}{Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated.}
 }
 \value{
 A {tinytable} table of the estimates from the Bland-Altman analysis.
