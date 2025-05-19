@@ -20,7 +20,9 @@ Imports:
     rlang,
     dplyr,
     scales,
-    patchwork
+    patchwork,
+    tinytable,
+    cli
 Suggests: 
     vdiffr,
     testthat (>= 3.0.0),
