@@ -9,7 +9,6 @@ ba_stat_labels <- c(
   loa.lwr  = "\U2003 Lower limit",
   percentage.error = "Percentage error",
   trending.precision = "Trending precision (95%)",
-  percentage.trending.precision = "Percentage trending precision (95%)",
   change.loa = "Change limits of agreement (95%)"
   
 )
@@ -46,7 +45,7 @@ BA_table <- function(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale = FA
   ba_est_full$est_ci <- format_est_ci(ba_est_full$est,
     lwr = ba_est_full$ci.lwr,
     upr = ba_est_full$ci.upr,
-    fmt_pct = ba_est_full$stat %in% c("percentage.error", "percentage.trending.precision"),
+    fmt_pct = ba_est_full$stat %in% c("percentage.error"),
     decimals = decimals, decimals_pct = decimals_pct,
     exponentiate = exponentiate
   )

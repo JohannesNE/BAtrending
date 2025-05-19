@@ -224,19 +224,16 @@ calc_derived_stats <- function(ba_stats, mean_val, log = FALSE) {
 
   if (log) {
     # Percentage error is nonsensical for log transformed data
-    percentage.error <- NULL
-    percentage.trending.precision <- NULL
+    percentage.error <- NA
   } else {
     percentage.error <- 2*ba_stats["sd.total"] / mean_val
-    percentage.trending.precision <- trending.precision / mean_val
   }
 
 
   c(
     change.loa = unname(change.loa),
     trending.precision = unname(trending.precision),
-    percentage.error = unname(percentage.error),
-    percentage.trending.precision = unname(percentage.trending.precision)
+    percentage.error = unname(percentage.error)
 
   )
 }

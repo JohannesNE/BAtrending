@@ -55,19 +55,7 @@ print.ba_analysis <- function(ba_obj) {
     cat("\n")
     cat("--- Trending ---\n")
     format_line_stat("Trending precicion (95%)", "trending.precision")
-    format_line_stat("Perc. trending precision (95%)", "percentage.trending.precision")
-    cat("\n")
-    cat("Limits of agreement for changes (95%)\n")
-    format_line("\u251C Upper limit",
-                ba_obj$BA_stats[["change.loa"]],
-                ba_obj$BA_stats_ci[["change.loa"]][1],
-                ba_obj$BA_stats_ci[["change.loa"]][2]
-                )
-    format_line("\u2514 Lower limit",
-        -1*ba_obj$BA_stats[["change.loa"]],
-        -1*ba_obj$BA_stats_ci[["change.loa"]][2],
-        -1*ba_obj$BA_stats_ci[["change.loa"]][1]
-    )
-
+    format_line_stat("Change LoA [±] (95%)", "change.loa")
+    
     invisible(ba_obj)
 }

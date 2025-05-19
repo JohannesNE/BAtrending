@@ -7,11 +7,11 @@ test_that("compare_methods works", {
 })
 
 test_that("gen_ba_stats_df works without ci", {
-    stats_wo_ci <- gen_ba_stats_df(comp_co_log)
+    stats_wo_ci <- BAtrending:::gen_ba_stats_df(comp_co_log)
 
     expect_equal(stats_wo_ci$est[stats_wo_ci$stat == "bias"], 0.1454, tolerance = 1e-3)
     expect_equal(stats_wo_ci$ci.upr[stats_wo_ci$stat == "bias"], NA_real_)
-    expect_equal(nrow(stats_wo_ci), 9)
+    expect_equal(nrow(stats_wo_ci), 10)
 
 })
 

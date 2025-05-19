@@ -21,9 +21,5 @@
       
       --- Trending ---
       Trending precicion (95%)       :   0.827  
-      Perc. trending precision (95%) :   0.165  
-      
-      Limits of agreement for changes (95%)
-      ├ Upper limit                  :   1.169  
-      └ Lower limit                  :  -1.169  
+      Change LoA [±] (95%)           :   1.169  
 
