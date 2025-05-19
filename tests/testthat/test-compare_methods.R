@@ -13,7 +13,7 @@ test_that("compare_methods uses NSE", {
 })
 
 test_that("compare_methods throws appropriate error", {
-    expect_error(compare_methods(CO, CO, rv, id_col = sub), "The following columns are missing from df: CO")
+    expect_error(compare_methods(CO, CO, rv, id_col = sub), 'The column "CO" is missing from `df`')
 })
 
 test_that("confint works (not testing accuracy)", {

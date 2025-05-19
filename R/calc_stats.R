@@ -18,7 +18,11 @@
 #' compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub") # also works
 #' 
 compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE) {
-  if (!is.data.frame(df)) stop("df must be of class data.frame")
+  if (!is.data.frame(df)) cli::cli_abort("{.arg df} must be of class {.cls data.frame}.")
+  
+  if (missing(ref_col)) cli::cli_abort("{.arg ref_col} must be supplied.")
+  if (missing(alt_col)) cli::cli_abort("{.arg alt_col} must be supplied.")
+  if (missing(id_col)) cli::cli_abort("{.arg id_col} must be supplied.")
   
   # Capture column names using rlang for NSE
   # This allows ref_col, alt_col, id_col to be passed as unquoted names or strings
@@ -30,7 +34,7 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
   required_cols <- c(ref_col_name, alt_col_name, id_col_name)
   missing_cols <- setdiff(required_cols, names(df))
   if (length(missing_cols) > 0) {
-    stop(paste("The following columns are missing from df:", paste(missing_cols, collapse = ", ")))
+    cli::cli_abort("{cli::qty(missing_cols)} The column{?s} {.val {missing_cols}} {?is/are} missing from {.var df}.")
   }
 
   calc_mean_diff <- function(x_df){

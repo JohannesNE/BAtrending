@@ -19,8 +19,8 @@ plot_BA <- function(ba_obj,
     assert_BA_obj(ba_obj)
 
     data_is_log_transformed <- attr(ba_obj, "logtrans")
-    if (keep_log_scale && !data_is_log_transformed) stop("Data was not log transformed by `compare_methods()`")
-    if (fix_aspect_ratio && data_is_log_transformed) warning("Cant fix aspect ratio on log transformed data")
+    if (keep_log_scale && !data_is_log_transformed) cli::cli_abort("Data was not log transformed by {.fn compare_methods()}.")
+    if (fix_aspect_ratio && data_is_log_transformed) cli::cli_warn("Cant fix aspect ratio on log transformed data")
 
     ba_obj_name <- deparse(substitute(ba_obj))
     check_CI(ba_obj, ba_obj_name)
@@ -173,7 +173,7 @@ plot_BA_normalized_log <- function(
     check_CI(ba_obj, ba_obj_name)
 
     data_is_log_transformed <- attr(ba_obj, "logtrans")
-    if(!data_is_log_transformed) stop("Plotting normalized log LoA is only valid for comparisons on the log-scale")
+    if(!data_is_log_transformed) cli::cli_abort("Plotting normalized log LoA is only valid for comparisons on the log-scale")
 
     # Generate data frame with BA statistics
     BA_stats <- gen_ba_stats_df(ba_obj)
@@ -269,7 +269,7 @@ plot_BA_residuals <- function(
     assert_BA_obj(ba_obj)
 
     data_is_log_transformed <- attr(ba_obj, "logtrans")
-    if (keep_log_scale && !data_is_log_transformed) stop("Data was not log transformed by `compare_methods()`")
+    if (keep_log_scale && !data_is_log_transformed) cli::cli_abort("Data was not log transformed by {.fn compare_methods()}.")
 
     diff_residuals <- residuals(ba_obj$diff_model)
     mean_residuals <- residuals(ba_obj$mean_model)
@@ -321,7 +321,7 @@ plot_BA_scatter <- function(
     assert_BA_obj(ba_obj)
     
     data_is_log_transformed <- attr(ba_obj, "logtrans")
-    if (keep_log_scale && !data_is_log_transformed) stop("Data was not log transformed by `compare_methods()`")
+    if (keep_log_scale && !data_is_log_transformed) cli::cli_abort("Data was not log transformed by {.fn compare_methods()}.")
     
     var_names <- ba_obj$.var_names
     var_names_raw <- ba_obj$.var_names_raw
