@@ -316,9 +316,9 @@
 <text x='417.52' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='8.54px' lengthAdjust='spacingAndGlyphs'>-2</text>
 <text x='454.79' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='492.06' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>2</text>
-<text x='454.79' y='552.23' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>Mean</text>
+<text x='454.79' y='552.23' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='80.06px' lengthAdjust='spacingAndGlyphs'>Residual mean</text>
 <text x='454.79' y='565.19' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='57.02px' lengthAdjust='spacingAndGlyphs'>(ic + rv) / 2</text>
-<text transform='translate(359.94,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='54.70px' lengthAdjust='spacingAndGlyphs'>Difference</text>
+<text transform='translate(359.94,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='102.74px' lengthAdjust='spacingAndGlyphs'>Residual difference</text>
 <text transform='translate(372.90,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='29.33px' lengthAdjust='spacingAndGlyphs'>rv - ic</text>
 <text x='534.21' y='284.69' style='font-size: 12.00px; font-family: sans;' textLength='19.35px' lengthAdjust='spacingAndGlyphs'>sub</text>
 <circle cx='568.18' cy='257.31' r='1.95' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' />

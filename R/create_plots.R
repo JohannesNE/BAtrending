@@ -297,12 +297,22 @@ plot_BA_residuals <- function(
     d$mean_residuals <- mean_residuals
     d$diff_residuals <- diff_residuals
 
-    ggplot2::ggplot(d, aes(mean_residuals, diff_residuals, color = .data[[ba_obj$.var_names$id_col]])) +
+    residual_plot <- ggplot2::ggplot(d, aes(mean_residuals, diff_residuals, color = .data[[ba_obj$.var_names$id_col]])) +
         ggplot2::geom_hline(yintercept = null_value, color = "gray") +
         ggplot2::geom_point(show.legend = show_subject_legend) +
         y_scale_and_coord +
         create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
         theme_ba()
+
+    # Update x-axis label to "Residual mean"
+    current_label_x <- residual_plot$labels$x
+    residual_plot$labels$x <- sub("^M", "Residual m", current_label_x)
+
+    # Update y-axis label to "Residual difference"
+    current_label_y <- residual_plot$labels$y
+    residual_plot$labels$y <- sub("^D", "Residual d", current_label_y)
+
+    residual_plot
 }
 
 #' Make scatter plot of paired measurements in analysis.

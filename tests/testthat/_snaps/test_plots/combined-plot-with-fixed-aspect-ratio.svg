@@ -322,12 +322,12 @@
 <text x='483.86' y='277.99' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text x='483.86' y='246.09' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>2</text>
 <text x='483.86' y='214.19' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>3</text>
-<text transform='translate(456.88,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='54.70px' lengthAdjust='spacingAndGlyphs'>Difference</text>
+<text transform='translate(456.88,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='102.74px' lengthAdjust='spacingAndGlyphs'>Residual difference</text>
 <text transform='translate(469.84,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='29.33px' lengthAdjust='spacingAndGlyphs'>rv - ic</text>
 <text x='532.41' y='368.15' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='8.54px' lengthAdjust='spacingAndGlyphs'>-2</text>
 <text x='596.21' y='368.15' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='660.01' y='368.15' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>2</text>
-<text x='596.21' y='381.39' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>Mean</text>
+<text x='596.21' y='381.39' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='80.06px' lengthAdjust='spacingAndGlyphs'>Residual mean</text>
 <text x='596.21' y='394.35' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='57.02px' lengthAdjust='spacingAndGlyphs'>(ic + rv) / 2</text>
 <text x='8.31' y='185.41' style='font-size: 13.20px; font-family: sans;' textLength='215.73px' lengthAdjust='spacingAndGlyphs'>Combined plot with fixed aspect ratio</text>
 </g>

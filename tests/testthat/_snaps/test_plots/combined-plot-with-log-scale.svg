@@ -310,9 +310,9 @@
 <text x='561.77' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='8.54px' lengthAdjust='spacingAndGlyphs'>-2</text>
 <text x='614.60' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='667.43' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>2</text>
-<text x='614.60' y='552.23' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>Mean</text>
+<text x='614.60' y='552.23' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='80.06px' lengthAdjust='spacingAndGlyphs'>Residual mean</text>
 <text x='614.60' y='565.19' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='57.02px' lengthAdjust='spacingAndGlyphs'>(ic + rv) / 2</text>
-<text transform='translate(485.66,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='54.70px' lengthAdjust='spacingAndGlyphs'>Difference</text>
+<text transform='translate(485.66,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='102.74px' lengthAdjust='spacingAndGlyphs'>Residual difference</text>
 <text transform='translate(498.62,280.57) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='77.34px' lengthAdjust='spacingAndGlyphs'>log(rv) - log(ic)</text>
 <text x='8.31' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='168.04px' lengthAdjust='spacingAndGlyphs'>Combined plot with log scale</text>
 </g>
