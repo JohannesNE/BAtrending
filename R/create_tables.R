@@ -47,7 +47,8 @@ BA_table_df <- function(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale =
   ba_stat_labels_df <- data.frame(stat = names(ba_stat_labels), label = ba_stat_labels)
   ba_est <- as.data.frame(ba_obj)
 
-  ba_est_full <- dplyr::left_join(ba_stat_labels_df, ba_est, by = "stat")
+  ba_est_full <- merge(ba_stat_labels_df, ba_est, by = "stat", all.x = TRUE, sort = FALSE)
+
 
   # Format estimate and CI
   ba_est_full$est_ci <- format_est_ci(ba_est_full$est,

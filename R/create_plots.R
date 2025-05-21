@@ -7,7 +7,9 @@
 #'
 #' @returns Bland Altman plot (ggplot)
 #'
-#' @examples plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub"))
+#' @examples 
+#' ba_obj <- compare_methods(CO, ic, rv, id_col = sub)
+#' plot_BA(ba_obj)
 #'
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
@@ -73,24 +75,20 @@ plot_BA <- function(ba_obj,
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
 add_BA_stats_geom <- function(BA_stats_df, exponentiated = FALSE, name_ref = "ref", name_alt = "alt") {
-    BA_stats_df <- dplyr::mutate(
-        BA_stats_df,
-        label_w_val = if (exponentiated) {
-
+    
+    BA_stats_df$label_w_val <- if (exponentiated) {
             sprintf(
                 "%s\n(%s = %.2f \u00D7 %s)",
-                .data$label,
+                BA_stats_df$label,
                 name_alt,
-                .data$est,
+                BA_stats_df$est,
                 name_ref
             )
         } else {
             sprintf("%s (%+.2f)",
-                    .data$label,
-                    .data$est)
+                    BA_stats_df$label,
+                    BA_stats_df$est)
         }
-    )
-
 
     # Create geoms for BA estimates
     est_lines <- list(
@@ -180,14 +178,15 @@ plot_BA_normalized_log <- function(
     var_names <- ba_obj$.var_names_raw
 
     # Create labels
-    BA_stats <- dplyr::mutate(BA_stats,
-        label_w_val = sprintf("%s\n(%s = %.2f \u00D7 %s)", # unicode times
-                              .data$label,
-                              var_names$alt_col,
-                              exp(.data$est),
-                              var_names$ref_col
-                              ),
-        slope = log_estimate_to_mean_difference_slope(.data$est))
+    BA_stats$label_w_val <- sprintf(
+        "%s\n(%s = %.2f \u00D7 %s)", # unicode times
+        BA_stats$label,
+        var_names$alt_col,
+        exp(BA_stats$est),
+        var_names$ref_col
+    )
+
+    BA_stats$slope <- log_estimate_to_mean_difference_slope(BA_stats$est)
 
     est_lines <- list(
             ggplot2::geom_abline(aes(slope = .data$slope, intercept = 0),
@@ -210,10 +209,9 @@ plot_BA_normalized_log <- function(
         # Create data from sloped ribbons
         ci_shade_df <- merge(BA_stats, data.frame(x = c(min(d$mean)*0.95, max(d$mean)*1.02)))
 
-        ci_shade_df <- dplyr::mutate(ci_shade_df,
-            ci.lwr = .data$x * log_estimate_to_mean_difference_slope(.data$ci.lwr),
-            ci.upr = .data$x * log_estimate_to_mean_difference_slope(.data$ci.upr))
-
+        ci_shade_df$ci.lwr <- ci_shade_df$x * log_estimate_to_mean_difference_slope(ci_shade_df$ci.lwr)
+        ci_shade_df$ci.upr <- ci_shade_df$x * log_estimate_to_mean_difference_slope(ci_shade_df$ci.upr)
+        
         ci_shade <- ggplot2::geom_ribbon(aes(x = .data$x, ymin = .data$ci.lwr, ymax = .data$ci.upr, group = .data$stat),
                              alpha = 0.5, fill = "gray",
                              data = ci_shade_df,

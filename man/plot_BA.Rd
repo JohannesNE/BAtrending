@@ -27,6 +27,7 @@ Bland Altman plot (ggplot)
 Create Bland Altman Plot
 }
 \examples{
-plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub"))
+ba_obj <- compare_methods(CO, ic, rv, id_col = sub)
+plot_BA(ba_obj)
 
 }

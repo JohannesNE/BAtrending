@@ -18,7 +18,6 @@ Imports:
     lme4,
     stats,
     rlang,
-    dplyr,
     scales,
     patchwork,
     tinytable,
