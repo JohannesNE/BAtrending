@@ -219,7 +219,7 @@ gen_ba_stats_df <- function(ba_obj) {
 # existing statistics. CI's can also simply be rescaled.
 calc_derived_stats <- function(ba_stats, mean_val, log = FALSE) {
 
-  trending.precision <- 2 * ba_stats["sd.within"]
+  # trending.precision <- 2 * ba_stats["sd.within"]
   change.loa <- 2 * sqrt(2) * ba_stats["sd.within"]
 
   if (log) {
@@ -232,7 +232,7 @@ calc_derived_stats <- function(ba_stats, mean_val, log = FALSE) {
 
   c(
     change.loa = unname(change.loa),
-    trending.precision = unname(trending.precision),
+    # trending.precision = unname(trending.precision),
     percentage.error = unname(percentage.error)
 
   )

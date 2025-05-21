@@ -20,6 +20,5 @@
       Perc. error (95%)              :   0.407  
       
       --- Trending ---
-      Trending precicion (95%)       :   0.827  
       Change LoA [±] (95%)           :   1.169  
 

@@ -8,7 +8,7 @@ ba_stat_labels <- c(
   loa.upr  = "\U2003 Upper limit",
   loa.lwr  = "\U2003 Lower limit",
   percentage.error = "Percentage error",
-  trending.precision = "Trending precision (95%)",
+  # trending.precision = "Trending precision (95%)",
   change.loa = "Change limits of agreement (95%)"
   
 )
@@ -94,14 +94,9 @@ BA_table_tt <- function(ba_df) {
   
   tab_footnotes <- list(
     "a" = list(
-      i = which(ba_df$stat == "trending.precision"),
-      j = 1,
-      text = "Trending precision (95%) = 2 * Within subject variation (SD)."
-    ),
-    "b" = list(
       i = which(ba_df$stat == "change.loa"),
       j = 1,
-      text = "Change limits of agreement (95%) = √2 * Trending precision (95%)."
+      text = "Change limits of agreement (95%) = 2√2 * Within subject variation (SD)."
     )
   )
 

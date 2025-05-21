@@ -54,7 +54,6 @@ print.ba_analysis <- function(ba_obj) {
     format_line_stat("Perc. error (95%)", "percentage.error")
     cat("\n")
     cat("--- Trending ---\n")
-    format_line_stat("Trending precicion (95%)", "trending.precision")
     format_line_stat("Change LoA [±] (95%)", "change.loa")
     
     invisible(ba_obj)

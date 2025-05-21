@@ -24,15 +24,10 @@
       +-------------------------------------+----------+
       | Percentage error                    | 40.7 %   |
       +-------------------------------------+----------+
-      | Trending precision (95%)^a^         | ±0.83    |
-      +-------------------------------------+----------+
-      | Change limits of agreement (95%)^b^ | ±1.17    |
+      | Change limits of agreement (95%)^a^ | ±1.17    |
       +=====================================+==========+
-      | ^a^ Trending precision (95%) = 2 * Within      |
-      | subject variation (SD).                        |
-      +=====================================+==========+
-      | ^b^ Change limits of agreement (95%) = √2 *    |
-      | Trending precision (95%).                      |
+      | ^a^ Change limits of agreement (95%) = 2√2 *   |
+      | Within subject variation (SD).                 |
       +=====================================+==========+ 
 
 # BA_table works with CI
@@ -61,15 +56,10 @@
       +-------------------------------------+----------------------+
       | Percentage error                    | 40.7 [27.5; 56.5] %  |
       +-------------------------------------+----------------------+
-      | Trending precision (95%)^a^         | ±0.83 [0.66; 1.00]   |
-      +-------------------------------------+----------------------+
-      | Change limits of agreement (95%)^b^ | ±1.17 [0.93; 1.42]   |
+      | Change limits of agreement (95%)^a^ | ±1.17 [0.93; 1.42]   |
       +=====================================+======================+
-      | ^a^ Trending precision (95%) = 2 * Within subject          |
-      | variation (SD).                                            |
-      +=====================================+======================+
-      | ^b^ Change limits of agreement (95%) = √2 * Trending       |
-      | precision (95%).                                           |
+      | ^a^ Change limits of agreement (95%) = 2√2 * Within        |
+      | subject variation (SD).                                    |
       +=====================================+======================+ 
 
 # BA_table works with log and CI
@@ -98,14 +88,9 @@
       +-------------------------------------+---------------------------+
       | Percentage error                    | ---                       |
       +-------------------------------------+---------------------------+
-      | Trending precision (95%)^a^         | ⋇1.21 [1.16; 1.24]        |
-      +-------------------------------------+---------------------------+
-      | Change limits of agreement (95%)^b^ | ⋇1.30 [1.23; 1.35]        |
+      | Change limits of agreement (95%)^a^ | ⋇1.30 [1.23; 1.35]        |
       +=====================================+===========================+
-      | ^a^ Trending precision (95%) = 2 * Within subject variation     |
-      | (SD).                                                           |
-      +=====================================+===========================+
-      | ^b^ Change limits of agreement (95%) = √2 * Trending precision  |
-      | (95%).                                                          |
+      | ^a^ Change limits of agreement (95%) = 2√2 * Within subject     |
+      | variation (SD).                                                 |
       +=====================================+===========================+ 
 
