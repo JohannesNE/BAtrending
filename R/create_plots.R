@@ -123,32 +123,27 @@ add_BA_stats_geom <- function(BA_stats_df, exponentiated = FALSE, name_ref = "re
 
 #' Manually add Bland Altman geometry to plot  
 #' 
-#' @param bias,loa.lwr,loa.upr estimates to be plotted. Optionally including confidence intervals
+#' @param bias,lwr,upr estimates to be plotted. Optionally including confidence intervals
 #' as `c(est, ci.lwr, ci.upr)`.
 #' @param exponentiated Set true if estimates are exponentiated estimates from a model on log-transformed data.
 #' Treats estimates as ratios.
 #' @param name_ref,name_alt Name of reference and alternative method. Only used if `exponentiated = TRUE`
+#' @param line_labels Labels for Bias and LoA lines. Must be a named vector with names: 'bias', 'lwr', 'upr'
 #' 
 #' @export
-add_BA_stats_geom_manual <- function(bias, loa.lwr, loa.upr, 
+add_BA_stats_geom_manual <- function(bias, lwr, upr,
     exponentiated = FALSE,
     name_ref = "ref",
-    name_alt = "alt") {
-    stopifnot(
-        length(bias) == length(loa.lwr),
-        length(bias) == length(loa.upr)
-    )
+    name_alt = "alt",
+    line_labels = c(bias = "Bias", lwr = "95% LoA", upr = "95% LoA")) {
     
-    # Pad NA if there is no CI
-    if (length(bias) == 1) {
-        bias[2:3] <- NA
-        loa.lwr[2:3] <- NA
-        loa.upr[2:3] <- NA
-    }
-
-    BA_stats <- as.data.frame(rbind(bias, loa.lwr, loa.upr))
+    BA_stats <- as.data.frame(rbind(bias = bias[1:3], lwr = lwr[1:3], upr = upr[1:3]))
     names(BA_stats) <- c("est", "ci.lwr", "ci.upr")
-    BA_stats$label <- c("Bias", "95% LoA", "95% LoA")
+
+    if (!all(c("bias", "lwr", "upr") %in% names(line_labels))) {
+        cli::cli_abort("{.arg line_labels} must be a named vector with names: 'bias', 'lwr', 'upr'")
+    }
+    BA_stats$label <- line_labels[rownames(BA_stats)]
 
     add_BA_stats_geom(BA_stats, exponentiated = exponentiated, name_alt = name_alt, name_ref = name_ref)
 }
@@ -255,6 +250,7 @@ plot_BA_normalized_log <- function(
 #' Plot intraindividual variation (model residuals) in differences and means.
 #'
 #' @inheritParams plot_BA
+#' @param show_sd Mark 2 * SD (intraindividual) on the plot (analouge to 95% LoA).
 #' 
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
@@ -264,7 +260,8 @@ plot_BA_residuals <- function(
     ba_obj, 
     fix_aspect_ratio = FALSE,
     show_subject_legend = FALSE,
-    keep_log_scale = FALSE) {
+    keep_log_scale = FALSE,
+    show_sd = TRUE) {
     
     assert_BA_obj(ba_obj)
 
@@ -293,6 +290,26 @@ plot_BA_residuals <- function(
         }
     }
 
+    if (show_sd) {
+        sd.within <- c(ba_obj$BA_stats$sd.within, ba_obj$BA_stats_ci$sd.within)
+
+        if (exponentiated) {
+            upr <- exp(2 * sd.within)
+            lwr <- exp(-2 * sd.within)
+        } else{
+            upr <- 2 * sd.within
+            lwr <- -2 * sd.within
+        }
+
+        stats_geom <- add_BA_stats_geom_manual(bias = NULL, 
+            lwr = lwr, 
+            upr = upr,
+            line_labels = c(bias = "", lwr = "-2SD", upr = "+2SD")
+        )
+    } else {
+        stats_geom <- NULL
+    }
+
     d <- ba_obj$data
     d$mean_residuals <- mean_residuals
     d$diff_residuals <- diff_residuals
@@ -301,6 +318,7 @@ plot_BA_residuals <- function(
         ggplot2::geom_hline(yintercept = null_value, color = "gray") +
         ggplot2::geom_point(show.legend = show_subject_legend) +
         y_scale_and_coord +
+        stats_geom + 
         create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
         theme_ba()
 

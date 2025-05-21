@@ -8,7 +8,8 @@ plot_BA_residuals(
   ba_obj,
   fix_aspect_ratio = FALSE,
   show_subject_legend = FALSE,
-  keep_log_scale = FALSE
+  keep_log_scale = FALSE,
+  show_sd = TRUE
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ plot_BA_residuals(
 \item{show_subject_legend}{Show legend for subjects}
 
 \item{keep_log_scale}{Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting}
+
+\item{show_sd}{Mark 2 * SD (intraindividual) on the plot (analouge to 95% LoA).}
 }
 \description{
 Plot intraindividual variation (model residuals) in differences and means.
