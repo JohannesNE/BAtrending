@@ -31,6 +31,14 @@ ba_stat_labels <- c(
 BA_table <- function(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale = FALSE) {
   assert_BA_obj(ba_obj)
 
+  ba_df <- BA_table_df(ba_obj, decimals = decimals, decimals_pct = decimals_pct, keep_log_scale = keep_log_scale)
+
+  BA_table_tt(ba_df)
+}
+
+BA_table_df <- function(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale = FALSE) {
+  assert_BA_obj(ba_obj)
+
   data_is_log_transformed <- attr(ba_obj, "logtrans")
   if (keep_log_scale && !data_is_log_transformed) cli::cli_abort("Data was not log transformed by {.fn compare_methods()}.")
   exponentiate <- data_is_log_transformed && !keep_log_scale
@@ -57,21 +65,7 @@ BA_table <- function(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale = FA
     ba_est_full$est_ci
   )
 
-  loa_group_label <- list("Limits of agreement (95%)" = which(ba_est_full$stat == "loa.upr"))
-  
-  tab_footnotes <- list(
-    "a" = list(
-      i = which(ba_est_full$stat == "trending.precision"),
-      j = 1,
-      text = "Trending precision (95%) = 2 * Within subject variation (SD)."
-    ),
-    "b" = list(
-      i = which(ba_est_full$stat == "change.loa"),
-      j = 1,
-      text = "Change limits of agreement (95%) = √2 * Trending precision (95%)."
-    )
-  )
-  
+  # Add column names
   est_label <- if(exponentiate) {
     "exp(logEstimate)"
   } else {
@@ -87,13 +81,36 @@ BA_table <- function(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale = FA
   est_ci_label <- paste0(est_label, ci_label)
 
   # Select relevant variables for table
-  ba_table_df <- ba_est_full[, c("label", "est_ci")]
-  ba_table_tt <- tinytable::tt(ba_table_df, notes = tab_footnotes)
+  ba_table_df <- ba_est_full[, c("stat", "label", "est_ci")]
+  names(ba_table_df)[3] <- est_ci_label
+
+  ba_table_df
+}
+
+BA_table_tt <- function(ba_df) {
+  
+  loa_group_label <- list("Limits of agreement (95%)" = which(ba_df$stat == "loa.upr"))
+  
+  tab_footnotes <- list(
+    "a" = list(
+      i = which(ba_df$stat == "trending.precision"),
+      j = 1,
+      text = "Trending precision (95%) = 2 * Within subject variation (SD)."
+    ),
+    "b" = list(
+      i = which(ba_df$stat == "change.loa"),
+      j = 1,
+      text = "Change limits of agreement (95%) = √2 * Trending precision (95%)."
+    )
+  )
+
+  ba_df_clean <- subset(ba_df, select = -stat)
+  names(ba_df_clean)[1] <- ""
+
+  ba_table_tt <- tinytable::tt(ba_df_clean, notes = tab_footnotes)
   ba_table_tt <- tinytable::format_tt(ba_table_tt, 
-    replace = "---")
+    replace = "---") # Replace NA with ---
   ba_table_tt <- tinytable::group_tt(ba_table_tt, i = loa_group_label, indent = 0)
-  names(ba_table_tt) <- c("", est_ci_label)
 
   ba_table_tt
 }
-
