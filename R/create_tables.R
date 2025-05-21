@@ -111,6 +111,7 @@ BA_table_tt <- function(ba_df) {
   ba_table_tt <- tinytable::format_tt(ba_table_tt, 
     replace = "---") # Replace NA with ---
   ba_table_tt <- tinytable::group_tt(ba_table_tt, i = loa_group_label, indent = 0)
+  ba_table_tt <- tinytable::format_tt(ba_table_tt, escape = TRUE) # Escape characters (especially %)
 
   ba_table_tt
 }
