@@ -46,6 +46,9 @@ compare_methods <- function(df, ref_col, alt_col, id_col, REML = TRUE, logtrans 
   # Convert id to factor
   df[[id_col_name]] <- factor(df[[id_col_name]])
 
+  # Drop unused variables
+  df <- df[, c(ref_col_name, alt_col_name, id_col_name)]
+
   non_log_df <- df
   non_log_df <- calc_mean_diff(non_log_df)
 
