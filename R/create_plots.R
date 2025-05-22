@@ -299,10 +299,11 @@ plot_BA_residuals <- function(
             lwr <- -2 * sd.within
         }
 
-        stats_geom <- add_BA_stats_geom_manual(bias = NULL, 
+        stats_geom <- list(add_BA_stats_geom_manual(bias = NULL, 
             lwr = lwr, 
             upr = upr,
-            line_labels = c(bias = "", lwr = "-2SD", upr = "+2SD")
+            line_labels = c(bias = "", lwr = "-2SD", upr = "+2SD")),
+            ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.1, 0.20)))
         )
     } else {
         stats_geom <- NULL
