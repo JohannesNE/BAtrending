@@ -14,11 +14,11 @@
         Between/Total variance       :   0.836  
       
       Limits of agreement (95%)
-      ├ Upper limit                  :   2.748  
-      └ Lower limit                  :  -1.339  
+      ├ Upper limit                  :   2.707  
+      └ Lower limit                  :  -1.298  
       
-      Perc. error (95%)              :   0.407  
+      Perc. error (95%)              :   0.399  
       
       --- Trending ---
-      Change LoA [±] (95%)           :   1.169  
+      Change LoA [±] (95%)           :   1.146  
 

@@ -96,7 +96,7 @@ BA_table_tt <- function(ba_df) {
     "a" = list(
       i = which(ba_df$stat == "change.loa"),
       j = 1,
-      text = "Change limits of agreement (95%) = 2√2 * Within subject variation (SD)."
+      text = "Change limits of agreement (95%) = 1.96√2 * Within subject variation (SD)."
     )
   )
 

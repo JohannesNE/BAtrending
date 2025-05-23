@@ -248,7 +248,7 @@ plot_BA_normalized_log <- function(
 #' Plot intraindividual variation (model residuals) in differences and means.
 #'
 #' @inheritParams plot_BA
-#' @param show_sd Mark 2 * SD (intraindividual) on the plot (analouge to 95% LoA).
+#' @param show_sd Mark 1.96*SD (intraindividual) on the plot (analouge to 95% LoA).
 #' 
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
@@ -292,17 +292,17 @@ plot_BA_residuals <- function(
         sd.within <- c(ba_obj$BA_stats$sd.within, ba_obj$BA_stats_ci$sd.within)
 
         if (exponentiated) {
-            upr <- exp(2 * sd.within)
-            lwr <- exp(-2 * sd.within)
+            upr <- exp(1.96 * sd.within)
+            lwr <- exp(-1.96 * sd.within)
         } else{
-            upr <- 2 * sd.within
-            lwr <- -2 * sd.within
+            upr <- 1.96 * sd.within
+            lwr <- -1.96 * sd.within
         }
 
         stats_geom <- list(add_BA_stats_geom_manual(bias = NULL, 
             lwr = lwr, 
             upr = upr,
-            line_labels = c(bias = "", lwr = "-2SD", upr = "+2SD")),
+            line_labels = c(bias = "", lwr = "-1.96SD", upr = "+1.96SD")),
             ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.1, 0.20)))
         )
     } else {

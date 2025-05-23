@@ -180,8 +180,8 @@ calc_BA_stats_from_model <- function(model, incl_loa = TRUE) {
 
   if (incl_loa) {
     loa <- c(
-      loa.lwr = bias - 2*sd.total,
-      loa.upr = bias + 2*sd.total
+      loa.lwr = bias - 1.96*sd.total,
+      loa.upr = bias + 1.96*sd.total
     )
   } else {
     loa <- NULL
@@ -222,14 +222,14 @@ gen_ba_stats_df <- function(ba_obj) {
 # existing statistics. CI's can also simply be rescaled.
 calc_derived_stats <- function(ba_stats, mean_val, log = FALSE) {
 
-  # trending.precision <- 2 * ba_stats["sd.within"]
-  change.loa <- 2 * sqrt(2) * ba_stats["sd.within"]
+  # trending.precision <- 1.96 * ba_stats["sd.within"]
+  change.loa <- 1.96 * sqrt(2) * ba_stats["sd.within"]
 
   if (log) {
     # Percentage error is nonsensical for log transformed data
     percentage.error <- NA
   } else {
-    percentage.error <- 2*ba_stats["sd.total"] / mean_val
+    percentage.error <- 1.96*ba_stats["sd.total"] / mean_val
   }
 
 

@@ -37,6 +37,6 @@ test_that("gen_ba_stats_df works with ci", {
     stats_w_ci <- gen_ba_stats_df(comp_co_w_ci)
 
     expect_equal(stats_w_ci$est[stats_w_ci$stat == "bias"], 0.704521)
-    expect_equal(stats_w_ci$ci.upr[stats_w_ci$stat == "loa.upr"], 3.68674, tolerance = 1e-4)
+    expect_equal(stats_w_ci$ci.upr[stats_w_ci$stat == "loa.upr"], 3.62749, tolerance = 1e-4)
 })
 
