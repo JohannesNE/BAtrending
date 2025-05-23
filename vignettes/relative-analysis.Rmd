@@ -1,0 +1,29 @@
+---
+title: "Bland Altman analysis with relative errors (logarithmic analysis)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{relative-analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(BAtrending)
+```
+
+## Compare results with those from an analysis on absolute scale
+
+To compare results from an analysis on log transformed measurements with an analysis on absolute (non-transformed) measurements, the SD of differences of $log_e$ measurements ($D_{log} = log(CO_{alt}) - log(CO_{ref})$) is comparable to the SD of differences on raw measurements ($D$) relative to the mean of the measurements:
+
+$$
+SD(D_{log}) \approx \frac{SD(D)}{mean(CO_{alt}, CO_{ref})},
+$$
+
+when $SD < \sim0.2$.
