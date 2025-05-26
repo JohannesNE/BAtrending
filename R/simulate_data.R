@@ -19,8 +19,12 @@ simulate_repeated_data <- function(
   within_sub_rel_change_sd = 0.3,
   var_name = "co_true"
 ) {
-  mean_val <- rep(rnorm(n_sub, avg, between_sub_sd), each = n_rep)
-  within_sub_rel_change <- rlnorm(n_sub * n_rep, 0, within_sub_rel_change_sd)
+  mean_val <- rep(stats::rnorm(n_sub, avg, between_sub_sd), each = n_rep)
+  within_sub_rel_change <- stats::rlnorm(
+    n_sub * n_rep,
+    0,
+    within_sub_rel_change_sd
+  )
 
   res <- data.frame(
     id = as.factor(rep(1:n_sub, each = n_rep)),
@@ -74,12 +78,12 @@ simulate_measurement <- function(
   unique_sub <- levels(sub_id)
   n_sub <- length(unique_sub)
 
-  sub_bias <- rnorm(n_sub, mean = 0, sd = sub_bias_sd)
+  sub_bias <- stats::rnorm(n_sub, mean = 0, sd = sub_bias_sd)
 
   # repeats the bias vector to match the sub vector.
   sub_bias_vec <- sub_bias[as.integer(sub_id)]
 
-  residual_error_vec <- rnorm(n_obs, mean = 0, sd = residual_error_sd)
+  residual_error_vec <- stats::rnorm(n_obs, mean = 0, sd = residual_error_sd)
 
   if (relative_errors) {
     res <- exp(log(true_val) + mean_bias + sub_bias_vec + residual_error_vec)

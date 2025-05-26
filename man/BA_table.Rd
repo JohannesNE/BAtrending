@@ -16,8 +16,8 @@ BA_table(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale = FALSE)
 \item{keep_log_scale}{Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated.}
 }
 \value{
-A {tinytable} table of the estimates from the Bland-Altman analysis.
+A table of the estimates from the Bland-Altman analysis (uses \{tinytable\}).
 }
 \description{
-Uses {tinytable}.
+Uses \{tinytable\}.
 }

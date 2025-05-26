@@ -5,75 +5,101 @@ ba_stat_labels <- c(
   sd.within = "Within subject variation (SD)",
   sd.total = "Total variation (SD)",
   intraclass.correlation = "Intraclass correlation",
-  loa.upr  = "\U2003 Upper limit",
-  loa.lwr  = "\U2003 Lower limit",
+  loa.upr = "\U2003 Upper limit",
+  loa.lwr = "\U2003 Lower limit",
   percentage.error = "Percentage error",
   # trending.precision = "Trending precision (95%)",
   change.loa = "Change limits of agreement (95%)"
-  
 )
 
 
 #' Create a table with the results of the Bland-Altman analysis
 #'
 #' @description
-#' Uses {tinytable}.
+#' Uses \{tinytable\}.
 #'
-#' @param ba_obj An object created with `BAtrending::compare_methods()`. 
+#' @param ba_obj An object created with `BAtrending::compare_methods()`.
 #' @param decimals A single numeric value specifying the number of decimal places for estimates and confidence intervals.
 #' @param decimals_pct A single numeric value specifying the number of decimal places for percentage statistics.
 #' @param keep_log_scale Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated.
 #'
 #' @returns
-#' A {tinytable} table of the estimates from the Bland-Altman analysis.
+#' A table of the estimates from the Bland-Altman analysis (uses \{tinytable\}).
 #'
 #' @export
-BA_table <- function(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale = FALSE) {
+BA_table <- function(
+  ba_obj,
+  decimals = 2,
+  decimals_pct = 1,
+  keep_log_scale = FALSE
+) {
   assert_BA_obj(ba_obj)
 
-  ba_df <- BA_table_df(ba_obj, decimals = decimals, decimals_pct = decimals_pct, keep_log_scale = keep_log_scale)
+  ba_df <- BA_table_df(
+    ba_obj,
+    decimals = decimals,
+    decimals_pct = decimals_pct,
+    keep_log_scale = keep_log_scale
+  )
 
   BA_table_tt(ba_df)
 }
 
-BA_table_df <- function(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale = FALSE) {
+BA_table_df <- function(
+  ba_obj,
+  decimals = 2,
+  decimals_pct = 1,
+  keep_log_scale = FALSE
+) {
   assert_BA_obj(ba_obj)
 
   data_is_log_transformed <- attr(ba_obj, "logtrans")
-  if (keep_log_scale && !data_is_log_transformed) cli::cli_abort("Data was not log transformed by {.fn compare_methods()}.")
+  if (keep_log_scale && !data_is_log_transformed)
+    cli::cli_abort("Data was not log transformed by {.fn compare_methods()}.")
   exponentiate <- data_is_log_transformed && !keep_log_scale
 
   # Use ba_stat_labels to initiate dataframe and set order
-  ba_stat_labels_df <- data.frame(stat = names(ba_stat_labels), label = ba_stat_labels)
+  ba_stat_labels_df <- data.frame(
+    stat = names(ba_stat_labels),
+    label = ba_stat_labels
+  )
   ba_est <- as.data.frame(ba_obj)
 
-  ba_est_full <- merge(ba_stat_labels_df, ba_est, by = "stat", all.x = TRUE, sort = FALSE)
-
+  ba_est_full <- merge(
+    ba_stat_labels_df,
+    ba_est,
+    by = "stat",
+    all.x = TRUE,
+    sort = FALSE
+  )
 
   # Format estimate and CI
-  ba_est_full$est_ci <- format_est_ci(ba_est_full$est,
+  ba_est_full$est_ci <- format_est_ci(
+    ba_est_full$est,
     lwr = ba_est_full$ci.lwr,
     upr = ba_est_full$ci.upr,
     fmt_pct = ba_est_full$stat %in% c("percentage.error"),
-    decimals = decimals, decimals_pct = decimals_pct,
+    decimals = decimals,
+    decimals_pct = decimals_pct,
     exponentiate = exponentiate
   )
 
   # Add ± to relevant stats
   range_symbol <- if (exponentiate) "⋇" else "±"
-  ba_est_full$est_ci <- ifelse(ba_est_full$stat %in% c("change.loa", "trending.precision"),
+  ba_est_full$est_ci <- ifelse(
+    ba_est_full$stat %in% c("change.loa", "trending.precision"),
     paste0(range_symbol, ba_est_full$est_ci),
     ba_est_full$est_ci
   )
 
   # Add column names
-  est_label <- if(exponentiate) {
+  est_label <- if (exponentiate) {
     "exp(logEstimate)"
   } else {
     "Estimate"
   }
 
-  ci_label <- if(is.numeric(ba_est_full$ci.upr)) {
+  ci_label <- if (is.numeric(ba_est_full$ci.upr)) {
     " [95% CI]"
   } else {
     ""
@@ -89,9 +115,10 @@ BA_table_df <- function(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale =
 }
 
 BA_table_tt <- function(ba_df) {
-  
-  loa_group_label <- list("Limits of agreement (95%)" = which(ba_df$stat == "loa.upr"))
-  
+  loa_group_label <- list(
+    "Limits of agreement (95%)" = which(ba_df$stat == "loa.upr")
+  )
+
   tab_footnotes <- list(
     "a" = list(
       i = which(ba_df$stat == "change.loa"),
@@ -104,9 +131,12 @@ BA_table_tt <- function(ba_df) {
   names(ba_df_clean)[1] <- ""
 
   ba_table_tt <- tinytable::tt(ba_df_clean, notes = tab_footnotes)
-  ba_table_tt <- tinytable::format_tt(ba_table_tt, 
-    replace = "---") # Replace NA with ---
-  ba_table_tt <- tinytable::group_tt(ba_table_tt, i = loa_group_label, indent = 0)
+  ba_table_tt <- tinytable::format_tt(ba_table_tt, replace = "---") # Replace NA with ---
+  ba_table_tt <- tinytable::group_tt(
+    ba_table_tt,
+    i = loa_group_label,
+    indent = 0
+  )
   ba_table_tt <- tinytable::format_tt(ba_table_tt, escape = TRUE) # Escape characters (especially %)
 
   ba_table_tt
