@@ -1,0 +1,33 @@
+---
+title: "Bland Altman analysis with proportional errors (logarithmic analysis)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{relative-analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(BAtrending)
+```
+
+
+
+The method comparison of log-transformed measurements is performed as without the transformation. In the end, the results (e.g bias, LoA and Change LoA) can be exponentiated and interpreted on the original scale. The interpretation of these back-transformed results is that they estimate ratios between the measurements instead of differences. A relative bias of 1.10 indicates that the alternative method measures 10% more than the reference method on average. Relative limits of agreement define the interval in which ratios between future paired measurements (in a random subject) with the same alternative and reference methods are expected to fall into in 95% of cases. Relative tending precision descibe the variation around the subject-specific mean ratio between the paired measurements.
+
+## Compare results with those from an analysis on absolute scale
+
+To compare results from an analysis on log transformed measurements with an analysis on absolute (non-transformed) measurements, the SD of differences of $log_e$ measurements ($D_{log} = log(CO_{alt}) - log(CO_{ref})$) is comparable to the SD of differences on raw measurements ($D$) relative to the mean of the measurements:
+
+$$
+SD(D_{log}) \approx \frac{SD(D)}{mean(CO_{alt}, CO_{ref})},
+$$
+
+when $SD < \sim0.2$.
