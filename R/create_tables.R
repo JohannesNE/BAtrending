@@ -4,7 +4,7 @@ ba_stat_labels <- c(
   sd.between = "Between subject variation (SD)",
   sd.within = "Within subject variation (SD)",
   sd.total = "Total variation (SD)",
-  intraclass.correlation = "Intraclass correlation",
+  # intraclass.correlation = "Intraclass correlation",
   loa.upr = "\U2003 Upper limit",
   loa.lwr = "\U2003 Lower limit",
   percentage.error = "Percentage error",
@@ -120,7 +120,12 @@ BA_table_tt <- function(ba_df) {
   )
 
   tab_footnotes <- list(
-    "a" = list(
+    "1" = list(
+      i = which(ba_df$stat == "percentage.error"),
+      j = 1,
+      text = "Percentage error = 1.96 * Total variation (SD) / mean measurement."
+    ),
+    "2" = list(
       i = which(ba_df$stat == "change.loa"),
       j = 1,
       text = "Change limits of agreement (95%) = 1.96√2 * Within subject variation (SD)."
