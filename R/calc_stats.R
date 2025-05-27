@@ -126,7 +126,7 @@ compare_methods <- function(
   )
 }
 
-#' Add confidence intervals to BA analysis object. The confidence intervals are calculated with a percentile bootstrap (see `?lme4::confint.merMod` for details).
+#' Add confidence intervals to BA analysis object. The confidence intervals are calculated with a percentile parametric bootstrap (see `?lme4::confint.merMod` for details).
 #'
 #' @param ba_obj BA analysis object
 #' @param level Confidence level (default is 0.95)
