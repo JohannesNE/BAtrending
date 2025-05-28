@@ -59,6 +59,15 @@ compare_methods <- function(
   # Drop unused variables
   df <- df[, c(ref_col_name, alt_col_name, id_col_name)]
 
+  # Drop incomplete cases
+  df_complete_index <- complete.cases(df)
+  df <- df[df_complete_index, ]
+  if (sum(!df_complete_index) > 0) {
+    cli::cli_warn(
+      "Dropped {sum(!df_complete_index)} rows containing missing values."
+    )
+  }
+
   non_log_df <- df
   non_log_df <- calc_mean_diff(non_log_df)
 
