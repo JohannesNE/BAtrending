@@ -1,8 +1,8 @@
 # Order stats and labels for table
 ba_stat_labels <- c(
   bias = "Bias (alternative - reference)",
-  sd.between = "Between subject variation (SD)",
-  sd.within = "Within subject variation (SD)",
+  sd.between = "Between-subject variation (SD)",
+  sd.within = "Within-subject variation (SD)",
   sd.total = "Total variation (SD)",
   # intraclass.correlation = "Intraclass correlation",
   loa.upr = "\U2003 Upper limit",
@@ -54,8 +54,9 @@ BA_table_df <- function(
   assert_BA_obj(ba_obj)
 
   data_is_log_transformed <- attr(ba_obj, "logtrans")
-  if (keep_log_scale && !data_is_log_transformed)
+  if (keep_log_scale && !data_is_log_transformed) {
     cli::cli_abort("Data was not log transformed by {.fn compare_methods()}.")
+  }
   exponentiate <- data_is_log_transformed && !keep_log_scale
 
   # Use ba_stat_labels to initiate dataframe and set order
@@ -123,12 +124,12 @@ BA_table_tt <- function(ba_df) {
     "1" = list(
       i = which(ba_df$stat == "percentage.error"),
       j = 1,
-      text = "Percentage error = 1.96 * Total variation (SD) / mean measurement."
+      text = "Percentage error = 1.96 · Total variation (SD) / mean measurement."
     ),
     "2" = list(
       i = which(ba_df$stat == "change.loa"),
       j = 1,
-      text = "Change limits of agreement (95%) = 1.96√2 * Within subject variation (SD)."
+      text = "Change limits of agreement (95%) = 1.96 · √2 · Within-subject variation (SD)."
     )
   )
 

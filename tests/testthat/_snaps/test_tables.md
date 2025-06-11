@@ -8,9 +8,9 @@
       +=====================================+==========+
       | Bias (alternative - reference)      | 0.70     |
       +-------------------------------------+----------+
-      | Between subject variation (SD)      | 0.93     |
+      | Between-subject variation (SD)      | 0.93     |
       +-------------------------------------+----------+
-      | Within subject variation (SD)       | 0.41     |
+      | Within-subject variation (SD)       | 0.41     |
       +-------------------------------------+----------+
       | Total variation (SD)                | 1.02     |
       +-------------------------------------+----------+
@@ -24,11 +24,11 @@
       +-------------------------------------+----------+
       | Change limits of agreement (95%)^2^ | ±1.15    |
       +=====================================+==========+
-      | ^1^ Percentage error = 1.96 * Total variation  |
+      | ^1^ Percentage error = 1.96 · Total variation  |
       | (SD) / mean measurement.                       |
       +=====================================+==========+
-      | ^2^ Change limits of agreement (95%) = 1.96√2  |
-      | * Within subject variation (SD).               |
+      | ^2^ Change limits of agreement (95%) = 1.96 ·  |
+      | √2 · Within-subject variation (SD).            |
       +=====================================+==========+ 
 
 # BA_table works with CI
@@ -41,9 +41,9 @@
       +=====================================+======================+
       | Bias (alternative - reference)      | 0.70 [0.10; 1.22]    |
       +-------------------------------------+----------------------+
-      | Between subject variation (SD)      | 0.93 [0.56; 1.34]    |
+      | Between-subject variation (SD)      | 0.93 [0.56; 1.34]    |
       +-------------------------------------+----------------------+
-      | Within subject variation (SD)       | 0.41 [0.33; 0.50]    |
+      | Within-subject variation (SD)       | 0.41 [0.33; 0.50]    |
       +-------------------------------------+----------------------+
       | Total variation (SD)                | 1.02 [0.69; 1.42]    |
       +-------------------------------------+----------------------+
@@ -57,11 +57,11 @@
       +-------------------------------------+----------------------+
       | Change limits of agreement (95%)^2^ | ±1.15 [0.91; 1.39]   |
       +=====================================+======================+
-      | ^1^ Percentage error = 1.96 * Total variation (SD) / mean  |
+      | ^1^ Percentage error = 1.96 · Total variation (SD) / mean  |
       | measurement.                                               |
       +=====================================+======================+
-      | ^2^ Change limits of agreement (95%) = 1.96√2 * Within     |
-      | subject variation (SD).                                    |
+      | ^2^ Change limits of agreement (95%) = 1.96 · √2 ·         |
+      | Within-subject variation (SD).                             |
       +=====================================+======================+ 
 
 # BA_table works with log and CI
@@ -74,9 +74,9 @@
       +=====================================+===========================+
       | Bias (alternative - reference)      | 1.16 [1.03; 1.28]         |
       +-------------------------------------+---------------------------+
-      | Between subject variation (SD)      | 1.20 [1.09; 1.31]         |
+      | Between-subject variation (SD)      | 1.20 [1.09; 1.31]         |
       +-------------------------------------+---------------------------+
-      | Within subject variation (SD)       | 1.10 [1.08; 1.11]         |
+      | Within-subject variation (SD)       | 1.10 [1.08; 1.11]         |
       +-------------------------------------+---------------------------+
       | Total variation (SD)                | 1.22 [1.13; 1.33]         |
       +-------------------------------------+---------------------------+
@@ -90,10 +90,10 @@
       +-------------------------------------+---------------------------+
       | Change limits of agreement (95%)^2^ | ⋇1.30 [1.23; 1.35]        |
       +=====================================+===========================+
-      | ^1^ Percentage error = 1.96 * Total variation (SD) / mean       |
+      | ^1^ Percentage error = 1.96 · Total variation (SD) / mean       |
       | measurement.                                                    |
       +=====================================+===========================+
-      | ^2^ Change limits of agreement (95%) = 1.96√2 * Within subject  |
-      | variation (SD).                                                 |
+      | ^2^ Change limits of agreement (95%) = 1.96 · √2 ·              |
+      | Within-subject variation (SD).                                  |
       +=====================================+===========================+ 
 
