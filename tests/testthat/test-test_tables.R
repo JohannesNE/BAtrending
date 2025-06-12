@@ -24,14 +24,15 @@ test_that("format_est_ci works", {
   expect_error(format_est_ci(1, 1))
 })
 
+# For some reason markdown does not work for some tables
 test_that("BA_table works without CI", {
-  expect_snapshot(BA_table(comp_co))
+  expect_snapshot(print(BA_table(comp_co), "html"))
 })
 
 test_that("BA_table works with CI", {
-  expect_snapshot(BA_table(comp_co_w_ci))
+  expect_snapshot(print(BA_table(comp_co_w_ci), "html"))
 })
 
 test_that("BA_table works with log and CI", {
-  expect_snapshot(BA_table(comp_co_log_w_ci))
+  expect_snapshot(print(BA_table(comp_co_log_w_ci), "html"))
 })

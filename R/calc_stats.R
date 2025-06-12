@@ -92,7 +92,7 @@ compare_methods <- function(
     data = main_df
   )
 
-  mean_model <- lme4::lmer(
+  distribution_model <- lme4::lmer(
     stats::formula(paste0("mean ~ 1 + (1 | ", id_col_name, ")")),
     REML = REML,
     data = non_log_df
@@ -100,7 +100,7 @@ compare_methods <- function(
 
   # Extract variance components
   BA_stats <- calc_BA_stats_from_model(diff_model)
-  mean_stats <- calc_BA_stats_from_model(mean_model, incl_loa = FALSE)
+  distribution_stats <- calc_distribution_stats_from_model(distribution_model)
 
   derived_BA_stats <- calc_derived_stats(
     BA_stats,
@@ -108,15 +108,15 @@ compare_methods <- function(
     log = logtrans
   )
 
-  BA_stats <- c(BA_stats, derived_BA_stats)
+  BA_stats <- c(distribution_stats, BA_stats, derived_BA_stats)
 
   structure(
     list(
       data = main_df,
       diff_model = diff_model,
-      mean_model = mean_model,
+      distribution_model = distribution_model,
       BA_stats = as.list(BA_stats),
-      mean_stats = as.list(mean_stats),
+      distribution_stats = as.list(distribution_stats),
       .var_names = list(
         ref_col = ifelse(
           logtrans,
@@ -161,8 +161,33 @@ add_confint <- function(
   PBargs = list(style = 3)
 ) {
   stopifnot("ba_analysis" %in% class(ba_obj))
-  BA_stats_ci <- confint.ba_analysis(
-    ba_obj,
+
+  cli::cli_inform(
+    c(
+      "\n",
+      "i" = "Creating {nsim} bootstrap samples for the method comparison model"
+    )
+  )
+  BA_stats_ci <- lme4::confint.merMod(
+    ba_obj$diff_model,
+    FUN = calc_BA_stats_from_model,
+    method = "boot",
+    level = level,
+    nsim = nsim,
+    .progress = .progress,
+    PBargs = PBargs
+  )
+
+  cli::cli_inform(
+    c(
+      "\n",
+      "i" = "Creating {nsim} bootstrap samples for the distribution model"
+    )
+  )
+  distribution_stats_ci <- lme4::confint.merMod(
+    ba_obj$distribution_model,
+    FUN = calc_distribution_stats_from_model,
+    method = "boot",
     level = level,
     nsim = nsim,
     .progress = .progress,
@@ -182,7 +207,11 @@ add_confint <- function(
     data.frame(derived_BA_stats_ci, check.names = FALSE)
   )
 
-  BA_stats_ci <- rbind(BA_stats_ci, derived_BA_stats_ci_mat)
+  BA_stats_ci <- rbind(
+    distribution_stats_ci,
+    BA_stats_ci,
+    derived_BA_stats_ci_mat
+  )
 
   # Set names of the CI matrix to the respective confidence levels
   # (dimnames(BA_stats_ci)[[2]])
@@ -197,35 +226,7 @@ add_confint <- function(
   ba_obj
 }
 
-#' Calculate confidence interval
-#'
-#' @inheritParams add_confint
-#'
-#' @return
-#' Matrix of bootstrap confidence intervals for BA statistics.
-#'
-#' @export
-confint.ba_analysis <- function(
-  ba_obj,
-  level = 0.95,
-  nsim = 1999,
-  .progress = "txt",
-  PBargs = list(style = 3)
-) {
-  message(glue::glue("Creating {nsim} bootstrap samples"))
-
-  lme4::confint.merMod(
-    ba_obj$diff_model,
-    method = "boot",
-    FUN = calc_BA_stats_from_model,
-    level = level,
-    nsim = nsim,
-    .progress = .progress,
-    PBargs = PBargs
-  )
-}
-
-calc_BA_stats_from_model <- function(model, incl_loa = TRUE) {
+calc_BA_stats_from_model <- function(model) {
   bias <- lme4::fixef(model) # Get intercept from model
   stopifnot(length(bias) == 1) # Test
   bias <- bias[[1]]
@@ -243,14 +244,10 @@ calc_BA_stats_from_model <- function(model, incl_loa = TRUE) {
 
   intraclass.correlation = sd.between^2 / (sd.between^2 + sd.within^2)
 
-  if (incl_loa) {
-    loa <- c(
-      loa.lwr = bias - 1.96 * sd.total,
-      loa.upr = bias + 1.96 * sd.total
-    )
-  } else {
-    loa <- NULL
-  }
+  loa <- c(
+    loa.lwr = bias - 1.96 * sd.total,
+    loa.upr = bias + 1.96 * sd.total
+  )
 
   c(
     bias = bias,
@@ -260,6 +257,30 @@ calc_BA_stats_from_model <- function(model, incl_loa = TRUE) {
     intraclass.correlation = intraclass.correlation,
 
     loa
+  )
+}
+
+calc_distribution_stats_from_model <- function(model) {
+  mean_value <- lme4::fixef(model) # Get intercept from model
+  stopifnot(length(mean_value) == 1) # Test
+  mean_value <- mean_value[[1]]
+
+  # Get variance components (SD)
+  varCorr_df <- as.data.frame(lme4::VarCorr(model))
+  sd_components <- varCorr_df[["sdcor"]]
+  names(sd_components) <- varCorr_df[["grp"]]
+
+  stopifnot(length(sd_components) == 2) # Test
+
+  sd.between <- unname(sd_components[1])
+  sd.within <- unname(sd_components[2])
+  sd.total <- sqrt(sd.between^2 + sd.within^2)
+
+  c(
+    distr.mean = mean_value,
+    distr.sd.between = sd.between,
+    distr.sd.within = sd.within,
+    distr.sd.total = sd.total
   )
 }
 

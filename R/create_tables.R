@@ -1,6 +1,10 @@
 # Order stats and labels for table
 ba_stat_labels <- c(
-  bias = "Bias (alternative - reference)",
+  distr.mean = "Mean",
+  distr.sd.between = "Between-subject variation (SD)",
+  distr.sd.within = "Within-subject variation (SD)",
+  distr.sd.total = "Total variation (SD)",
+  bias = "Bias",
   sd.between = "Between-subject variation (SD)",
   sd.within = "Within-subject variation (SD)",
   sd.total = "Total variation (SD)",
@@ -35,29 +39,29 @@ BA_table <- function(
 ) {
   assert_BA_obj(ba_obj)
 
+  data_is_log_transformed <- attr(ba_obj, "logtrans")
+  if (keep_log_scale && !data_is_log_transformed) {
+    cli::cli_abort("Data was not log transformed by {.fn compare_methods()}.")
+  }
+  exponentiate <- data_is_log_transformed && !keep_log_scale
+
   ba_df <- BA_table_df(
     ba_obj,
     decimals = decimals,
     decimals_pct = decimals_pct,
-    keep_log_scale = keep_log_scale
+    exponentiate = exponentiate
   )
 
-  BA_table_tt(ba_df)
+  BA_table_tt(ba_df, exponentiated = exponentiate)
 }
 
 BA_table_df <- function(
   ba_obj,
   decimals = 2,
   decimals_pct = 1,
-  keep_log_scale = FALSE
+  exponentiate = FALSE
 ) {
   assert_BA_obj(ba_obj)
-
-  data_is_log_transformed <- attr(ba_obj, "logtrans")
-  if (keep_log_scale && !data_is_log_transformed) {
-    cli::cli_abort("Data was not log transformed by {.fn compare_methods()}.")
-  }
-  exponentiate <- data_is_log_transformed && !keep_log_scale
 
   # Use ba_stat_labels to initiate dataframe and set order
   ba_stat_labels_df <- data.frame(
@@ -83,7 +87,7 @@ BA_table_df <- function(
       c("percentage.error", "percentage.error.within"),
     decimals = decimals,
     decimals_pct = decimals_pct,
-    exponentiate = exponentiate
+    exponentiate = exponentiate & !grepl("^distr", ba_est_full$stat) # Do not exponentiate stats that start with "distr"
   )
 
   # Add ± to relevant stats
@@ -95,11 +99,7 @@ BA_table_df <- function(
   )
 
   # Add column names
-  est_label <- if (exponentiate) {
-    "exp(logEstimate)"
-  } else {
-    "Estimate"
-  }
+  est_label <- "Estimate"
 
   ci_label <- if (is.numeric(ba_est_full$ci.upr)) {
     " [95% CI]"
@@ -116,20 +116,31 @@ BA_table_df <- function(
   ba_table_df
 }
 
-BA_table_tt <- function(ba_df) {
+BA_table_tt <- function(ba_df, exponentiated = FALSE) {
   loa_group_label <- list(
+    "**Distribution**^1^" = which(ba_df$stat == "distr.mean"),
+    "**Method comparison (alternative - reference)**" = which(
+      ba_df$stat == "bias"
+    ),
     "Limits of agreement (95%)" = which(ba_df$stat == "loa.upr")
   )
 
+  if (exponentiated) {
+    names(loa_group_label)[2] <-
+      "**Method comparison, exp(log(alternative) - log(reference))**"
+  }
+
   tab_footnotes <- list(
-    "1" = list(
+    # It is currently not possible to automatically set at footnote on a label.
+    "1" = "Distribution of the means of simultaneous measurements.",
+    "2" = list(
       i = which(
         ba_df$stat %in% c("percentage.error", "percentage.error.within")
       ),
       j = 1,
       text = "Percentage error = 1.96 · Total (or Within-subject) variation (SD) / mean."
     ),
-    "2" = list(
+    "3" = list(
       i = which(ba_df$stat == "change.loa"),
       j = 1,
       text = "Change limits of agreement (95%) = 1.96 · √2 · Within-subject variation (SD)."
@@ -140,13 +151,17 @@ BA_table_tt <- function(ba_df) {
   names(ba_df_clean)[1] <- ""
 
   ba_table_tt <- tinytable::tt(ba_df_clean, notes = tab_footnotes)
-  ba_table_tt <- tinytable::format_tt(ba_table_tt, replace = "---") # Replace NA with ---
+  ba_table_tt <- tinytable::format_tt(ba_table_tt, replace = "--") # Replace NA with --
   ba_table_tt <- tinytable::group_tt(
     ba_table_tt,
     i = loa_group_label,
     indent = 0
   )
-  ba_table_tt <- tinytable::format_tt(ba_table_tt, escape = TRUE) # Escape characters (especially %)
+  ba_table_tt <- tinytable::format_tt(
+    ba_table_tt,
+    markdown = TRUE,
+    escape = TRUE
+  ) # Escape characters (especially %)
 
   ba_table_tt
 }

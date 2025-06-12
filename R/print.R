@@ -50,6 +50,13 @@ print.ba_analysis <- function(ba_obj) {
   }
 
   cat(format("", width = 30), "    est", CI_label, "\n")
+  cat("=== Distribution ===\n")
+  format_line_stat("Mean", "distr.mean")
+  format_line_stat("Between-subject variation (SD)", "distr.sd.between")
+  format_line_stat("Within-subject variation (SD)", "distr.sd.within")
+  format_line_stat("Total variation (SD)", "distr.sd.total")
+  cat("\n")
+  cat("=== Method comparison ===\n")
   format_line_stat("Bias (alt - ref)", "bias")
   format_line_stat("Between-subject variation (SD)", "sd.between")
   format_line_stat("Within-subject variation (SD)", "sd.within")
@@ -62,9 +69,9 @@ print.ba_analysis <- function(ba_obj) {
   format_line_stat("\u2514 Lower limit", "loa.lwr")
   cat("\n")
   format_line_stat("Percentage error", "percentage.error")
-  format_line_stat("Within-subject perc. error", "percentage.error.within")
   cat("\n")
   cat("--- Trending ---\n")
+  format_line_stat("Within-subject perc. error", "percentage.error.within")
   format_line_stat("Change LoA [±] (95%)", "change.loa")
 
   invisible(ba_obj)

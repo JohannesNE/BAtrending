@@ -18,8 +18,12 @@ format_est_ci <- function(
   exponentiate = FALSE
 ) {
   # Argument checks
-  if (!is.numeric(est)) cli::cli_abort("{.var est} must be numeric.")
-  if (length(est) == 0) cli::cli_abort("{.arg est} cannot be empty.")
+  if (!is.numeric(est)) {
+    cli::cli_abort("{.var est} must be numeric.")
+  }
+  if (length(est) == 0) {
+    cli::cli_abort("{.arg est} cannot be empty.")
+  }
   if (xor(is.null(lwr), is.null(upr))) {
     cli::cli_abort(
       "If one of {.arg lwr} or {.arg upr} is provided, the other must also be.
@@ -39,14 +43,14 @@ format_est_ci <- function(
 
   mapply(
     format_single_est_ci,
-    est,
-    lwr_arg,
-    upr_arg,
-    fmt_pct,
+    est = est,
+    lwr = lwr_arg,
+    upr = upr_arg,
+    fmt_pct = fmt_pct,
+    exponentiate = exponentiate,
     MoreArgs = list(
       decimals = decimals,
-      decimals_pct = decimals_pct,
-      exponentiate = exponentiate
+      decimals_pct = decimals_pct
     ),
     USE.NAMES = FALSE
   )
@@ -58,13 +62,15 @@ format_single_est_ci <- function(
   lwr = NULL,
   upr = NULL,
   fmt_pct = FALSE,
+  exponentiate = FALSE,
   decimals = 2,
-  decimals_pct = 1,
-  exponentiate = FALSE
+  decimals_pct = 1
 ) {
   has_full_ci <- !is.null(lwr) && !is.null(upr)
 
-  if (is.na(est)) return(NA)
+  if (is.na(est)) {
+    return(NA)
+  }
 
   if (has_full_ci) {
     # Format with Confidence Interval
@@ -72,8 +78,9 @@ format_single_est_ci <- function(
     pattern <- "%s [%s; %s]"
   } else {
     # Format Estimate only
-    if (!(is.null(lwr) && is.null(upr)))
+    if (!(is.null(lwr) && is.null(upr))) {
       cli::cli_abort("Only one CI limit was supplied.")
+    }
 
     nums <- c(est)
     pattern <- "%s"
