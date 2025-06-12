@@ -22,10 +22,12 @@
       +-------------------------------------+----------+
       | Percentage error^1^                 | 39.9 %   |
       +-------------------------------------+----------+
+      | Within-subject percentage error^1^  | 16.1 %   |
+      +-------------------------------------+----------+
       | Change limits of agreement (95%)^2^ | ±1.15    |
       +=====================================+==========+
-      | ^1^ Percentage error = 1.96 · Total variation  |
-      | (SD) / mean measurement.                       |
+      | ^1^ Percentage error = 1.96 · Total (or        |
+      | Within-subject) variation (SD) / mean.         |
       +=====================================+==========+
       | ^2^ Change limits of agreement (95%) = 1.96 ·  |
       | √2 · Within-subject variation (SD).            |
@@ -55,10 +57,12 @@
       +-------------------------------------+----------------------+
       | Percentage error^1^                 | 39.9 [27.0; 55.4] %  |
       +-------------------------------------+----------------------+
+      | Within-subject percentage error^1^  | 16.1 [12.8; 19.6] %  |
+      +-------------------------------------+----------------------+
       | Change limits of agreement (95%)^2^ | ±1.15 [0.91; 1.39]   |
       +=====================================+======================+
-      | ^1^ Percentage error = 1.96 · Total variation (SD) / mean  |
-      | measurement.                                               |
+      | ^1^ Percentage error = 1.96 · Total (or Within-subject)    |
+      | variation (SD) / mean.                                     |
       +=====================================+======================+
       | ^2^ Change limits of agreement (95%) = 1.96 · √2 ·         |
       | Within-subject variation (SD).                             |
@@ -88,10 +92,12 @@
       +-------------------------------------+---------------------------+
       | Percentage error^1^                 | ---                       |
       +-------------------------------------+---------------------------+
+      | Within-subject percentage error^1^  | ---                       |
+      +-------------------------------------+---------------------------+
       | Change limits of agreement (95%)^2^ | ⋇1.30 [1.23; 1.35]        |
       +=====================================+===========================+
-      | ^1^ Percentage error = 1.96 · Total variation (SD) / mean       |
-      | measurement.                                                    |
+      | ^1^ Percentage error = 1.96 · Total (or Within-subject)         |
+      | variation (SD) / mean.                                          |
       +=====================================+===========================+
       | ^2^ Change limits of agreement (95%) = 1.96 · √2 ·              |
       | Within-subject variation (SD).                                  |

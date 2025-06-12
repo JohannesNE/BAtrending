@@ -8,7 +8,7 @@ ba_stat_labels <- c(
   loa.upr = "\U2003 Upper limit",
   loa.lwr = "\U2003 Lower limit",
   percentage.error = "Percentage error",
-  # trending.precision = "Trending precision (95%)",
+  percentage.error.within = "Within-subject percentage error",
   change.loa = "Change limits of agreement (95%)"
 )
 
@@ -79,7 +79,8 @@ BA_table_df <- function(
     ba_est_full$est,
     lwr = ba_est_full$ci.lwr,
     upr = ba_est_full$ci.upr,
-    fmt_pct = ba_est_full$stat %in% c("percentage.error"),
+    fmt_pct = ba_est_full$stat %in%
+      c("percentage.error", "percentage.error.within"),
     decimals = decimals,
     decimals_pct = decimals_pct,
     exponentiate = exponentiate
@@ -88,7 +89,7 @@ BA_table_df <- function(
   # Add ± to relevant stats
   range_symbol <- if (exponentiate) "⋇" else "±"
   ba_est_full$est_ci <- ifelse(
-    ba_est_full$stat %in% c("change.loa", "trending.precision"),
+    ba_est_full$stat %in% c("change.loa"),
     paste0(range_symbol, ba_est_full$est_ci),
     ba_est_full$est_ci
   )
@@ -122,9 +123,11 @@ BA_table_tt <- function(ba_df) {
 
   tab_footnotes <- list(
     "1" = list(
-      i = which(ba_df$stat == "percentage.error"),
+      i = which(
+        ba_df$stat %in% c("percentage.error", "percentage.error.within")
+      ),
       j = 1,
-      text = "Percentage error = 1.96 · Total variation (SD) / mean measurement."
+      text = "Percentage error = 1.96 · Total (or Within-subject) variation (SD) / mean."
     ),
     "2" = list(
       i = which(ba_df$stat == "change.loa"),

@@ -25,12 +25,19 @@ compare_methods <- function(
   REML = TRUE,
   logtrans = FALSE
 ) {
-  if (!is.data.frame(df))
+  if (!is.data.frame(df)) {
     cli::cli_abort("{.arg df} must be of class {.cls data.frame}.")
+  }
 
-  if (missing(ref_col)) cli::cli_abort("{.arg ref_col} must be supplied.")
-  if (missing(alt_col)) cli::cli_abort("{.arg alt_col} must be supplied.")
-  if (missing(id_col)) cli::cli_abort("{.arg id_col} must be supplied.")
+  if (missing(ref_col)) {
+    cli::cli_abort("{.arg ref_col} must be supplied.")
+  }
+  if (missing(alt_col)) {
+    cli::cli_abort("{.arg alt_col} must be supplied.")
+  }
+  if (missing(id_col)) {
+    cli::cli_abort("{.arg id_col} must be supplied.")
+  }
 
   # Capture column names using rlang for NSE
   # This allows ref_col, alt_col, id_col to be passed as unquoted names or strings
@@ -284,13 +291,16 @@ calc_derived_stats <- function(ba_stats, mean_val, log = FALSE) {
   if (log) {
     # Percentage error is nonsensical for log transformed data
     percentage.error <- NA
+    percentage.error.within <- NA
   } else {
     percentage.error <- 1.96 * ba_stats["sd.total"] / mean_val
+    percentage.error.within <- 1.96 * ba_stats["sd.within"] / mean_val
   }
 
   c(
     change.loa = unname(change.loa),
     # trending.precision = unname(trending.precision),
-    percentage.error = unname(percentage.error)
+    percentage.error = unname(percentage.error),
+    percentage.error.within = unname(percentage.error.within)
   )
 }
