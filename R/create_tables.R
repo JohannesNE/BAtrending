@@ -78,6 +78,9 @@ BA_table_df <- function(
     sort = FALSE
   )
 
+  # Sort to match order of labels
+  ba_est_full <- ba_est_full[match(ba_stat_labels_df$stat, ba_est_full$stat), ]
+
   # Format estimate and CI
   ba_est_full$est_ci <- format_est_ci(
     ba_est_full$est,
@@ -118,7 +121,7 @@ BA_table_df <- function(
 
 BA_table_tt <- function(ba_df, exponentiated = FALSE) {
   loa_group_label <- list(
-    "**Distribution (alt + ref)/2**^1^" = which(ba_df$stat == "distr.mean"),
+    "**Distribution**¹" = which(ba_df$stat == "distr.mean"),
     "**Method comparison (alt - ref)**" = which(
       ba_df$stat == "bias"
     ),
@@ -132,7 +135,7 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE) {
 
   tab_footnotes <- list(
     # It is currently not possible to automatically set at footnote on a label.
-    "1" = "Distribution of the means of simultaneous measurements.",
+    "1" = "Distribution of the means of simultaneous measurements (alt + ref)/2.",
     "2" = list(
       i = which(
         ba_df$stat %in% c("percentage.error", "percentage.error.within")
