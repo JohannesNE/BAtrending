@@ -118,8 +118,8 @@ BA_table_df <- function(
 
 BA_table_tt <- function(ba_df, exponentiated = FALSE) {
   loa_group_label <- list(
-    "**Distribution**^1^" = which(ba_df$stat == "distr.mean"),
-    "**Method comparison (alternative - reference)**" = which(
+    "**Distribution (alt + ref)/2**^1^" = which(ba_df$stat == "distr.mean"),
+    "**Method comparison (alt - ref)**" = which(
       ba_df$stat == "bias"
     ),
     "Limits of agreement (95%)" = which(ba_df$stat == "loa.upr")
@@ -127,7 +127,7 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE) {
 
   if (exponentiated) {
     names(loa_group_label)[2] <-
-      "**Method comparison, exp(log(alternative) - log(reference))**"
+      "**Method comparison, exp(log(alt) - log(ref))**"
   }
 
   tab_footnotes <- list(
@@ -160,8 +160,8 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE) {
   ba_table_tt <- tinytable::format_tt(
     ba_table_tt,
     markdown = TRUE,
-    escape = TRUE
-  ) # Escape characters (especially %)
+    escape = TRUE # Escape characters (importat for %)
+  )
 
   ba_table_tt
 }
