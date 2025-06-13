@@ -107,6 +107,14 @@ add_BA_stats_geom <- function(
     sprintf("%s (%+.2f)", BA_stats_df$label, BA_stats_df$est)
   }
 
+  # If there is more than one stat label, place the lowest below the line to avoid overlapping
+  label_vjust <- 0
+  if (nrow(BA_stats_df) > 1) {
+    label_vjust <- rep(0, nrow(BA_stats_df))
+    lowest_i <- which.min(BA_stats_df$est)
+    label_vjust[lowest_i] <- 1
+  }
+
   # Create geoms for BA estimates
   est_lines <- list(
     ggplot2::geom_hline(
@@ -118,7 +126,7 @@ add_BA_stats_geom <- function(
     ggplot2::geom_label(
       aes(x = Inf, y = .data$est, label = .data$label_w_val),
       hjust = "inward",
-      vjust = 0,
+      vjust = label_vjust, # Place loa.lwr below line
       fill = NA,
       label.size = NA,
       data = BA_stats_df,
