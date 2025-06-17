@@ -307,7 +307,7 @@ plot_BA_normalized_log <- function(
     ggplot2::geom_point(show.legend = show_subject_legend) +
     ggplot2::labs(
       x = glue::glue(
-        "Mean
+        "Average
                             ({var_names$ref_col} + {var_names$alt_col}) / 2"
       ),
       y = glue::glue(
@@ -323,7 +323,7 @@ plot_BA_normalized_log <- function(
 }
 
 
-#' Plot intraindividual variation (model residuals) in differences and means.
+#' Plot intraindividual variation (model residuals) in differences and averages.
 #'
 #' @inheritParams plot_BA
 #' @param show_sd Mark 1.96*SD (intraindividual) on the plot (analouge to 95\% LoA).
@@ -419,13 +419,21 @@ plot_BA_residuals <- function(
     create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
     theme_ba()
 
-  # Update x-axis label to "Residual mean"
+  # Update x-axis label to "Residual variation"
   current_label_x <- residual_plot$labels$x
-  residual_plot$labels$x <- sub("^M", "Residual m", current_label_x)
+  residual_plot$labels$x <- sub(
+    "^Average",
+    "Residual of average",
+    current_label_x
+  )
 
   # Update y-axis label to "Residual difference"
   current_label_y <- residual_plot$labels$y
-  residual_plot$labels$y <- sub("^D", "Residual d", current_label_y)
+  residual_plot$labels$y <- sub(
+    "^Difference",
+    "Residual difference",
+    current_label_y
+  )
 
   residual_plot
 }
@@ -615,7 +623,7 @@ create_axis_labels <- function(ba_obj, exponentiated = FALSE) {
 
   # Create axis names
   x_name <- glue::glue(
-    "Mean
+    "Average
                    ({raw_name_var_ref} + {raw_name_var_alt}) / 2"
   )
 

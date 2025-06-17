@@ -38,11 +38,11 @@
       +-------------------------------------+----------+
       | Change limits of agreement (95%)^3^ | ±1.15    |
       +=====================================+==========+
-      | ^1^ Distribution of the means of simultaneous  |
-      | measurements (alt + ref)/2.                    |
+      | ^1^ Distribution of the averages of            |
+      | simultaneous measurements (alt + ref)/2.       |
       +=====================================+==========+
       | ^2^ Percentage error = 1.96 · Total (or        |
-      | Within-subject) variation (SD) / mean.         |
+      | Within-subject) variation (SD) / average.      |
       +=====================================+==========+
       | ^3^ Change limits of agreement (95%) = 1.96 ·  |
       | √2 · Within-subject variation (SD).            |
@@ -88,11 +88,11 @@
       +-------------------------------------+----------------------+
       | Change limits of agreement (95%)^3^ | ±1.15 [0.91; 1.39]   |
       +=====================================+======================+
-      | ^1^ Distribution of the means of simultaneous              |
+      | ^1^ Distribution of the averages of simultaneous           |
       | measurements (alt + ref)/2.                                |
       +=====================================+======================+
       | ^2^ Percentage error = 1.96 · Total (or Within-subject)    |
-      | variation (SD) / mean.                                     |
+      | variation (SD) / average.                                  |
       +=====================================+======================+
       | ^3^ Change limits of agreement (95%) = 1.96 · √2 ·         |
       | Within-subject variation (SD).                             |
@@ -138,11 +138,11 @@
       +-------------------------------------+--------------------+
       | Change limits of agreement (95%)^3^ | ⋇1.30 [1.22; 1.38] |
       +=====================================+====================+
-      | ^1^ Distribution of the means of simultaneous            |
+      | ^1^ Distribution of the averages of simultaneous         |
       | measurements (alt + ref)/2.                              |
       +=====================================+====================+
       | ^2^ Percentage error = 1.96 · Total (or Within-subject)  |
-      | variation (SD) / mean.                                   |
+      | variation (SD) / average.                                |
       +=====================================+====================+
       | ^3^ Change limits of agreement (95%) = 1.96 · √2 ·       |
       | Within-subject variation (SD).                           |
