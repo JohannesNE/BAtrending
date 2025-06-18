@@ -16,6 +16,7 @@
 #' @param id_col name of the column containing unique subject id's.
 #' @param REML Use restricted maximum likelihood optimization in `lme4::lmer()`.
 #' @param logtrans Log-transform measurements before fitting the difference model.
+#' @param unit Measurement unit (e.g. "L/min"). Currently only used for plots.
 #'
 #' @returns
 #' Bland-Altman analysis object (of class ba_analysis)
@@ -33,7 +34,8 @@ compare_methods <- function(
   alt_col,
   id_col,
   REML = TRUE,
-  logtrans = FALSE
+  logtrans = FALSE,
+  unit = NULL
 ) {
   if (!is.data.frame(df)) {
     cli::cli_abort("{.arg df} must be of class {.cls data.frame}.")
@@ -47,6 +49,11 @@ compare_methods <- function(
   }
   if (missing(id_col)) {
     cli::cli_abort("{.arg id_col} must be supplied.")
+  }
+
+  # Check that unit is a string or NULL
+  if (!(is.null(unit) || (is.character(unit) && length(unit) == 1))) {
+    cli::cli_abort("{.arg unit} must be a single string or NULL")
   }
 
   # Capture column names using rlang for NSE
@@ -148,7 +155,8 @@ compare_methods <- function(
       .non_log_data = non_log_df
     ),
     class = "ba_analysis",
-    logtrans = logtrans
+    logtrans = logtrans,
+    unit = unit
   )
 }
 

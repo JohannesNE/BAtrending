@@ -4,7 +4,15 @@
 \alias{compare_methods}
 \title{Create Bland-Altman analysis}
 \usage{
-compare_methods(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE)
+compare_methods(
+  df,
+  ref_col,
+  alt_col,
+  id_col,
+  REML = TRUE,
+  logtrans = FALSE,
+  unit = NULL
+)
 }
 \arguments{
 \item{df}{Data frame. Each row contains simultaneous measurements of the same value.}
@@ -18,6 +26,8 @@ compare_methods(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE)
 \item{REML}{Use restricted maximum likelihood optimization in \code{lme4::lmer()}.}
 
 \item{logtrans}{Log-transform measurements before fitting the difference model.}
+
+\item{unit}{Measurement unit (e.g. "L/min"). Currently only used for plots.}
 }
 \value{
 Bland-Altman analysis object (of class ba_analysis)

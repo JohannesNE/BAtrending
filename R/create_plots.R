@@ -308,16 +308,7 @@ plot_BA_normalized_log <- function(
     ci_shade +
     est_lines +
     ggplot2::geom_point(show.legend = show_subject_legend) +
-    ggplot2::labs(
-      x = glue::glue(
-        "Average
-                            ({var_names$ref_col} + {var_names$alt_col}) / 2"
-      ),
-      y = glue::glue(
-        "Difference
-                            {var_names$alt_col} - {var_names$ref_col}"
-      )
-    ) +
+    create_axis_labels(ba_obj, normalized = TRUE) +
     plot_coord +
     theme_ba() +
     ggplot2::theme(
@@ -478,6 +469,13 @@ plot_BA_scatter <- function(
     label_names <- var_names_raw
   }
 
+  # Add units to label names
+  measure_unit <- attr(ba_obj, "unit")
+  if (!is.null(measure_unit)) {
+    label_names$ref_col <- glue::glue("{label_names$ref_col} [{measure_unit}]")
+    label_names$alt_col <- glue::glue("{label_names$alt_col} [{measure_unit}]")
+  }
+
   plot_coord <- NULL
 
   if (is.numeric(aspect_ratio)) {
@@ -625,15 +623,31 @@ set_limits <- function(vec, rel_exp = 0.05, abs_exp = 0) {
   )
 }
 
-create_axis_labels <- function(ba_obj, exponentiated = FALSE) {
+create_axis_labels <- function(
+  ba_obj,
+  exponentiated = FALSE,
+  normalized = FALSE
+) {
   name_var_ref <- ba_obj$.var_names$ref_col
   name_var_alt <- ba_obj$.var_names$alt_col
   raw_name_var_ref <- ba_obj$.var_names_raw$ref_col
   raw_name_var_alt <- ba_obj$.var_names_raw$alt_col
 
+  # For normalized plots, only use raw names
+  if (normalized) {
+    name_var_ref <- raw_name_var_ref
+    name_var_alt <- raw_name_var_alt
+  }
+
+  measure_unit <- attr(ba_obj, "unit")
+  unit_str <- ""
+  if (!is.null(measure_unit)) {
+    unit_str <- glue::glue(" [{measure_unit}]")
+  }
+
   # Create axis names
   x_name <- glue::glue(
-    "Average
+    "Average{unit_str}
                    ({raw_name_var_ref} + {raw_name_var_alt}) / 2"
   )
 
@@ -644,7 +658,7 @@ create_axis_labels <- function(ba_obj, exponentiated = FALSE) {
     )
   } else {
     glue::glue(
-      "Difference
+      "Difference{unit_str}
                         {name_var_alt} - {name_var_ref}"
     )
   }

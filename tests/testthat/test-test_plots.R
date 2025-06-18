@@ -110,3 +110,16 @@ test_that("Combined plot can return list", {
   expect_type(test_plot_list, "list")
   expect_named(test_plot_list, c("scatter_plot", "BA_plot", "residuals_plot"))
 })
+
+test_that("BA Plot works with units", {
+  set.seed(1)
+  comp_co_unit <- compare_methods(
+    CO,
+    "ic",
+    "rv",
+    id_col = "sub",
+    unit = "L/min"
+  )
+  test_plot <- plot_BA(comp_co_unit)
+  expect_doppelganger("BA plot with unit", test_plot)
+})
