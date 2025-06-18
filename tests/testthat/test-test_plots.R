@@ -101,7 +101,7 @@ test_that("Combined plot with legend", {
 })
 
 test_that("Combined plot with fixed aspect ratio", {
-  test_plot <- plot_BA_combine(comp_co, fix_aspect_ratio = TRUE)
+  test_plot <- plot_BA_combine(comp_co, aspect_ratio = 1)
   expect_doppelganger("Combined plot with fixed aspect ratio", test_plot)
 })
 

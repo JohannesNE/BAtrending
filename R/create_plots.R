@@ -1,7 +1,7 @@
 #' Create Bland Altman Plot
 #'
 #' @param ba_obj BA analysis object
-#' @param fix_aspect_ratio Use aspect ratio of 1 between X and Y axis (sets `coord_fixed()`)
+#' @param aspect_ratio Set aspect ratio (x/y) between X and Y axis (sets `coord_fixed()`), Default (NULL) is automatic.
 #' @param show_subject_legend Show legend for subjects
 #' @param keep_log_scale Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting
 #'
@@ -16,7 +16,7 @@
 #' @export
 plot_BA <- function(
   ba_obj,
-  fix_aspect_ratio = FALSE,
+  aspect_ratio = NULL,
   show_subject_legend = FALSE,
   keep_log_scale = FALSE
 ) {
@@ -28,7 +28,7 @@ plot_BA <- function(
       "Data was not log transformed by {.fn compare_methods()}."
     )
   }
-  if (fix_aspect_ratio && data_is_log_transformed) {
+  if (is.numeric(aspect_ratio) && data_is_log_transformed) {
     cli::cli_warn("Cant fix aspect ratio on log transformed data")
   }
 
@@ -63,8 +63,11 @@ plot_BA <- function(
   } else {
     exponentiated <- FALSE
     null_value <- 0
-    if (fix_aspect_ratio) {
-      y_scale_and_coord <- ggplot2::coord_fixed(clip = "off")
+    if (is.numeric(aspect_ratio)) {
+      y_scale_and_coord <- ggplot2::coord_fixed(
+        ratio = aspect_ratio,
+        clip = "off"
+      )
     } else {
       y_scale_and_coord <- ggplot2::coord_cartesian(clip = "off")
     }
@@ -209,7 +212,7 @@ add_BA_stats_geom_manual <- function(
 plot_BA_normalized_log <- function(
   ba_obj,
   show_subject_legend = FALSE,
-  fix_aspect_ratio = FALSE
+  aspect_ratio = NULL
 ) {
   assert_BA_obj(ba_obj)
   ba_obj_name <- deparse(substitute(ba_obj))
@@ -290,8 +293,8 @@ plot_BA_normalized_log <- function(
     )
   }
 
-  if (fix_aspect_ratio) {
-    plot_coord <- ggplot2::coord_fixed(clip = "off")
+  if (is.numeric(aspect_ratio)) {
+    plot_coord <- ggplot2::coord_fixed(ratio = aspect_ratio, clip = "off")
   } else {
     plot_coord <- ggplot2::coord_cartesian(clip = "off")
   }
@@ -334,7 +337,7 @@ plot_BA_normalized_log <- function(
 #' @export
 plot_BA_residuals <- function(
   ba_obj,
-  fix_aspect_ratio = FALSE,
+  aspect_ratio = NULL,
   show_subject_legend = FALSE,
   keep_log_scale = FALSE,
   show_sd = TRUE
@@ -367,8 +370,11 @@ plot_BA_residuals <- function(
   } else {
     exponentiated <- FALSE
     null_value <- 0
-    if (fix_aspect_ratio) {
-      y_scale_and_coord <- ggplot2::coord_fixed(clip = "off")
+    if (is.numeric(aspect_ratio)) {
+      y_scale_and_coord <- ggplot2::coord_fixed(
+        ratio = aspect_ratio,
+        clip = "off"
+      )
     } else {
       y_scale_and_coord <- ggplot2::coord_cartesian(clip = "off")
     }
@@ -448,7 +454,7 @@ plot_BA_residuals <- function(
 #' @export
 plot_BA_scatter <- function(
   ba_obj,
-  fix_aspect_ratio = FALSE,
+  aspect_ratio = NULL,
   show_subject_legend = FALSE,
   keep_log_scale = FALSE
 ) {
@@ -472,7 +478,11 @@ plot_BA_scatter <- function(
     label_names <- var_names_raw
   }
 
-  plot_coord <- if (fix_aspect_ratio) ggplot2::coord_fixed() else NULL
+  plot_coord <- NULL
+
+  if (is.numeric(aspect_ratio)) {
+    plot_coord <- ggplot2::coord_fixed(ratio = aspect_ratio)
+  }
 
   ggplot2::ggplot(
     d,
@@ -500,7 +510,7 @@ plot_BA_scatter <- function(
 #' @export
 plot_BA_combine <- function(
   ba_obj,
-  fix_aspect_ratio = FALSE,
+  aspect_ratio = NULL,
   show_subject_legend = FALSE,
   equal_scales = TRUE,
   keep_log_scale = FALSE,
@@ -510,24 +520,24 @@ plot_BA_combine <- function(
 
   # Create scatter plot
   scatter_plot <- plot_BA_scatter(
-    ba_obj,
-    fix_aspect_ratio,
+    ba_obj = ba_obj,
+    aspect_ratio = aspect_ratio,
     show_subject_legend = show_subject_legend,
     keep_log_scale = keep_log_scale
   )
 
   # Create Bland Altman plot
   BA_plot <- plot_BA(
-    ba_obj,
+    ba_obj = ba_obj,
     show_subject_legend = show_subject_legend,
-    fix_aspect_ratio,
+    aspect_ratio = aspect_ratio,
     keep_log_scale = keep_log_scale
   )
 
   # Create residuals plot
   residuals_plot <- plot_BA_residuals(
-    ba_obj,
-    fix_aspect_ratio,
+    ba_obj = ba_obj,
+    aspect_ratio = aspect_ratio,
     show_subject_legend = show_subject_legend,
     keep_log_scale = keep_log_scale
   )
