@@ -16,12 +16,12 @@ add_BA_stats_geom_manual(
 }
 \arguments{
 \item{bias, lwr, upr}{estimates to be plotted. Optionally including confidence intervals
-as `c(est, ci.lwr, ci.upr)`.}
+as \code{c(est, ci.lwr, ci.upr)}.}
 
 \item{exponentiated}{Set true if estimates are exponentiated estimates from a model on log-transformed data.
 Treats estimates as ratios.}
 
-\item{name_ref, name_alt}{Name of reference and alternative method. Only used if `exponentiated = TRUE`}
+\item{name_ref, name_alt}{Name of reference and alternative method. Only used if \code{exponentiated = TRUE}}
 
 \item{line_labels}{Labels for Bias and LoA lines. Must be a named vector with names: 'bias', 'lwr', 'upr'}
 }

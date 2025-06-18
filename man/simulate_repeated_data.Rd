@@ -2,7 +2,7 @@
 % Please edit documentation in R/simulate_data.R
 \name{simulate_repeated_data}
 \alias{simulate_repeated_data}
-\title{Simulate repeated measures data}
+\title{Simulate repeated data}
 \usage{
 simulate_repeated_data(
   n_sub = 50,
@@ -27,8 +27,8 @@ simulate_repeated_data(
 \item{var_name}{A single string specifying the name of the simulated variable column.}
 }
 \value{
-A data frame containing simulated repeated measures data with `id` and the simulated variable.
+A data frame containing simulated data with \code{id} and the simulated variable.
 }
 \description{
-Simulate repeated measures data
+Simulates \code{n_rep} repeated values in \code{n_sub} subjects.
 }

@@ -1,4 +1,6 @@
-#' Simulate repeated measures data
+#' Simulate repeated data
+#'
+#' Simulates `n_rep` repeated values in `n_sub` subjects.
 #'
 #' @param n_sub A single number specifying the number of subjects.
 #' @param n_rep A single number specifying the number of repetitions per subject.
@@ -7,8 +9,8 @@
 #' @param within_sub_rel_change_sd A single number controlling the within-subject relative change variability.
 #' @param var_name A single string specifying the name of the simulated variable column.
 #'
-#' @returns
-#' A data frame containing simulated repeated measures data with `id` and the simulated variable.
+#' @return
+#' A data frame containing simulated data with `id` and the simulated variable.
 #'
 #' @export
 simulate_repeated_data <- function(
@@ -44,10 +46,10 @@ simulate_repeated_data <- function(
 #' @param sub_bias_sd Standard deviation of subject-specific biases.
 #' @param residual_error_sd Standard deviation of residual errors.
 #' @param relative_errors Should errors be relative to true value.
-#' If TRUE, errors are added on a log scale, and the result is exponentiated. To add a bias of 10\% (true_value * 1.1),
-#' the mean_bias should be set to log(1.1). A SD of log(1.2) corresponds to ±20\%.
+#' If TRUE, errors are added on a log scale, and the result is exponentiated. To add a bias of 10% (true_value * 1.1),
+#' the mean_bias should be set to log(1.1). A SD of log(1.2) corresponds to ±20%.
 #'
-#' @returns A numeric vector representing simulated measurements.
+#' @return A numeric vector representing simulated measurements.
 #'
 #' @examples
 #' df <- simulate_repeated_data(n_sub = 50, n_rep = 5, var_name = "true_co")

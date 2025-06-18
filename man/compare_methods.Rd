@@ -2,28 +2,39 @@
 % Please edit documentation in R/calc_stats.R
 \name{compare_methods}
 \alias{compare_methods}
-\title{Compare methods}
+\title{Create Bland-Altman analysis}
 \usage{
 compare_methods(df, ref_col, alt_col, id_col, REML = TRUE, logtrans = FALSE)
 }
 \arguments{
-\item{df}{Data frame.}
+\item{df}{Data frame. Each row contains simultaneous measurements of the same value.}
 
-\item{ref_col}{name of column containing reference measurements.}
+\item{ref_col}{name of the column containing reference measurements.}
 
-\item{alt_col}{name of column containing alternative measurements.}
+\item{alt_col}{name of the column containing alternative measurements.}
 
-\item{id_col}{name of column containing unique subject id's.}
+\item{id_col}{name of the column containing unique subject id's.}
 
-\item{REML}{Use restricted maximum likelihood optimization in `lme4::lmer()`.}
+\item{REML}{Use restricted maximum likelihood optimization in \code{lme4::lmer()}.}
 
 \item{logtrans}{Log-transform measurements before fitting the difference model.}
 }
 \value{
-Bland Altman analysis object (of class ba_analysis)
+Bland-Altman analysis object (of class ba_analysis)
 }
 \description{
-Compare methods
+Creates a Bland-Altman analysis including trending agreement from a dataset of
+simultaneous measurements with two methods (alt and ref).
+}
+\details{
+\code{compare_methods()} uses \code{lme4::lmer()} to fit two mixed models:
+\enumerate{
+\item A difference model describing the (dis)agreement between methods (alt - ref).
+This model is used to calculate the Bland-Altman statistics including trending parameters,
+accounting for repeated measurements between subjects.
+\item A distribution model descibing the distribution of the measured value, represented by the average ((alt + ref)/2).
+This model is used to descibe within-subject and between-subject variation in the measured variable (e.g. cardiac output).
+}
 }
 \examples{
 data(CO)

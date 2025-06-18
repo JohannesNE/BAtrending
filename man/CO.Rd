@@ -7,9 +7,9 @@
 \format{
 A data frame with 60 rows and 3 variables:
 \describe{
-  \item{sub}{Subject}
-  \item{rv}{Cardiac output,  radionuclide ventriculography (RV)}
-  \item{ic}{Cardiac output,  impedance cardiography (IC)}
+\item{sub}{Subject}
+\item{rv}{Cardiac output,  radionuclide ventriculography (RV)}
+\item{ic}{Cardiac output,  impedance cardiography (IC)}
 }
 }
 \source{

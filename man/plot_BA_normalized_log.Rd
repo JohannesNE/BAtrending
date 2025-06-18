@@ -7,7 +7,7 @@
 plot_BA_normalized_log(
   ba_obj,
   show_subject_legend = FALSE,
-  fix_aspect_ratio = FALSE
+  aspect_ratio = NULL
 )
 }
 \arguments{
@@ -15,7 +15,7 @@ plot_BA_normalized_log(
 
 \item{show_subject_legend}{Show legend for subjects}
 
-\item{fix_aspect_ratio}{Use aspect ratio of 1 between X and Y axis (sets `coord_fixed()`)}
+\item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{coord_fixed()}), Default (NULL) is automatic.}
 }
 \value{
 Bland Altman style plot with relative differences plotted on absolute differences.

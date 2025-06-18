@@ -6,7 +6,7 @@
 \usage{
 plot_BA_combine(
   ba_obj,
-  fix_aspect_ratio = FALSE,
+  aspect_ratio = NULL,
   show_subject_legend = FALSE,
   equal_scales = TRUE,
   keep_log_scale = FALSE,
@@ -16,15 +16,15 @@ plot_BA_combine(
 \arguments{
 \item{ba_obj}{BA analysis object}
 
-\item{fix_aspect_ratio}{Use aspect ratio of 1 between X and Y axis (sets `coord_fixed()`)}
+\item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{coord_fixed()}), Default (NULL) is automatic.}
 
 \item{show_subject_legend}{Show legend for subjects}
 
 \item{equal_scales}{Plot the residuals on a plane with the scale of the original data.}
 
-\item{keep_log_scale}{Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting}
+\item{keep_log_scale}{Show log transformed differences. If \code{FALSE} (default), values and parameters are exponentiated before plotting}
 
-\item{return_as_list}{Return the three plots in a list. If `FALSE`, the plots are combined using \{patchwork\}.}
+\item{return_as_list}{Return the three plots in a list. If \code{FALSE}, the plots are combined using \{patchwork\}.}
 }
 \description{
 Creates a scatter plot, a standard Bland Altman plot and a residuals plot for assessing trending ability.

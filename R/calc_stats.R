@@ -1,14 +1,24 @@
-#' Compare methods
+#' Create Bland-Altman analysis
 #'
-#' @param df Data frame.
-#' @param ref_col name of column containing reference measurements.
-#' @param alt_col name of column containing alternative measurements.
-#' @param id_col name of column containing unique subject id's.
+#' Creates a Bland-Altman analysis including trending agreement from a dataset of
+#' simultaneous measurements with two methods (alt and ref).
+#'
+#' `compare_methods()` uses `lme4::lmer()` to fit two mixed models:
+#' 1. A difference model describing the (dis)agreement between methods (alt - ref).
+#'   This model is used to calculate the Bland-Altman statistics including trending parameters,
+#'   accounting for repeated measurements between subjects.
+#' 2. A distribution model descibing the distribution of the measured value, represented by the average ((alt + ref)/2).
+#'   This model is used to descibe within-subject and between-subject variation in the measured variable (e.g. cardiac output).
+#'
+#' @param df Data frame. Each row contains simultaneous measurements of the same value.
+#' @param ref_col name of the column containing reference measurements.
+#' @param alt_col name of the column containing alternative measurements.
+#' @param id_col name of the column containing unique subject id's.
 #' @param REML Use restricted maximum likelihood optimization in `lme4::lmer()`.
 #' @param logtrans Log-transform measurements before fitting the difference model.
 #'
 #' @returns
-#' Bland Altman analysis object (of class ba_analysis)
+#' Bland-Altman analysis object (of class ba_analysis)
 #'
 #' @export
 #'

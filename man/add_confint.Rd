@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_stats.R
 \name{add_confint}
 \alias{add_confint}
-\title{Add confidence intervals to BA analysis object. The confidence intervals are calculated with a percentile parametric bootstrap (see `?lme4::confint.merMod` for details).}
+\title{Add confidence intervals to BA analysis object. The confidence intervals are calculated with a percentile parametric bootstrap (see \code{?lme4::confint.merMod} for details).}
 \usage{
 add_confint(
   ba_obj,
@@ -19,11 +19,11 @@ add_confint(
 
 \item{nsim}{Number of bootstrap samples}
 
-\item{.progress, PBargs}{see `?lme4::bootMer()`}
+\item{.progress, PBargs}{see \code{?lme4::bootMer()}}
 }
 \value{
-BA analysis object (`x`) with added confidence intervals
+BA analysis object (\code{x}) with added confidence intervals
 }
 \description{
-Add confidence intervals to BA analysis object. The confidence intervals are calculated with a percentile parametric bootstrap (see `?lme4::confint.merMod` for details).
+Add confidence intervals to BA analysis object. The confidence intervals are calculated with a percentile parametric bootstrap (see \code{?lme4::confint.merMod} for details).
 }

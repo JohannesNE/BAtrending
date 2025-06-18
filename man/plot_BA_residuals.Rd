@@ -2,11 +2,11 @@
 % Please edit documentation in R/create_plots.R
 \name{plot_BA_residuals}
 \alias{plot_BA_residuals}
-\title{Plot intraindividual variation (model residuals) in differences and means.}
+\title{Plot intraindividual variation (model residuals) in differences and averages.}
 \usage{
 plot_BA_residuals(
   ba_obj,
-  fix_aspect_ratio = FALSE,
+  aspect_ratio = NULL,
   show_subject_legend = FALSE,
   keep_log_scale = FALSE,
   show_sd = TRUE
@@ -15,14 +15,14 @@ plot_BA_residuals(
 \arguments{
 \item{ba_obj}{BA analysis object}
 
-\item{fix_aspect_ratio}{Use aspect ratio of 1 between X and Y axis (sets `coord_fixed()`)}
+\item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{coord_fixed()}), Default (NULL) is automatic.}
 
 \item{show_subject_legend}{Show legend for subjects}
 
-\item{keep_log_scale}{Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting}
+\item{keep_log_scale}{Show log transformed differences. If \code{FALSE} (default), values and parameters are exponentiated before plotting}
 
 \item{show_sd}{Mark 1.96*SD (intraindividual) on the plot (analouge to 95\% LoA).}
 }
 \description{
-Plot intraindividual variation (model residuals) in differences and means.
+Plot intraindividual variation (model residuals) in differences and averages.
 }

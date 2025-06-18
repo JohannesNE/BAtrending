@@ -329,7 +329,7 @@ plot_BA_normalized_log <- function(
 #' Plot intraindividual variation (model residuals) in differences and averages.
 #'
 #' @inheritParams plot_BA
-#' @param show_sd Mark 1.96*SD (intraindividual) on the plot (analouge to 95\% LoA).
+#' @param show_sd Mark 1.96*SD (intraindividual) on the plot (analouge to 95% LoA).
 #'
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
