@@ -41,23 +41,22 @@ BAtrending package includes a small sample dataset, `CO`. It contains paired mea
 
 The `CO` dataset has 60 measurements in 12 subjects.
 
-```{r example, cache = TRUE}
+```{r example, results = 'hide', message=FALSE}
 library(BAtrending)
 
-compare_CO <- compare_methods(CO, 
-                              ref_col = "rv", 
-                              alt_col = "ic", 
-                              id_col = "sub")
+BA_CO <- compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub")
 # Bootstrap confidence intervals
-compare_CO <- add_confint(compare_CO)
-
-plot_BA_combine(compare_CO, fix_aspect_ratio = TRUE)
+BA_CO <- add_confint(BA_CO)
 ```
 
-The object (`compare_CO`) returned by `compare_methods()` contains a number of parameters from both the standard Bland-Altman analysis and for assessing trending ability. The `print()` method gives an overview: 
+```{r plot, message=FALSE}
+plot_BA_combine(BA_CO, aspect_ratio = 1)
+```
 
-```{r, R.options = list(width = 300)}
-compare_CO
+The object (`BA_CO`) returned by `compare_methods()` contains a number of parameters from both the standard Bland-Altman analysis and for assessing trending ability. The `print()` method gives an overview: 
+
+```{r print, R.options = list(width = 300)}
+BA_CO
 ```
 
 ## Citation
