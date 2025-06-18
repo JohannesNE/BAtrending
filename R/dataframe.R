@@ -1,12 +1,13 @@
 #' Convert BA object to data.frame
 #'
-#' @param ba_obj
+#' @param x BA analysis object
+#' @param ... not used
 #'
 #' @export
-as.data.frame.ba_analysis <- function(ba_obj) {
-  df <- gen_ba_stats_df(ba_obj)
+as.data.frame.ba_analysis <- function(x, ...) {
+  df <- gen_ba_stats_df(x)
   df$label <- NULL
-  if (is.null(ba_obj$BA_stats_ci)) {
+  if (is.null(x$BA_stats_ci)) {
     df$ci.lwr <- NULL
     df$ci.upr <- NULL
   }

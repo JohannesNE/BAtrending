@@ -28,6 +28,7 @@ Suggests:
     testthat (>= 3.0.0),
     knitr,
     quarto,
-    rmarkdown
+    rmarkdown,
+    litedown
 Config/testthat/edition: 3
 VignetteBuilder: quarto, knitr

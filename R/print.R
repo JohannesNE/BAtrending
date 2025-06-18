@@ -1,28 +1,29 @@
 #' Print method for ba_analysis objects
 #'
-#' @param ba_obj
+#' @param x BA analysis object.
+#' @param ... not used.
 #'
 #' @export
-print.ba_analysis <- function(ba_obj) {
+print.ba_analysis <- function(x, ...) {
   ops <- options(digits = 3)
   on.exit(options(ops))
 
-  n_obs <- ba_obj$diff_model@devcomp$dims[["n"]]
-  n_sub <- nlevels(ba_obj$diff_model@flist[[1]])
+  n_obs <- x$diff_model@devcomp$dims[["n"]]
+  n_sub <- nlevels(x$diff_model@flist[[1]])
 
-  txt_logtrans <- if (attr(ba_obj, "logtrans")) "(log transformed) " else ""
+  txt_logtrans <- if (attr(x, "logtrans")) "(log transformed) " else ""
 
   cat(glue::glue(
     "{n_obs} paired measurements {txt_logtrans}in {n_sub} subjects\n\n\n"
   ))
 
   # Create label for CI if CI exists
-  if (is.null(ba_obj$BA_stats_ci)) {
+  if (is.null(x$BA_stats_ci)) {
     CI_label <- NULL
   } else {
     CI_label <- sprintf(
       "     [%2g%% CI]",
-      attr(ba_obj$BA_stats_ci, "level") * 100
+      attr(x$BA_stats_ci, "level") * 100
     )
   }
 
@@ -43,9 +44,9 @@ print.ba_analysis <- function(ba_obj) {
   format_line_stat <- function(label, var) {
     format_line(
       label,
-      ba_obj$BA_stats[[var]],
-      ba_obj$BA_stats_ci[[var]][1],
-      ba_obj$BA_stats_ci[[var]][2]
+      x$BA_stats[[var]],
+      x$BA_stats_ci[[var]][1],
+      x$BA_stats_ci[[var]][2]
     )
   }
 
@@ -74,5 +75,5 @@ print.ba_analysis <- function(ba_obj) {
   format_line_stat("Within-subject perc. error", "percentage.error.within")
   format_line_stat("Change LoA [±] (95%)", "change.loa")
 
-  invisible(ba_obj)
+  invisible(x)
 }

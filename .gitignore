@@ -9,3 +9,7 @@ inst/doc
 **/.quarto/
 README.html
 *_cache/
+
+# Output formats
+*.pdf
+*.log

@@ -4,10 +4,12 @@
 \alias{print.ba_analysis}
 \title{Print method for ba_analysis objects}
 \usage{
-\method{print}{ba_analysis}(ba_obj)
+\method{print}{ba_analysis}(x, ...)
 }
 \arguments{
-\item{ba_obj}{}
+\item{x}{BA analysis object.}
+
+\item{...}{not used.}
 }
 \description{
 Print method for ba_analysis objects

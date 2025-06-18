@@ -4,10 +4,12 @@
 \alias{as.data.frame.ba_analysis}
 \title{Convert BA object to data.frame}
 \usage{
-\method{as.data.frame}{ba_analysis}(ba_obj)
+\method{as.data.frame}{ba_analysis}(x, ...)
 }
 \arguments{
-\item{ba_obj}{}
+\item{x}{BA analysis object}
+
+\item{...}{not used}
 }
 \description{
 Convert BA object to data.frame
