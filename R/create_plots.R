@@ -308,7 +308,7 @@ plot_BA_normalized_log <- function(
     ci_shade +
     est_lines +
     ggplot2::geom_point(show.legend = show_subject_legend) +
-    create_axis_labels(ba_obj, normalized = TRUE) +
+    create_axis_labels(ba_obj, normalized_log = TRUE) +
     plot_coord +
     theme_ba() +
     ggplot2::theme(
@@ -626,17 +626,14 @@ set_limits <- function(vec, rel_exp = 0.05, abs_exp = 0) {
 create_axis_labels <- function(
   ba_obj,
   exponentiated = FALSE,
-  normalized = FALSE
+  normalized_log = FALSE
 ) {
-  name_var_ref <- ba_obj$.var_names$ref_col
-  name_var_alt <- ba_obj$.var_names$alt_col
-  raw_name_var_ref <- ba_obj$.var_names_raw$ref_col
-  raw_name_var_alt <- ba_obj$.var_names_raw$alt_col
+  name_var_x <- ba_obj$.var_names_raw
 
-  # For normalized plots, only use raw names
-  if (normalized) {
-    name_var_ref <- raw_name_var_ref
-    name_var_alt <- raw_name_var_alt
+  if (exponentiated || normalized_log) {
+    name_var_y <- ba_obj$.var_names_raw
+  } else {
+    name_var_y <- ba_obj$.var_names
   }
 
   measure_unit <- attr(ba_obj, "unit")
@@ -648,18 +645,18 @@ create_axis_labels <- function(
   # Create axis names
   x_name <- glue::glue(
     "Average{unit_str}
-                   ({raw_name_var_ref} + {raw_name_var_alt}) / 2"
+                   ({name_var_x$ref_col} + {name_var_x$alt_col}) / 2"
   )
 
   y_name <- if (exponentiated) {
     glue::glue(
       "Ratio
-                        {raw_name_var_alt} / {raw_name_var_ref}"
+                        {name_var_y$alt_col} / {name_var_y$ref_col}"
     )
   } else {
     glue::glue(
       "Difference{unit_str}
-                        {name_var_alt} - {name_var_ref}"
+                        {name_var_y$alt_col} - {name_var_y$ref_col}"
     )
   }
 
