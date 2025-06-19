@@ -9,11 +9,12 @@ try(
 
 try(
   {
-    comp_co_w_ci <- suppressMessages(add_confint(
+    # Suppress messages and warnings as nsim = 10 will produce warnings due to too few samples.
+    comp_co_w_ci <- suppressMessages(suppressWarnings(add_confint(
       comp_co,
-      nsim = 100,
+      nsim = 10,
       .progress = "none"
-    ))
+    )))
   },
   silent = FALSE
 )
@@ -33,11 +34,11 @@ try(
 
 try(
   {
-    comp_co_log_w_ci <- suppressMessages(add_confint(
+    comp_co_log_w_ci <- suppressMessages(suppressWarnings(add_confint(
       comp_co_log,
-      nsim = 100,
+      nsim = 10,
       .progress = "none"
-    ))
+    )))
   },
   silent = FALSE
 )

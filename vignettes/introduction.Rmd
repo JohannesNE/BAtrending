@@ -1,8 +1,11 @@
 ---
 title: "Introduction to BAtrending"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette: default
+  pdf_document:
+   toc: true
 vignette: >
-  %\VignetteIndexEntry{introduction}
+  %\VignetteIndexEntry{Introduction to BAtrending}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -10,13 +13,65 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  message = FALSE,
   comment = "#>"
 )
 ```
+
+# Setup
+
+First, install the package using `pak::pak("JohannesNE/BAtrending")` or `remotes::install_github("JohannesNE/BAtrending")`.
+Then, load the package.
 
 ```{r setup}
 library(BAtrending)
 ```
 
-# A few examples....
+# Example with absolute errors
 
+BAtrending package includes a small sample dataset, `CO`. It contains paired measurements of cardiac output (CO) with two methods: radionuclide ventriculography (rv) and impedance cardiography (ic). The dataset was published in [Bland JM, Altman DG. (1999) Measuring agreement in method comparison studies. Statistical Methods in Medical Research 8, 135-160](https://doi.org/10.1177/096228029900800204).
+
+The `CO` dataset has 60 measurements in 12 subjects.
+
+```{r}
+#| results: 'hide'
+#| message: false
+
+BA_CO <- compare_methods(
+  CO,
+  ref_col = rv,
+  alt_col = ic,
+  id_col = sub
+)
+# Bootstrap confidence intervals.
+# `nsim` should probalby be at least 1999 for real use.
+# BA_CO <- add_confint(BA_CO, nsim = 999)
+```
+
+`compare_methods()` is the main analysis function in `BAtrending`. Run `?compare_methods` for instructions.
+
+`compare_methods()` uses `lme4::lmer()` to  fit a mixed model with differences (alt - ref) as the dependent variable. From this model, Bland-Altman statistics and treniding parameters are calculated accounting for repeated measurements. Additionally, a mixed model with averages ((alt + ref)/2) as the dependent variable is fitted. This model is used to determine between-subject and within-subject variation in the measured variable. In [Part 3](#part-3-manually-fit-the-mixed-model-and-extract-features) we demonstrate how to manually fit the mixed model and extract relevant features.
+
+We can view the raw data using `plot_BA_scatter()`. It is generally recommended to set the aspect ratio to 1 for easy comparison between the methods. 
+
+```{r}
+plot_BA_scatter(BA_CO, aspect_ratio = 1)
+```
+
+The standard Bland-Altman plot is created with `plot_BA()`.
+
+```{r}
+plot_BA(BA_CO, aspect_ratio = 1)
+```
+
+ 
+
+```{r}
+plot_BA_combine(BA_CO, aspect_ratio = 1)
+```
+
+```{r}
+
+```
+
+# Part 3: Manually fit the mixed model and extract features
