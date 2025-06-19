@@ -141,7 +141,7 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE) {
         ba_df$stat %in% c("percentage.error", "percentage.error.within")
       ),
       j = 1,
-      text = "Percentage error = 1.96 · Total (or Within-subject) SD / mean"
+      text = "Percentage error = 1.96 · Total (or Within-subject) SD/mean"
     ),
     "3" = list(
       i = which(ba_df$stat == "change.loa"),

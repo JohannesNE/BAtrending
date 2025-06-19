@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_plots.R
 \name{plot_BA}
 \alias{plot_BA}
-\title{Create Bland Altman Plot}
+\title{Create Bland-Altman plot}
 \usage{
 plot_BA(
   ba_obj,
@@ -21,13 +21,17 @@ plot_BA(
 \item{keep_log_scale}{Show log transformed differences. If \code{FALSE} (default), values and parameters are exponentiated before plotting}
 }
 \value{
-Bland Altman plot (ggplot)
+Bland-Altman plot (ggplot)
 }
 \description{
-Create Bland Altman Plot
+Creates a standard Bland-Altman plot from a BA analysis object made with \code{\link[=compare_methods]{compare_methods()}}.
 }
 \examples{
 ba_obj <- compare_methods(CO, ic, rv, id_col = sub)
 plot_BA(ba_obj)
 
+}
+\seealso{
+\code{\link[=plot_BA_normalized_log]{plot_BA_normalized_log()}} which shows the results of a proportional BA analysis (with log-transformed measurements)
+on the non-transformed data.
 }

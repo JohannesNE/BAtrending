@@ -1,11 +1,16 @@
-#' Create Bland Altman Plot
+#' Create Bland-Altman plot
+#'
+#' Creates a standard Bland-Altman plot from a BA analysis object made with [compare_methods()].
 #'
 #' @param ba_obj BA analysis object
 #' @param aspect_ratio Set aspect ratio (x/y) between X and Y axis (sets `coord_fixed()`), Default (NULL) is automatic.
 #' @param show_subject_legend Show legend for subjects
 #' @param keep_log_scale Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting
 #'
-#' @returns Bland Altman plot (ggplot)
+#' @returns Bland-Altman plot (ggplot)
+#'
+#' @seealso [plot_BA_normalized_log()] which shows the results of a proportional BA analysis (with log-transformed measurements)
+#' on the non-transformed data.
 #'
 #' @examples
 #' ba_obj <- compare_methods(CO, ic, rv, id_col = sub)
