@@ -1,13 +1,13 @@
 # Order stats and labels for table
 ba_stat_labels <- c(
   distr.mean = "Mean",
-  distr.sd.between = "Between-subject variation (SD)",
-  distr.sd.within = "Within-subject variation (SD)",
-  distr.sd.total = "Total variation (SD)",
+  distr.sd.between = "Between-subject SD",
+  distr.sd.within = "Within-subject SD",
+  distr.sd.total = "Total SD",
   bias = "Bias",
-  sd.between = "Between-subject variation (SD)",
-  sd.within = "Within-subject variation (SD)",
-  sd.total = "Total variation (SD)",
+  sd.between = "Between-subject SD",
+  sd.within = "Within-subject SD",
+  sd.total = "Total SD",
   # intraclass.correlation = "Intraclass correlation",
   loa.upr = "\U2003 Upper limit",
   loa.lwr = "\U2003 Lower limit",
@@ -141,13 +141,14 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE) {
         ba_df$stat %in% c("percentage.error", "percentage.error.within")
       ),
       j = 1,
-      text = "Percentage error = 1.96 · Total (or Within-subject) variation (SD) / average."
+      text = "Percentage error = 1.96 · Total (or Within-subject) SD / mean"
     ),
     "3" = list(
       i = which(ba_df$stat == "change.loa"),
       j = 1,
-      text = "Change limits of agreement (95%) = 1.96 · √2 · Within-subject variation (SD)."
-    )
+      text = "Change limits of agreement (95%) = 1.96 · √2 · Within-subject SD."
+    ),
+    "SD: standard deviation; alt: alternative method; ref: reference method"
   )
 
   ba_df_clean <- subset(ba_df, select = -stat)
