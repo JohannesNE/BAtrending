@@ -45,18 +45,25 @@ plot_BA <- function(
   BA_stats <- BA_stats[BA_stats$stat %in% c("bias", "loa.lwr", "loa.upr"), ]
 
   d <- ba_obj$data
+  # always use the non-log values for the x-axis (mean)
   d$mean <- ba_obj$.non_log_data$mean
 
   var_names <- ba_obj$.var_names
   var_names_raw <- ba_obj$.var_names_raw
 
+  # Exponentiate data if relevant
   if (data_is_log_transformed && !keep_log_scale) {
     exponentiated <- TRUE
     d$diff <- exp(d$diff)
     BA_stats$est <- exp(BA_stats$est)
     BA_stats$ci.upr <- exp(BA_stats$ci.upr)
     BA_stats$ci.lwr <- exp(BA_stats$ci.lwr)
+  } else {
+    exponentiated <- FALSE
+  }
 
+  # Prepare plot settings
+  if (exponentiated) {
     null_value <- 1
     y_scale_and_coord = list(
       ggplot2::scale_y_continuous(
@@ -66,8 +73,9 @@ plot_BA <- function(
       ggplot2::coord_trans(y = "log", clip = "off")
     )
   } else {
-    exponentiated <- FALSE
     null_value <- 0
+
+    # Only set aspect ratio in non-exp plots
     if (is.numeric(aspect_ratio)) {
       y_scale_and_coord <- ggplot2::coord_fixed(
         ratio = aspect_ratio,
@@ -215,7 +223,8 @@ add_BA_stats_geom_manual <- function(
 #' @return Bland Altman style plot with relative differences plotted on absolute differences.
 #'
 #' @examples
-#' plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE))
+#' BA_CO <- compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE)
+#' plot_BA_nomalized_log(BA_CO)
 #'
 #' @export
 plot_BA_normalized_log <- function(
@@ -326,10 +335,10 @@ plot_BA_normalized_log <- function(
 }
 
 
-#' Plot intraindividual variation (model residuals) in differences and averages.
+#' Plot within-subject variation (model residuals) in differences and averages.
 #'
 #' @inheritParams plot_BA
-#' @param show_sd Mark 1.96*SD (intraindividual) on the plot (analouge to 95% LoA).
+#' @param show_sd Mark 1.96*SD (within-subject) on the plot (analouge to 95% LoA).
 #'
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data

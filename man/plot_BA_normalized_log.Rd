@@ -24,6 +24,7 @@ Bland Altman style plot with relative differences plotted on absolute difference
 Plot BA estimates from log transformed data on raw data.
 }
 \examples{
-plot_BA(compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE))
+BA_CO <- compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE)
+plot_BA_nomalized_log(BA_CO)
 
 }

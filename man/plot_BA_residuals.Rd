@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_plots.R
 \name{plot_BA_residuals}
 \alias{plot_BA_residuals}
-\title{Plot intraindividual variation (model residuals) in differences and averages.}
+\title{Plot within-subject variation (model residuals) in differences and averages.}
 \usage{
 plot_BA_residuals(
   ba_obj,
@@ -21,8 +21,8 @@ plot_BA_residuals(
 
 \item{keep_log_scale}{Show log transformed differences. If \code{FALSE} (default), values and parameters are exponentiated before plotting}
 
-\item{show_sd}{Mark 1.96*SD (intraindividual) on the plot (analouge to 95\% LoA).}
+\item{show_sd}{Mark 1.96*SD (within-subject) on the plot (analouge to 95\% LoA).}
 }
 \description{
-Plot intraindividual variation (model residuals) in differences and averages.
+Plot within-subject variation (model residuals) in differences and averages.
 }
