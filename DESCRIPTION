@@ -31,4 +31,4 @@ Suggests:
     rmarkdown,
     litedown
 Config/testthat/edition: 3
-VignetteBuilder: quarto, knitr
+VignetteBuilder: quarto

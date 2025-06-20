@@ -3,7 +3,7 @@
 #' Creates a standard Bland-Altman plot from a BA analysis object made with [compare_methods()].
 #'
 #' @param ba_obj BA analysis object
-#' @param aspect_ratio Set aspect ratio (x/y) between X and Y axis (sets `coord_fixed()`), Default (NULL) is automatic.
+#' @param aspect_ratio Set aspect ratio (x/y) between X and Y axis (sets `ggplot2::coord_fixed()`), Default (NULL) is automatic.
 #' @param show_subject_legend Show legend for subjects
 #' @param keep_log_scale Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting
 #'
@@ -671,10 +671,11 @@ create_axis_labels <- function(
 check_CI <- function(ba_obj, ba_obj_name = "ba_obj") {
   # Check for CI
   if (is.null(ba_obj$BA_stats_ci)) {
-    message(sprintf(
-      "The BA analysis object has no confidence intervals.
-To add confidence intervals use `%1$s <- add_confint(%1$s)` (see ?add_confint)",
-      ba_obj_name
-    ))
+    cli::cli_inform(
+      c(
+        i = "The BA analysis object has no confidence intervals.",
+        "To add confidence intervals run {.run {ba_obj_name} <- add_confint({ba_obj_name})}. (see {.fun BAtrending::add_confint} for help)"
+      )
+    )
   }
 }

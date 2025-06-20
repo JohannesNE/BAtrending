@@ -16,7 +16,7 @@ plot_BA_combine(
 \arguments{
 \item{ba_obj}{BA analysis object}
 
-\item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{coord_fixed()}), Default (NULL) is automatic.}
+\item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{ggplot2::coord_fixed()}), Default (NULL) is automatic.}
 
 \item{show_subject_legend}{Show legend for subjects}
 

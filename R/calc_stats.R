@@ -3,7 +3,7 @@
 #' Creates a Bland-Altman analysis including trending agreement from a dataset of
 #' simultaneous measurements with two methods (alt and ref).
 #'
-#' `compare_methods()` uses `lme4::lmer()` to fit two mixed models:
+#' `compare_methods()` uses [lme4::lmer()] to fit two mixed models:
 #' 1. A difference model describing the (dis)agreement between methods (alt - ref).
 #'   This model is used to calculate the Bland-Altman statistics including trending parameters,
 #'   accounting for repeated measurements between subjects.
@@ -160,12 +160,14 @@ compare_methods <- function(
   )
 }
 
-#' Add confidence intervals to BA analysis object. The confidence intervals are calculated with a percentile parametric bootstrap (see `?lme4::confint.merMod` for details).
+#' Add confidence intervals to BA analysis object.
+#'
+#' The confidence intervals are calculated with a percentile parametric bootstrap (see [lme4::confint.merMod()] for details).
 #'
 #' @param ba_obj BA analysis object
 #' @param level Confidence level (default is 0.95)
 #' @param nsim Number of bootstrap samples
-#' @param .progress,PBargs see `?lme4::bootMer()`
+#' @param .progress,PBargs see [lme4::bootMer()]
 #'
 #' @return
 #' BA analysis object (`x`) with added confidence intervals

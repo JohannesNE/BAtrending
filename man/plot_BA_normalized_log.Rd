@@ -15,7 +15,7 @@ plot_BA_normalized_log(
 
 \item{show_subject_legend}{Show legend for subjects}
 
-\item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{coord_fixed()}), Default (NULL) is automatic.}
+\item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{ggplot2::coord_fixed()}), Default (NULL) is automatic.}
 }
 \value{
 Bland Altman style plot with relative differences plotted on absolute differences.
