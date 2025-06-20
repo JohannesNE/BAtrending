@@ -37,7 +37,7 @@ Creates a Bland-Altman analysis including trending agreement from a dataset of
 simultaneous measurements with two methods (alt and ref).
 }
 \details{
-\code{compare_methods()} uses \code{lme4::lmer()} to fit two mixed models:
+\code{compare_methods()} uses \code{\link[lme4:lmer]{lme4::lmer()}} to fit two mixed models:
 \enumerate{
 \item A difference model describing the (dis)agreement between methods (alt - ref).
 This model is used to calculate the Bland-Altman statistics including trending parameters,

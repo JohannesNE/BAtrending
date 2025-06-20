@@ -509,12 +509,14 @@ plot_BA_scatter <- function(
 #' @inheritParams plot_BA
 #' @param equal_scales Plot the residuals on a plane with the scale of the original data.
 #' @param return_as_list Return the three plots in a list. If `FALSE`, the plots are combined using \{patchwork\}.
+#' @param use_title Show default titles on plots.
 #'
 #' @export
 plot_BA_combine <- function(
   ba_obj,
   aspect_ratio = NULL,
   show_subject_legend = FALSE,
+  use_titles = TRUE,
   equal_scales = TRUE,
   keep_log_scale = FALSE,
   return_as_list = FALSE
@@ -579,6 +581,15 @@ plot_BA_combine <- function(
         limits = x_panel_limits - mean(x_panel_limits, expand = c(0, 0))
       ) +
       y_scale
+  }
+
+  # Default titles
+  if (use_titles) {
+    BA_plot <- BA_plot +
+      ggplot2::labs(title = "Bland-Altman analysis")
+
+    residuals_plot <- residuals_plot +
+      ggplot2::labs(title = "Within-subject variation")
   }
 
   # Combine plots

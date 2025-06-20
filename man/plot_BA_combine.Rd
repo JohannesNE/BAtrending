@@ -8,6 +8,7 @@ plot_BA_combine(
   ba_obj,
   aspect_ratio = NULL,
   show_subject_legend = FALSE,
+  use_titles = TRUE,
   equal_scales = TRUE,
   keep_log_scale = FALSE,
   return_as_list = FALSE
@@ -25,6 +26,8 @@ plot_BA_combine(
 \item{keep_log_scale}{Show log transformed differences. If \code{FALSE} (default), values and parameters are exponentiated before plotting}
 
 \item{return_as_list}{Return the three plots in a list. If \code{FALSE}, the plots are combined using \{patchwork\}.}
+
+\item{use_title}{Show default titles on plots.}
 }
 \description{
 Creates a scatter plot, a standard Bland Altman plot and a residuals plot for assessing trending ability.
