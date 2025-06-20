@@ -20,18 +20,25 @@ knitr::opts_chunk$set(
 
 # Setup
 
-First, install the package using `pak::pak("JohannesNE/BAtrending")` or `remotes::install_github("JohannesNE/BAtrending")`.
-Then, load the package.
+First, install the package using `pak::pak("JohannesNE/BAtrending")` or `remotes::install_github("JohannesNE/BAtrending")`. Then, load the package.
 
 ```{r setup}
 library(BAtrending)
 ```
 
-# Example with absolute errors
+# An Example
 
 BAtrending package includes a small sample dataset, `CO`. It contains paired measurements of cardiac output (CO) with two methods: radionuclide ventriculography (rv) and impedance cardiography (ic). The dataset was published in [Bland JM, Altman DG. (1999) Measuring agreement in method comparison studies. Statistical Methods in Medical Research 8, 135-160](https://doi.org/10.1177/096228029900800204).
 
 The `CO` dataset has 60 measurements in 12 subjects.
+
+```{r}
+head(CO)
+```
+
+`compare_methods()` is the primary analysis function in `BAtrending`.
+
+`compare_methods()` uses `lme4::lmer()` to fit a mixed model with differences (alt - ref) as the dependent variable. From this model, Bland-Altman statistics and treniding parameters are calculated accounting for repeated measurements. Additionally, a mixed model with averages ((alt + ref)/2) as the dependent variable is fitted. This model is used to determine between-subject and within-subject variation in the measured variable. In [Part 3](#part-3-manually-fit-the-mixed-model-and-extract-features) we demonstrate how to manually fit the mixed model and extract relevant features.
 
 ```{r}
 #| results: 'hide'
@@ -48,11 +55,7 @@ BA_CO <- compare_methods(
 # BA_CO <- add_confint(BA_CO, nsim = 999)
 ```
 
-`compare_methods()` is the main analysis function in `BAtrending`. Run `?compare_methods` for instructions.
-
-`compare_methods()` uses `lme4::lmer()` to  fit a mixed model with differences (alt - ref) as the dependent variable. From this model, Bland-Altman statistics and treniding parameters are calculated accounting for repeated measurements. Additionally, a mixed model with averages ((alt + ref)/2) as the dependent variable is fitted. This model is used to determine between-subject and within-subject variation in the measured variable. In [Part 3](#part-3-manually-fit-the-mixed-model-and-extract-features) we demonstrate how to manually fit the mixed model and extract relevant features.
-
-We can view the raw data using `plot_BA_scatter()`. It is generally recommended to set the aspect ratio to 1 for easy comparison between the methods. 
+We can view the raw data (`rv` and `ic`) using `plot_BA_scatter()`. It is generally recommended to set the aspect ratio to 1 for easy comparison between the methods.
 
 ```{r}
 plot_BA_scatter(BA_CO, aspect_ratio = 1)
@@ -64,11 +67,15 @@ The standard Bland-Altman plot is created with `plot_BA()`.
 plot_BA(BA_CO, aspect_ratio = 1)
 ```
 
- 
+`plot_BA_compine()` is a convenience function, that combines three plots, the scatter plot and Bland-Altman plots shown above and a residuals plot, that shows only the within-subject variation, which is the only variation that is relevant for trending agreement.
 
 ```{r}
-plot_BA_combine(BA_CO, aspect_ratio = 1)
+plot_BA_combine(BA_CO, aspect_ratio = 1, equal_scales = TRUE)
 ```
+
+Setting `equal_scales = TRUE` matches the dimensions of the residuals plot to the standard Bland-Altman plot, so we can visually compare the within-subject variation (right panel) to the total variation shown in the Bland-Altman analysis (middle panel).
+
+On the Y-axis, we see that there is little within-subject variation in the difference between simultaneous measurements, especially compared the the total variation (Y-axis of the middle panel). By itself, this indicates good trending agreement, but we also have to consider the X-axis. The middle panel shows that a wide range of CO values are included in the study, but the right panel shows that the within-subject variation in CO is very limited. Each subject have ...
 
 ```{r}
 
@@ -88,4 +95,4 @@ $$
 
 when $SD < \sim0.2$.
 
-# Part 3: Manually fit the mixed model and extract features
+# Part 3: Manually fit the mixed model and extract features {#part-3-manually-fit-the-mixed-model-and-extract-features}
