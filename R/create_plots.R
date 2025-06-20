@@ -78,18 +78,22 @@ plot_BA <- function(
     }
   }
 
+  # To put the BA_stats geoms in correct order, first make the list of geoms, and then add them individually
+  BA_stats_geoms <- add_BA_stats_geom(
+    BA_stats,
+    exponentiated = exponentiated,
+    name_ref = var_names_raw$ref_col,
+    name_alt = var_names_raw$alt_col
+  )
+
   ggplot2::ggplot(d, aes(mean, diff, color = .data[[var_names$id_col]])) +
     ggplot2::scale_x_continuous(
       expand = ggplot2::expansion(mult = c(0.1, 0.20))
     ) +
     ggplot2::geom_hline(yintercept = null_value, color = "gray") +
-    add_BA_stats_geom(
-      BA_stats,
-      exponentiated = exponentiated,
-      name_ref = var_names_raw$ref_col,
-      name_alt = var_names_raw$alt_col
-    ) +
+    BA_stats_geoms[c("rect", "hline")] +
     ggplot2::geom_point(show.legend = show_subject_legend) +
+    BA_stats_geoms["label"] +
     create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
     y_scale_and_coord +
     theme_ba()
@@ -125,13 +129,13 @@ add_BA_stats_geom <- function(
 
   # Create geoms for BA estimates
   est_lines <- list(
-    ggplot2::geom_hline(
+    "hline" = ggplot2::geom_hline(
       aes(yintercept = .data$est),
       linetype = 2,
       data = BA_stats_df
     ),
 
-    ggplot2::geom_label(
+    "label" = ggplot2::geom_label(
       aes(x = Inf, y = .data$est, label = .data$label_w_val),
       hjust = "inward",
       vjust = label_vjust, # Place loa.lwr below line
@@ -160,7 +164,7 @@ add_BA_stats_geom <- function(
     )
   }
 
-  list(ci_shade, est_lines)
+  c(list("rect" = ci_shade), est_lines)
 }
 
 #' Manually add Bland Altman geometry to plot
@@ -376,6 +380,8 @@ plot_BA_residuals <- function(
     }
   }
 
+  BA_stats_geom <- NULL
+  x_scale <- NULL
   if (show_sd) {
     sd.within <- c(ba_obj$BA_stats$sd.within, ba_obj$BA_stats_ci$sd.within)
 
@@ -387,19 +393,16 @@ plot_BA_residuals <- function(
       lwr <- -1.96 * sd.within
     }
 
-    stats_geom <- list(
-      add_BA_stats_geom_manual(
-        bias = NULL,
-        lwr = lwr,
-        upr = upr,
-        line_labels = c(bias = "", lwr = "-1.96SD", upr = "+1.96SD")
-      ),
-      ggplot2::scale_x_continuous(
-        expand = ggplot2::expansion(mult = c(0.1, 0.20))
-      )
+    BA_stats_geom <- add_BA_stats_geom_manual(
+      bias = NULL,
+      lwr = lwr,
+      upr = upr,
+      line_labels = c(bias = "", lwr = "-1.96SD", upr = "+1.96SD")
     )
-  } else {
-    stats_geom <- NULL
+
+    x_scale <- ggplot2::scale_x_continuous(
+      expand = ggplot2::expansion(mult = c(0.1, 0.20))
+    )
   }
 
   d <- ba_obj$data
@@ -415,9 +418,11 @@ plot_BA_residuals <- function(
     )
   ) +
     ggplot2::geom_hline(yintercept = null_value, color = "gray") +
+    BA_stats_geom[c("rect", "hline")] +
     ggplot2::geom_point(show.legend = show_subject_legend) +
+    BA_stats_geom["label"] +
     y_scale_and_coord +
-    stats_geom +
+    x_scale +
     create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
     theme_ba()
 
