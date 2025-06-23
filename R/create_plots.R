@@ -101,11 +101,11 @@ BA_plot_setup <- function(
         clip = "off"
       )
     } else {
-      cli::cli_inform(
-        "Cant fix aspect ratio on log transformed data as the axes are on different scales.",
+      cli::cli_inform(c(
+        i = "Aspect ratio is not applied to Bland-Altman plot of log transformed data as the axes are on different scales.",
         "X: absolute.",
         "Y: ratio or log-transformed."
-      )
+      ))
     }
   }
 
@@ -559,12 +559,12 @@ plot_BA_combine <- function(
   )
 
   # Create residuals plot
-  residuals_plot <- plot_BA_residuals(
+  residuals_plot <- suppressMessages(plot_BA_residuals(
     ba_obj = ba_obj,
     aspect_ratio = aspect_ratio,
     show_subject_legend = show_subject_legend,
     keep_log_scale = keep_log_scale
-  )
+  ))
 
   if (equal_scales) {
     ratio_scale <- attr(ba_obj, "logtrans") && !keep_log_scale
@@ -594,12 +594,17 @@ plot_BA_combine <- function(
       )
     }
 
+    x_scale <- ggplot2::scale_x_continuous(
+      limits = x_panel_limits - mean(x_panel_limits, expand = c(0, 0))
+    )
+
     # Set scales for residual plot
-    residuals_plot <- residuals_plot +
-      ggplot2::scale_x_continuous(
-        limits = x_panel_limits - mean(x_panel_limits, expand = c(0, 0))
-      ) +
-      y_scale
+    suppressMessages(
+      # Avoid message about new plots
+      residuals_plot <- residuals_plot +
+        x_scale +
+        y_scale
+    )
   }
 
   # Default titles
