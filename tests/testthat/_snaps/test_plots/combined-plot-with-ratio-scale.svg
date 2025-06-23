@@ -149,8 +149,10 @@
 <text x='191.86' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>7</text>
 <text x='122.86' y='552.23' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='8.67px' lengthAdjust='spacingAndGlyphs'>ic</text>
 <text transform='translate(16.57,287.97) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='10.00px' lengthAdjust='spacingAndGlyphs'>rv</text>
+<polyline points='277.89,489.84 458.07,489.84 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='277.89,367.57 458.07,367.57 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
-<polyline points='277.89,145.40 458.07,145.40 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
+<polyline points='277.89,245.30 458.07,245.30 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
+<polyline points='277.89,123.03 458.07,123.03 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='330.02,527.01 330.02,48.94 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='389.12,527.01 389.12,48.94 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='448.23,527.01 448.23,48.94 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
@@ -227,8 +229,10 @@
 <polygon points='382.24,70.67 456.08,70.67 456.00,70.66 456.32,70.65 456.63,70.59 456.93,70.47 457.21,70.31 457.46,70.11 457.67,69.87 457.84,69.60 457.96,69.31 458.04,69.00 458.07,68.68 458.07,68.68 458.07,42.53 458.07,42.53 458.04,42.22 457.96,41.91 457.84,41.61 457.67,41.34 457.46,41.10 457.21,40.90 456.93,40.74 456.63,40.63 456.32,40.56 456.08,40.55 382.24,40.55 382.48,40.56 382.16,40.55 381.85,40.59 381.54,40.68 381.25,40.81 380.99,41.00 380.76,41.22 380.56,41.47 380.42,41.76 380.31,42.06 380.26,42.37 380.26,42.53 380.26,68.68 380.26,68.52 380.26,68.84 380.31,69.15 380.42,69.46 380.56,69.74 380.76,70.00 380.99,70.22 381.25,70.40 381.54,70.54 381.85,70.63 382.16,70.66 ' style='stroke-width: nan; stroke: none; fill: none;' />
 <text x='454.75' y='51.46' text-anchor='end' style='font-size: 11.04px; font-family: sans;' textLength='44.81px' lengthAdjust='spacingAndGlyphs'>95% LoA</text>
 <text x='454.75' y='67.35' text-anchor='end' style='font-size: 11.04px; font-family: sans;' textLength='71.19px' lengthAdjust='spacingAndGlyphs'>(rv = 1.72 × ic)</text>
+<text x='272.51' y='493.14' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>0.80</text>
 <text x='272.51' y='370.87' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.00</text>
-<text x='272.51' y='148.70' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.50</text>
+<text x='272.51' y='248.60' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.25</text>
+<text x='272.51' y='126.33' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.56</text>
 <text x='330.02' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>4</text>
 <text x='389.12' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>6</text>
 <text x='448.23' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>8</text>
@@ -237,8 +241,10 @@
 <text transform='translate(235.38,287.97) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>Ratio</text>
 <text transform='translate(248.34,287.97) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='28.67px' lengthAdjust='spacingAndGlyphs'>rv / ic</text>
 <text x='277.89' y='44.58' style='font-size: 13.20px; font-family: sans;' textLength='130.62px' lengthAdjust='spacingAndGlyphs'>Bland-Altman analysis</text>
+<polyline points='523.00,489.84 703.18,489.84 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='523.00,367.57 703.18,367.57 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
-<polyline points='523.00,145.40 703.18,145.40 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
+<polyline points='523.00,245.30 703.18,245.30 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
+<polyline points='523.00,123.03 703.18,123.03 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='559.36,527.01 559.36,48.94 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='613.09,527.01 613.09,48.94 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='666.82,527.01 666.82,48.94 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
@@ -309,8 +315,10 @@
 <text x='699.87' y='479.01' text-anchor='end' style='font-size: 11.04px; font-family: sans;' textLength='78.86px' lengthAdjust='spacingAndGlyphs'>-1.96SD (+0.83)</text>
 <polygon points='616.91,267.04 701.19,267.04 701.11,267.03 701.43,267.02 701.75,266.96 702.05,266.84 702.32,266.68 702.57,266.48 702.78,266.24 702.95,265.97 703.08,265.68 703.16,265.37 703.18,265.05 703.18,265.05 703.18,254.80 703.18,254.80 703.16,254.48 703.08,254.17 702.95,253.88 702.78,253.61 702.57,253.37 702.32,253.17 702.05,253.01 701.75,252.89 701.43,252.83 701.19,252.81 616.91,252.81 617.15,252.83 616.83,252.82 616.51,252.85 616.20,252.94 615.91,253.08 615.65,253.26 615.42,253.48 615.23,253.74 615.08,254.02 614.98,254.33 614.93,254.64 614.92,254.80 614.92,265.05 614.93,264.89 614.93,265.21 614.98,265.52 615.08,265.83 615.23,266.11 615.42,266.37 615.65,266.59 615.91,266.77 616.20,266.91 616.51,267.00 616.83,267.03 ' style='stroke-width: nan; stroke: none; fill: none;' />
 <text x='699.87' y='263.72' text-anchor='end' style='font-size: 11.04px; font-family: sans;' textLength='81.64px' lengthAdjust='spacingAndGlyphs'>+1.96SD (+1.20)</text>
+<text x='517.62' y='493.14' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>0.80</text>
 <text x='517.62' y='370.87' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.00</text>
-<text x='517.62' y='148.70' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.50</text>
+<text x='517.62' y='248.60' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.25</text>
+<text x='517.62' y='126.33' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.56</text>
 <text x='559.36' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='8.54px' lengthAdjust='spacingAndGlyphs'>-2</text>
 <text x='613.09' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='666.82' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>2</text>

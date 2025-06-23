@@ -637,7 +637,7 @@ plot_BA_combine <- function(
 breaks_from_vec <- function(
   x,
   vec = c(0.33, 0.5, 0.66, 1, 1.5, 2, 3),
-  fallback_fun = scales::breaks_log(base = 1.5, n = 5)
+  fallback_fun = scales::breaks_log(base = 1.25, n = 5)
 ) {
   # Selects breaks from a predefined vector of desired breaks. If less than
   # 3 breaks are in range, use fallback function
