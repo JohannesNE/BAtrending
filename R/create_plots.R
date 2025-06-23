@@ -444,15 +444,15 @@ plot_BA_residuals <- function(
   current_label_x <- residual_plot$labels$x
   residual_plot$labels$x <- sub(
     "^Average",
-    "Residual of average",
+    "Average (residual)",
     current_label_x
   )
 
   # Update y-axis label to "Residual difference"
   current_label_y <- residual_plot$labels$y
   residual_plot$labels$y <- sub(
-    "^Difference",
-    "Residual difference",
+    "^(Difference|Ratio)",
+    "\\1 (residual)",
     current_label_y
   )
 

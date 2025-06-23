@@ -329,12 +329,12 @@
 <text x='483.30' y='286.03' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text x='483.30' y='254.05' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>2</text>
 <text x='483.30' y='222.07' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>3</text>
-<text transform='translate(456.33,287.97) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='102.74px' lengthAdjust='spacingAndGlyphs'>Residual difference</text>
+<text transform='translate(456.33,287.97) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='108.05px' lengthAdjust='spacingAndGlyphs'>Difference (residual)</text>
 <text transform='translate(469.29,287.97) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='29.33px' lengthAdjust='spacingAndGlyphs'>rv - ic</text>
 <text x='531.97' y='375.03' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='8.54px' lengthAdjust='spacingAndGlyphs'>-2</text>
 <text x='595.93' y='375.03' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='659.90' y='375.03' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='5.34px' lengthAdjust='spacingAndGlyphs'>2</text>
-<text x='595.93' y='388.27' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='106.75px' lengthAdjust='spacingAndGlyphs'>Residual of average</text>
+<text x='595.93' y='388.27' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='98.06px' lengthAdjust='spacingAndGlyphs'>Average (residual)</text>
 <text x='595.93' y='401.23' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='57.02px' lengthAdjust='spacingAndGlyphs'>(ic + rv) / 2</text>
 <text x='488.68' y='208.54' style='font-size: 13.20px; font-family: sans;' textLength='136.46px' lengthAdjust='spacingAndGlyphs'>Within-subject variation</text>
 <text x='8.31' y='178.53' style='font-size: 13.20px; font-family: sans;' textLength='215.73px' lengthAdjust='spacingAndGlyphs'>Combined plot with fixed aspect ratio</text>
