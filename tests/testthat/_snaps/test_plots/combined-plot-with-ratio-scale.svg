@@ -237,13 +237,6 @@
 <text transform='translate(235.38,287.97) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>Ratio</text>
 <text transform='translate(248.34,287.97) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='28.67px' lengthAdjust='spacingAndGlyphs'>rv / ic</text>
 <text x='277.89' y='44.58' style='font-size: 13.20px; font-family: sans;' textLength='130.62px' lengthAdjust='spacingAndGlyphs'>Bland-Altman analysis</text>
-</g>
-<defs>
-  <clipPath id='cpNTIzLjAwfDcwMy4xOHw0OC45NHw1MjcuMDE='>
-    <rect x='523.00' y='48.94' width='180.18' height='478.07' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpNTIzLjAwfDcwMy4xOHw0OC45NHw1MjcuMDE=)'>
 <polyline points='523.00,367.57 703.18,367.57 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='523.00,145.40 703.18,145.40 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='559.36,527.01 559.36,48.94 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
@@ -316,8 +309,6 @@
 <text x='699.87' y='479.01' text-anchor='end' style='font-size: 11.04px; font-family: sans;' textLength='78.86px' lengthAdjust='spacingAndGlyphs'>-1.96SD (+0.83)</text>
 <polygon points='616.91,267.04 701.19,267.04 701.11,267.03 701.43,267.02 701.75,266.96 702.05,266.84 702.32,266.68 702.57,266.48 702.78,266.24 702.95,265.97 703.08,265.68 703.16,265.37 703.18,265.05 703.18,265.05 703.18,254.80 703.18,254.80 703.16,254.48 703.08,254.17 702.95,253.88 702.78,253.61 702.57,253.37 702.32,253.17 702.05,253.01 701.75,252.89 701.43,252.83 701.19,252.81 616.91,252.81 617.15,252.83 616.83,252.82 616.51,252.85 616.20,252.94 615.91,253.08 615.65,253.26 615.42,253.48 615.23,253.74 615.08,254.02 614.98,254.33 614.93,254.64 614.92,254.80 614.92,265.05 614.93,264.89 614.93,265.21 614.98,265.52 615.08,265.83 615.23,266.11 615.42,266.37 615.65,266.59 615.91,266.77 616.20,266.91 616.51,267.00 616.83,267.03 ' style='stroke-width: nan; stroke: none; fill: none;' />
 <text x='699.87' y='263.72' text-anchor='end' style='font-size: 11.04px; font-family: sans;' textLength='81.64px' lengthAdjust='spacingAndGlyphs'>+1.96SD (+1.20)</text>
-</g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='517.62' y='370.87' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.00</text>
 <text x='517.62' y='148.70' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.50</text>
 <text x='559.36' y='538.99' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='8.54px' lengthAdjust='spacingAndGlyphs'>-2</text>

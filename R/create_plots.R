@@ -33,9 +33,6 @@ plot_BA <- function(
       "Data was not log transformed by {.fn compare_methods()}."
     )
   }
-  if (is.numeric(aspect_ratio) && data_is_log_transformed) {
-    cli::cli_warn("Cant fix aspect ratio on log transformed data")
-  }
 
   ba_obj_name <- deparse(substitute(ba_obj))
   check_CI(ba_obj, ba_obj_name)
@@ -63,28 +60,11 @@ plot_BA <- function(
   }
 
   # Prepare plot settings
-  if (exponentiated) {
-    null_value <- 1
-    y_scale_and_coord = list(
-      ggplot2::scale_y_continuous(
-        labels = scales::label_number(accuracy = 0.01),
-        breaks = breaks_from_vec
-      ),
-      ggplot2::coord_trans(y = "log", clip = "off")
-    )
-  } else {
-    null_value <- 0
-
-    # Only set aspect ratio in non-exp plots
-    if (is.numeric(aspect_ratio)) {
-      y_scale_and_coord <- ggplot2::coord_fixed(
-        ratio = aspect_ratio,
-        clip = "off"
-      )
-    } else {
-      y_scale_and_coord <- ggplot2::coord_cartesian(clip = "off")
-    }
-  }
+  plot_setup <- BA_plot_setup(
+    exponentiated = exponentiated,
+    data_is_log_transformed = data_is_log_transformed,
+    aspect_ratio = aspect_ratio
+  )
 
   # To put the BA_stats geoms in correct order, first make the list of geoms, and then add them individually
   BA_stats_geoms <- add_BA_stats_geom(
@@ -95,16 +75,61 @@ plot_BA <- function(
   )
 
   ggplot2::ggplot(d, aes(mean, diff, color = .data[[var_names$id_col]])) +
-    ggplot2::scale_x_continuous(
-      expand = ggplot2::expansion(mult = c(0.1, 0.20))
-    ) +
-    ggplot2::geom_hline(yintercept = null_value, color = "gray") +
+    plot_setup +
     BA_stats_geoms[c("rect", "hline")] +
     ggplot2::geom_point(show.legend = show_subject_legend) +
     BA_stats_geoms["label"] +
-    create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
-    y_scale_and_coord +
-    theme_ba()
+    create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated)
+}
+
+# Internal function to add ggplot settings to plot_BA and plot_BA_residuals
+BA_plot_setup <- function(
+  exponentiated,
+  data_is_log_transformed,
+  aspect_ratio
+) {
+  # Default values
+  coord <- ggplot2::coord_cartesian(clip = "off")
+  y_scale <- NULL
+  null_value <- 0
+
+  if (is.numeric(aspect_ratio)) {
+    if (!data_is_log_transformed) {
+      # Only set aspect ratio in non-exp plots
+      coord <- ggplot2::coord_fixed(
+        ratio = aspect_ratio,
+        clip = "off"
+      )
+    } else {
+      cli::cli_inform(
+        "Cant fix aspect ratio on log transformed data as the axes are on different scales.",
+        "X: absolute.",
+        "Y: ratio or log-transformed."
+      )
+    }
+  }
+
+  if (exponentiated) {
+    null_value <- 1
+    y_scale <- ggplot2::scale_y_continuous(
+      labels = scales::label_number(accuracy = 0.01),
+      breaks = breaks_from_vec
+    )
+    coord <- ggplot2::coord_trans(y = "log", clip = "off")
+  }
+
+  hline <- ggplot2::geom_hline(yintercept = null_value, color = "gray")
+  x_scale <- ggplot2::scale_x_continuous(
+    expand = ggplot2::expansion(mult = c(0.1, 0.20))
+  )
+
+  list(
+    hline = hline,
+    y_scale = y_scale,
+    y_scale = x_scale,
+    coord = coord,
+    theme = theme_ba()
+  )
 }
 
 #' @importFrom ggplot2 aes
@@ -363,43 +388,30 @@ plot_BA_residuals <- function(
   diff_residuals <- stats::residuals(ba_obj$diff_model)
   mean_residuals <- stats::residuals(ba_obj$distribution_model)
 
-  # Y axis
+  # Exponentiate data if relevant
   if (data_is_log_transformed && !keep_log_scale) {
     exponentiated <- TRUE
     diff_residuals <- exp(diff_residuals)
-
-    null_value <- 1
-    y_scale_and_coord = list(
-      ggplot2::scale_y_continuous(
-        labels = scales::label_number(accuracy = 0.01),
-        breaks = breaks_from_vec
-      ),
-      ggplot2::coord_trans(y = "log")
-    )
   } else {
     exponentiated <- FALSE
-    null_value <- 0
-    if (is.numeric(aspect_ratio)) {
-      y_scale_and_coord <- ggplot2::coord_fixed(
-        ratio = aspect_ratio,
-        clip = "off"
-      )
-    } else {
-      y_scale_and_coord <- ggplot2::coord_cartesian(clip = "off")
-    }
   }
 
+  # Prepare plot settings
+  plot_setup <- BA_plot_setup(
+    exponentiated = exponentiated,
+    data_is_log_transformed = data_is_log_transformed,
+    aspect_ratio = aspect_ratio
+  )
+
   BA_stats_geom <- NULL
-  x_scale <- NULL
   if (show_sd) {
     sd.within <- c(ba_obj$BA_stats$sd.within, ba_obj$BA_stats_ci$sd.within)
 
+    upr <- 1.96 * sd.within
+    lwr <- -1.96 * sd.within
     if (exponentiated) {
-      upr <- exp(1.96 * sd.within)
-      lwr <- exp(-1.96 * sd.within)
-    } else {
-      upr <- 1.96 * sd.within
-      lwr <- -1.96 * sd.within
+      upr <- exp(upr)
+      lwr <- exp(lwr)
     }
 
     BA_stats_geom <- add_BA_stats_geom_manual(
@@ -407,10 +419,6 @@ plot_BA_residuals <- function(
       lwr = lwr,
       upr = upr,
       line_labels = c(bias = "", lwr = "-1.96SD", upr = "+1.96SD")
-    )
-
-    x_scale <- ggplot2::scale_x_continuous(
-      expand = ggplot2::expansion(mult = c(0.1, 0.20))
     )
   }
 
@@ -426,14 +434,11 @@ plot_BA_residuals <- function(
       color = .data[[ba_obj$.var_names$id_col]]
     )
   ) +
-    ggplot2::geom_hline(yintercept = null_value, color = "gray") +
+    plot_setup +
     BA_stats_geom[c("rect", "hline")] +
     ggplot2::geom_point(show.legend = show_subject_legend) +
     BA_stats_geom["label"] +
-    y_scale_and_coord +
-    x_scale +
-    create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated) +
-    theme_ba()
+    create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated)
 
   # Update x-axis label to "Residual variation"
   current_label_x <- residual_plot$labels$x

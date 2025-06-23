@@ -18,13 +18,6 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-</g>
-<defs>
-  <clipPath id='cpNTMuNjB8NzA4LjY2fDI2LjE1fDUzMi40OQ=='>
-    <rect x='53.60' y='26.15' width='655.06' height='506.34' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpNTMuNjB8NzA4LjY2fDI2LjE1fDUzMi40OQ==)'>
 <polyline points='53.60,279.32 708.66,279.32 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='117.39,532.49 117.39,26.15 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
 <polyline points='309.81,532.49 309.81,26.15 ' style='stroke-width: 0.64; stroke: #454545; stroke-dasharray: 1.00,3.00; stroke-linecap: butt;' />
@@ -99,8 +92,6 @@
 <text x='705.35' y='465.69' text-anchor='end' style='font-size: 11.04px; font-family: sans;' textLength='78.86px' lengthAdjust='spacingAndGlyphs'>-1.96SD (+0.83)</text>
 <polygon points='622.39,103.86 706.67,103.86 706.59,103.86 706.91,103.85 707.23,103.78 707.53,103.67 707.80,103.51 708.05,103.31 708.26,103.07 708.43,102.80 708.56,102.50 708.64,102.19 708.66,101.87 708.66,101.87 708.66,91.63 708.66,91.63 708.64,91.31 708.56,91.00 708.43,90.70 708.26,90.43 708.05,90.19 707.80,89.99 707.53,89.83 707.23,89.72 706.91,89.65 706.67,89.64 622.39,89.64 622.63,89.65 622.31,89.64 621.99,89.68 621.68,89.77 621.39,89.91 621.13,90.09 620.90,90.31 620.71,90.56 620.56,90.85 620.46,91.15 620.41,91.47 620.40,91.63 620.40,101.87 620.41,101.71 620.41,102.03 620.46,102.35 620.56,102.65 620.71,102.94 620.90,103.19 621.13,103.41 621.39,103.59 621.68,103.73 621.99,103.82 622.31,103.86 ' style='stroke-width: nan; stroke: none; fill: none;' />
 <text x='705.35' y='100.55' text-anchor='end' style='font-size: 11.04px; font-family: sans;' textLength='81.64px' lengthAdjust='spacingAndGlyphs'>+1.96SD (+1.20)</text>
-</g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='48.22' y='282.62' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='18.69px' lengthAdjust='spacingAndGlyphs'>1.00</text>
 <text x='117.39' y='544.47' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='16.54px' lengthAdjust='spacingAndGlyphs'>-0.5</text>
 <text x='309.81' y='544.47' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>0.0</text>
