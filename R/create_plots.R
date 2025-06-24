@@ -42,8 +42,8 @@ plot_BA <- function(
   BA_stats <- BA_stats[BA_stats$stat %in% c("bias", "loa.lwr", "loa.upr"), ]
 
   d <- ba_obj$data
-  # always use the non-log values for the x-axis (mean)
-  d$mean <- ba_obj$.non_log_data$mean
+  # always use the non-log values for the x-axis (avg)
+  d$avg <- ba_obj$.non_log_data$avg
 
   var_names <- ba_obj$.var_names
   var_names_raw <- ba_obj$.var_names_raw
@@ -74,7 +74,7 @@ plot_BA <- function(
     name_alt = var_names_raw$alt_col
   )
 
-  ggplot2::ggplot(d, aes(mean, diff, color = .data[[var_names$id_col]])) +
+  ggplot2::ggplot(d, aes(avg, diff, color = .data[[var_names$id_col]])) +
     plot_setup +
     BA_stats_geoms[c("rect", "hline")] +
     ggplot2::geom_point(show.legend = show_subject_legend) +
@@ -285,7 +285,7 @@ plot_BA_normalized_log <- function(
     var_names$ref_col
   )
 
-  BA_stats$slope <- log_estimate_to_mean_difference_slope(BA_stats$est)
+  BA_stats$slope <- log_estimate_to_avg_difference_slope(BA_stats$est)
 
   est_lines <- list(
     ggplot2::geom_abline(
@@ -296,15 +296,15 @@ plot_BA_normalized_log <- function(
 
     ggplot2::geom_text(
       aes(
-        x = set_limits(d$mean)[2],
-        y = set_limits(d$mean)[2] * .data$slope,
+        x = set_limits(d$avg)[2],
+        y = set_limits(d$avg)[2] * .data$slope,
         label = .data$label_w_val
       ),
       hjust = -0.05,
       data = BA_stats,
       inherit.aes = FALSE
     ),
-    ggplot2::coord_cartesian(xlim = set_limits(d$mean), clip = "off")
+    ggplot2::coord_cartesian(xlim = set_limits(d$avg), clip = "off")
   )
 
   # Add list of geoms for CIs
@@ -314,13 +314,13 @@ plot_BA_normalized_log <- function(
     # Create data from sloped ribbons
     ci_shade_df <- merge(
       BA_stats,
-      data.frame(x = c(min(d$mean) * 0.95, max(d$mean) * 1.02))
+      data.frame(x = c(min(d$avg) * 0.95, max(d$avg) * 1.02))
     )
 
     ci_shade_df$ci.lwr <- ci_shade_df$x *
-      log_estimate_to_mean_difference_slope(ci_shade_df$ci.lwr)
+      log_estimate_to_avg_difference_slope(ci_shade_df$ci.lwr)
     ci_shade_df$ci.upr <- ci_shade_df$x *
-      log_estimate_to_mean_difference_slope(ci_shade_df$ci.upr)
+      log_estimate_to_avg_difference_slope(ci_shade_df$ci.upr)
 
     ci_shade <- ggplot2::geom_ribbon(
       aes(
@@ -344,7 +344,7 @@ plot_BA_normalized_log <- function(
 
   ggplot2::ggplot(
     d,
-    aes(.data$mean, .data$diff, color = .data[[ba_obj$.var_names$id_col]])
+    aes(.data$avg, .data$diff, color = .data[[ba_obj$.var_names$id_col]])
   ) +
     ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0)) +
     ggplot2::geom_hline(yintercept = 0, color = "gray") +
@@ -386,7 +386,7 @@ plot_BA_residuals <- function(
   }
 
   diff_residuals <- stats::residuals(ba_obj$diff_model)
-  mean_residuals <- stats::residuals(ba_obj$distribution_model)
+  avg_residuals <- stats::residuals(ba_obj$distribution_model)
 
   # Exponentiate data if relevant
   if (data_is_log_transformed && !keep_log_scale) {
@@ -423,13 +423,13 @@ plot_BA_residuals <- function(
   }
 
   d <- ba_obj$data
-  d$mean_residuals <- mean_residuals
+  d$avg_residuals <- avg_residuals
   d$diff_residuals <- diff_residuals
 
   residual_plot <- ggplot2::ggplot(
     d,
     aes(
-      mean_residuals,
+      avg_residuals,
       diff_residuals,
       color = .data[[ba_obj$.var_names$id_col]]
     )
@@ -649,7 +649,7 @@ breaks_from_vec <- function(
   }
 }
 
-log_estimate_to_mean_difference_slope <- function(est) {
+log_estimate_to_avg_difference_slope <- function(est) {
   # formula from https://doi.org/10.1016/j.jclinepi.2007.11.003
   2 * (exp(est) - 1) / (exp(est) + 1)
 }

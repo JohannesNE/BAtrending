@@ -29,7 +29,7 @@ test_that("normalized log plot w ci", {
 })
 
 test_that("Add manual BA geom, no CI", {
-  test_plot <- ggplot2::ggplot(comp_co$data, ggplot2::aes(mean, diff)) +
+  test_plot <- ggplot2::ggplot(comp_co$data, ggplot2::aes(avg, diff)) +
     ggplot2::geom_point() +
     add_BA_stats_geom_manual(
       bias = comp_co$BA_stats$bias,
@@ -41,10 +41,10 @@ test_that("Add manual BA geom, no CI", {
 })
 
 test_that("Add manual BA geom, Ratio w CI", {
-  #Uses mean log(value) for x axis for simplicity (should optimally be .non-log-data$mean)
+  #Uses avg log(value) for x axis for simplicity (should optimally be .non-log-data$mean)
   test_plot <- ggplot2::ggplot(
     comp_co_log_w_ci$data,
-    ggplot2::aes(mean, exp(diff))
+    ggplot2::aes(avg, exp(diff))
   ) +
     ggplot2::geom_point() +
     add_BA_stats_geom_manual(

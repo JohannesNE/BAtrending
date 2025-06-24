@@ -69,9 +69,9 @@ compare_methods <- function(
     )
   }
 
-  calc_mean_diff <- function(x_df) {
+  calc_avg_diff <- function(x_df) {
     x_df$diff <- x_df[[alt_col_name]] - x_df[[ref_col_name]]
-    x_df$mean <- (x_df[[alt_col_name]] + x_df[[ref_col_name]]) / 2
+    x_df$avg <- (x_df[[alt_col_name]] + x_df[[ref_col_name]]) / 2
     x_df
   }
 
@@ -91,12 +91,12 @@ compare_methods <- function(
   }
 
   non_log_df <- df
-  non_log_df <- calc_mean_diff(non_log_df)
+  non_log_df <- calc_avg_diff(non_log_df)
 
   log_df <- df
   log_df[[ref_col_name]] <- log(df[[ref_col_name]])
   log_df[[alt_col_name]] <- log(df[[alt_col_name]])
-  log_df <- calc_mean_diff(log_df)
+  log_df <- calc_avg_diff(log_df)
 
   # The data frame used for the main model
   main_df <- if (logtrans) log_df else non_log_df
@@ -108,7 +108,7 @@ compare_methods <- function(
   )
 
   distribution_model <- lme4::lmer(
-    stats::formula(paste0("mean ~ 1 + (1 | ", id_col_name, ")")),
+    stats::formula(paste0("avg ~ 1 + (1 | ", id_col_name, ")")),
     REML = TRUE,
     data = non_log_df
   )
@@ -119,7 +119,7 @@ compare_methods <- function(
 
   derived_BA_stats <- calc_derived_stats(
     BA_stats,
-    mean_val = mean(main_df$mean),
+    mean_val = mean(main_df$avg),
     log = logtrans
   )
 
@@ -221,7 +221,7 @@ add_confint <- function(
     BA_stats_ci,
     2,
     calc_derived_stats,
-    mean_val = mean(ba_obj$data$mean),
+    mean_val = mean(ba_obj$data$avg),
     log = attr(ba_obj, "logtrans"),
     simplify = FALSE
   )
