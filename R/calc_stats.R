@@ -14,7 +14,6 @@
 #' @param ref_col name of the column containing reference measurements.
 #' @param alt_col name of the column containing alternative measurements.
 #' @param id_col name of the column containing unique subject id's.
-#' @param REML Use restricted maximum likelihood optimization in `lme4::lmer()`.
 #' @param logtrans Log-transform measurements before fitting the difference model.
 #' @param unit Measurement unit (e.g. "L/min"). Currently only used for plots.
 #'
@@ -33,7 +32,6 @@ compare_methods <- function(
   ref_col,
   alt_col,
   id_col,
-  REML = TRUE,
   logtrans = FALSE,
   unit = NULL
 ) {
@@ -105,13 +103,13 @@ compare_methods <- function(
 
   diff_model <- lme4::lmer(
     stats::formula(paste0("diff ~ 1 + (1 | ", id_col_name, ")")),
-    REML = REML,
+    REML = TRUE,
     data = main_df
   )
 
   distribution_model <- lme4::lmer(
     stats::formula(paste0("mean ~ 1 + (1 | ", id_col_name, ")")),
-    REML = REML,
+    REML = TRUE,
     data = non_log_df
   )
 
