@@ -52,7 +52,11 @@ BA_table <- function(
     exponentiate = exponentiate
   )
 
-  BA_table_tt(ba_df, exponentiated = exponentiate)
+  BA_table_tt(
+    ba_df,
+    exponentiated = exponentiate,
+    is_log_trans = data_is_log_transformed
+  )
 }
 
 BA_table_df <- function(
@@ -119,7 +123,7 @@ BA_table_df <- function(
   ba_table_df
 }
 
-BA_table_tt <- function(ba_df, exponentiated = FALSE) {
+BA_table_tt <- function(ba_df, exponentiated = FALSE, is_log_trans = FALSE) {
   loa_group_label <- list(
     "**Distribution**¹" = which(ba_df$stat == "distr.mean"),
     "**Method comparison (alt - ref)**" = which(
@@ -128,9 +132,20 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE) {
     "Limits of agreement (95%)" = which(ba_df$stat == "loa.upr")
   )
 
-  if (exponentiated) {
-    names(loa_group_label)[2] <-
-      "**Method comparison, exp(log(alt) - log(ref))**"
+  footnote_abbreviations <- "SD: standard deviation; alt: alternative method; ref: reference method"
+
+  if (is_log_trans) {
+    if (exponentiated) {
+      names(loa_group_label)[2] <-
+        "**Method comparison, exp(log), (alt / ref)**"
+      footnote_abbreviations <- paste0(
+        footnote_abbreviations,
+        "; ⋇: multiply or divide by"
+      )
+    } else {
+      names(loa_group_label)[2] <-
+        "**Method comparison (log(alt) - log(ref))**"
+    }
   }
 
   tab_footnotes <- list(
@@ -148,7 +163,7 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE) {
       j = 1,
       text = "Change limits of agreement (95%) = 1.96 · √2 · Within-subject SD."
     ),
-    "SD: standard deviation; alt: alternative method; ref: reference method"
+    footnote_abbreviations
   )
 
   ba_df_clean <- subset(ba_df, select = -stat)
