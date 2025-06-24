@@ -27,3 +27,9 @@ BA analysis object (\code{x}) with added confidence intervals
 \description{
 The confidence intervals are calculated with a percentile parametric bootstrap (see \code{\link[lme4:confint.merMod]{lme4::confint.merMod()}} for details).
 }
+\details{
+Note that when calculating confidence intervals for percentage errors, the mean value is treated as a known value
+rather than an estimate. Any uncertainty in the estimate of the mean is not included in the confidence intervals
+for percentage errors. This is a technical limitation, since the bootstrap analysis is based on a single mixed model
+(\code{diff ~ 1 + (1|id)}) which has no information about the mean value.
+}
