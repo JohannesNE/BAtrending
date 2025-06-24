@@ -137,10 +137,10 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE, is_log_trans = FALSE) {
   if (is_log_trans) {
     if (exponentiated) {
       names(loa_group_label)[2] <-
-        "**Method comparison, exp(log), (alt / ref)**"
+        "**Method comparison, exp(log-analysis), (alt / ref)**"
       footnote_abbreviations <- paste0(
         footnote_abbreviations,
-        "; ⋇: multiply or divide by"
+        "; ⋇: multiply or divide"
       )
     } else {
       names(loa_group_label)[2] <-
