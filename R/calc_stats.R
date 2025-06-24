@@ -119,7 +119,7 @@ compare_methods <- function(
 
   derived_BA_stats <- calc_derived_stats(
     BA_stats,
-    mean_val = mean(main_df$avg),
+    mean_val = distribution_stats["distr.mean"],
     log = logtrans
   )
 

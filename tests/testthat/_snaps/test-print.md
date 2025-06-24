@@ -22,7 +22,7 @@
       Limits of agreement (95%)
       ├ Upper limit                  :   2.707  
       └ Lower limit                  :  -1.298  
-      Percentage error               :   0.399  
+      Percentage error               :   0.398  
       
       --- Trending ---
       Within-subject perc. error     :   0.161  
