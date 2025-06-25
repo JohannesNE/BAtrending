@@ -185,7 +185,7 @@ plot_BA_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = TRUE)
 
 On log-transformed measurements, there is no relationship between CO and agreement between methods (of course, this was expected, as we generated the data with proportional errors).
 
-The results from the Bland-Altman analysis on log-transformed measurements (e.g. bias, LoA and Change LoA) can be exponentiated and interpreted on the original scale. The interpretation of these back-transformed results is that they estimate ratios between the measurements instead of absolute differences.
+The results from the Bland-Altman analysis on log-transformed measurements (e.g. bias, limits of agreement, and change limits of agreement) can be exponentiated and interpreted on the original scale. The interpretation of these back-transformed results is that they estimate ratios between the measurements instead of absolute differences.
 
 ```{r}
 plot_BA_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = FALSE)
@@ -193,46 +193,45 @@ plot_BA_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = FALSE)
 
 A ratio of 1 signifies "no bias" ($alt = ref$). The Y-axis is shown with logarithmic intervals to appropriately balance the ratios visually (i.e. an increase of 25% is balanced by a decrease of 20%).
 
-A relative bias of `r round(exp(BA_sim_log$BA_stats$bias), 2)` indicates that the alternative method measures `r round((exp(BA_sim_log$BA_stats$bias)-1)*100, 0)`% more than the reference method on average. Relative limits of agreement define the interval in which ratios between future paired measurements (in a random subject) with the same alternative and reference methods are expected to fall into in 95% of cases.
+A relative bias of `r round(exp(BA_sim_log$BA_stats$bias), 2)` indicates that the alternative method measures `r round((exp(BA_sim_log$BA_stats$bias)-1)*100, 0)`% more than the reference method on average. Relative limits of agreement define the interval in which ratios between future paired measurements (in a random subject) with the same alternative and reference methods are expected to fall in 95% of cases.
 
-We can also show the results of the log-transformed Bland-Altman analysis on the non-transformed data with
+We can also show the results of the log-transformed Bland-Altman analysis on the non-transformed data with:
 
 ```{r}
 plot_BA_normalized_log(BA_sim_log, aspect_ratio = 1)
 ```
 
-Again, we can generate a table of the exponentiated results with
+Again, we can generate a table of the back-transformed (exponentiated) results:
 
 ```{r}
 BA_table(BA_sim_log, keep_log_scale = FALSE)
 ```
 
-Change limits of agreement of `r round(exp(BA_sim_log$BA_stats$change.loa), 2)` is interpreted as: if we measure a change in CO with two methods simultaneously, we expext the one change is at most `r round(exp((BA_sim_log$BA_stats$change.loa)-1)*100, 0)`% higher than the other in 95% of cases.
+The back-transformed *change limits of agreement* is `r round(exp(BA_sim_log$BA_stats$change.loa), 2)`. This is interpreted as: if we measure a change in CO with both methods simultaneously, we expect the change from one method to be at most `r round((exp(BA_sim_log$BA_stats$change.loa)-1)*100, 0)`% higher than the other method in 95% of cases.
 
-Percentage errors are not meaningful on log-transformed data, but also not needed. A Bland-Altman analysis on log-transformed data inherently gives measures of agreement that are relative to the measured value. 
+Percentage errors are not meaningful for log-transformed data, and are also not needed. A Bland-Altman analysis on log-transformed data inherently gives measures of agreement that are relative to the measured value. 
 
-To compare results from an analysis on log-transformed measurements with an analysis on absolute (non-transformed) measurements, the SD of differences between $log$ measurements ($D_{log} = log(CO_{alt}) - log(CO_{ref})$) is approximately equal to the SD of differences on raw measurements ($D$) relative to the mean of the measurements:
+To compare results from an analysis on log-transformed measurements with an analysis on absolute (non-transformed) measurements, the SD of differences between log-transformed measurements ($D_{\log} = \log(CO_{alt}) - \log(CO_{ref})$) is approximately equal to the SD of differences on the original measurements ($D$) relative to the mean of these measurements:
 
 $$
-SD(D_{log_e}) \approx \frac{SD(D)}{mean(CO_{alt}, CO_{ref})},
+SD(D_{\log}) \approx \frac{SD(D)}{mean(CO_{alt}, CO_{ref})},
 $$
 
-when $SD(D_{log_e}) < \sim 0.3$.
+when $SD(D_{\log})$ is less than approximately 0.3. Note that $\log$ must be the natural logarithm (base $e$) for this approximate equality to hold.
 
-Thus, $1.96 * SD_{total}$ on the log scale is approximately equal to "percentage error".
+Thus, $1.96 * SD_{total}$ on the log scale is approximately equal to the "percentage error" that would be calculated on the original scale.
 
-This is analogous to how the coefficient of variation ($CV = SD(x)/mean(x)$) is approximately equal to $SD(log(x))$.
-[^bib]
+This is analogous to how the coefficient of variation ($CV = SD(x)/mean(x)$) is approximately equal to $SD(log(x))$[^bib].
 
 [^bib]: R. C. Lewontin, On the Measurement of Relative Variability, Systematic Biology, Volume 15, Issue 2, June 1966, Pages 141–142, https://doi.org/10.2307/sysbio/15.2.141
 
 # Part 3: Manually fit the mixed model and extract features {#part-3-manually-fit-the-mixed-model-and-extract-features}
 
-While `BAtrending` conveniently fits a mixed effects model and extracts relevant variables, it is useful to know how to do this manually.
+While `BAtrending` conveniently fits a mixed effects model and extracts relevant variables, it is useful to understand how to do this manually. 
 
 We will use the `CO` dataset again, and use `lme4::lmer()` to fit the same model as used in `compare_methods()`.
 
-First we calculate the difference and average for each pair of simultaneous measurements.
+First, we calculate the difference and average for each pair of simultaneous measurements.
 ```{r}
 CO_diff_avg <- mutate(CO, diff = ic - rv, avg = (ic + rv) / 2)
 head(CO_diff_avg)
@@ -247,7 +246,7 @@ summary(mod)
 
 We can see that the bias (the only fixed effect) is -0.70, the between-subject SD is 0.93 and within-subject (Residual) SD is 0.41.
 
-To extract these values programatically use:
+To extract these values programmatically, use:
 
 ```{r}
 bias <- fixef(mod)[[1]] # Get intercept from model
@@ -261,13 +260,11 @@ calc_BA_stats_from_model <- function(m) {
   bias <- fixef(m)[[1]] # Get intercept from model
   sd_components <- as.data.frame(VarCorr(m))[['sdcor']] # Get variance components (SD)
 
-  sd_combined <- sqrt(sum(sd_components^2))
-
   sd.between <- unname(sd_components[1])
   sd.within <- unname(sd_components[2])
   sd.total <- sqrt(sd.between^2 + sd.within^2)
 
-  intraclass.correlation = sd.between^2 / (sd.between^2 + sd.within^2)
+  intraclass.correlation <- sd.between^2 / sd.total^2
 
   loa.lwr <- bias - 1.96 * sd.total
   loa.upr <- bias + 1.96 * sd.total
@@ -304,11 +301,11 @@ c(
 )
 ```
 
-Here we use the simple mean of all measurements. In `compare_methods()` the mean value is estimated from a mixed model that accounts for repeated measurments within subjects (`avg ~ 1 + (1|sub)`). This model is also used for describing the distribution of measurements (e.g. `BA_CO$distribution_stats`).
+Here, we use the simple mean of all measurements. In `compare_methods()` the mean value is estimated from a mixed model that accounts for repeated measurements within subjects (`avg ~ 1 + (1|sub)`). This model is also used for describing the distribution of measurements (e.g. `BA_CO$distribution_stats`).
 
 ## Bootstrap confidence intervals
 
-To calculate confidence intervals (CI) for the statistics, we can use a parametric bootstrap on the model.
+To calculate confidence intervals (CI) for the Bland-Altman statistics, we can use a parametric bootstrap on the model.
 
 ```{r}
 lme4::confint.merMod(
@@ -316,10 +313,10 @@ lme4::confint.merMod(
   FUN = calc_BA_stats_from_model,
   level = 0.95,
   method = "boot",
-  nsim = 500,
+  nsim = 500, # increase nsim for actual analysis
   boot.type = "perc",
   .progress = "none"
 )
 ```
 
-This does not calculate CIs for the percentage errors, since this requires an estimate of the mean CO, which is not part of the mixed model. In `BAtrending`, CIs for percentage error is calculated by scaling the CI for `sd.total`, treating the mean CO as a known value. Ideally, the uncertainty of mean CO should be included in the CI for percentage error.
+This does not calculate CIs for the percentage errors, since this requires an estimate of the mean CO, which is not part of this mixed model. In `BAtrending`, CIs for percentage error are calculated by scaling the CI for `sd.total`, treating the mean CO as a known value. Ideally, the uncertainty of the mean CO should be included in the CI for the percentage error.
