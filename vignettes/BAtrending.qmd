@@ -53,7 +53,7 @@ BA_CO <- compare_methods(
 )
 # Bootstrap confidence intervals.
 # `nsim` should probably be at least 2000 in practice.
-# BA_CO <- add_confint(BA_CO, nsim = 999)
+BA_CO <- add_confint(BA_CO, nsim = 999)
 ```
 
 We can view the raw data (`rv` and `ic`) using `plot_BA_scatter()`. It is generally recommended to set the aspect ratio to 1 for easy comparison between the methods.
@@ -155,7 +155,7 @@ BA_sim_abs <- compare_methods(
   alt_col = alt,
   id_col = id
 )
-# BA_sim_abs <- add_confint(BA_sim_abs, nsim = 999) # Increase nsim in practice.
+BA_sim_abs <- add_confint(BA_sim_abs, nsim = 999) # Increase nsim in practice.
 
 plot_BA_combine(BA_sim_abs, aspect_ratio = 1)
 ```
@@ -177,7 +177,7 @@ BA_sim_log <- compare_methods(
   logtrans = TRUE
 )
 
-# BA_sim_log <- add_confint(BA_sim_log, nsim = 999) # Increase nsim in practice.
+BA_sim_log <- add_confint(BA_sim_log, nsim = 999) # Increase nsim in practice.
 
 plot_BA_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = TRUE)
 # aspect_ratio only affects the scatter plot (left panel) for log-transformed data.
