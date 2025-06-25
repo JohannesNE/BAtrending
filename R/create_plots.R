@@ -249,7 +249,7 @@ add_BA_stats_geom_manual <- function(
 #'
 #' @examples
 #' BA_CO <- compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE)
-#' plot_BA_nomalized_log(BA_CO)
+#' plot_BA_normalized_log(BA_CO)
 #'
 #' @export
 plot_BA_normalized_log <- function(
@@ -528,7 +528,7 @@ plot_BA_scatter <- function(
 #' @inheritParams plot_BA
 #' @param equal_scales Plot the residuals on a plane with the scale of the original data.
 #' @param return_as_list Return the three plots in a list. If `FALSE`, the plots are combined using \{patchwork\}.
-#' @param use_title Show default titles on plots.
+#' @param use_titles Show default titles on plots.
 #'
 #' @export
 plot_BA_combine <- function(

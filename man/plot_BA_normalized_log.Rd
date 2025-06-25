@@ -25,6 +25,6 @@ Plot BA estimates from log transformed data on raw data.
 }
 \examples{
 BA_CO <- compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE)
-plot_BA_nomalized_log(BA_CO)
+plot_BA_normalized_log(BA_CO)
 
 }

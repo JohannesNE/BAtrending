@@ -21,13 +21,13 @@ plot_BA_combine(
 
 \item{show_subject_legend}{Show legend for subjects}
 
+\item{use_titles}{Show default titles on plots.}
+
 \item{equal_scales}{Plot the residuals on a plane with the scale of the original data.}
 
 \item{keep_log_scale}{Show log transformed differences. If \code{FALSE} (default), values and parameters are exponentiated before plotting}
 
 \item{return_as_list}{Return the three plots in a list. If \code{FALSE}, the plots are combined using \{patchwork\}.}
-
-\item{use_title}{Show default titles on plots.}
 }
 \description{
 Creates a scatter plot, a standard Bland Altman plot and a residuals plot for assessing trending ability.
