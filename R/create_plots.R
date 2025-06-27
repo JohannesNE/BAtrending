@@ -126,7 +126,7 @@ BA_plot_setup <- function(
   list(
     hline = hline,
     y_scale = y_scale,
-    y_scale = x_scale,
+    x_scale = x_scale,
     coord = coord,
     theme = theme_ba()
   )
