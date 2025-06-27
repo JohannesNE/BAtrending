@@ -1,9 +1,10 @@
 ---
 title: "Introduction to BAtrending"
-output: 
-  rmarkdown::html_vignette: default
-  pdf_document:
-   toc: true
+format: 
+  html:
+    toc: true
+  pdf:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Introduction to BAtrending}
   %\VignetteEngine{quarto::html}
@@ -14,20 +15,26 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   message = FALSE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "50%",
+  fig.width = 5,
+  fig.align = "center"
 )
 ```
 
 # Setup
 
-First, install the package using `pak::pak("JohannesNE/BAtrending")` or `remotes::install_github("JohannesNE/BAtrending")`. Then, load the package.
+| First, install the package using `pak::pak("JohannesNE/BAtrending")`
+| or `remotes::install_github("JohannesNE/BAtrending")`.
+
+Then, load the package:
 
 ```{r setup}
 library(BAtrending)
 library(dplyr)
 ```
 
-# Part 1 - A simple example
+# Part 1: A simple example
 
 The BAtrending package includes a small sample dataset, `CO`. It contains paired measurements of cardiac output (CO) using two methods: radionuclide ventriculography (rv) and impedance cardiography (ic). The dataset was published in [Bland JM, Altman DG. (1999) Measuring agreement in method comparison studies. Statistical Methods in Medical Research 8, 135-160](https://doi.org/10.1177/096228029900800204).
 
@@ -53,7 +60,7 @@ BA_CO <- compare_methods(
 )
 # Bootstrap confidence intervals.
 # `nsim` should probably be at least 2000 in practice.
-BA_CO <- add_confint(BA_CO, nsim = 999)
+BA_CO <- add_confint(BA_CO, nsim = 999, .progress = "none")
 ```
 
 We can view the raw data (`rv` and `ic`) using `plot_BA_scatter()`. It is generally recommended to set the aspect ratio to 1 for easy comparison between the methods.
@@ -71,6 +78,8 @@ plot_BA(BA_CO, aspect_ratio = 1)
 `plot_BA_combine()` is a convenience function that combines three plots: the scatter plot and Bland-Altman plots shown above, and a residuals plot. The residuals plot shows only the within-subject variation, which is the only variation relevant for assessing trending agreement.
 
 ```{r}
+#| out.width: 100%
+#| fig.width: 10
 plot_BA_combine(BA_CO, aspect_ratio = 1, equal_scales = TRUE)
 ```
 
@@ -109,8 +118,10 @@ sim_CO <- simulate_repeated_data(
   n_sub = 50, # subjects
   n_rep = 5, # repetitions
   avg = 5, # Overall average CO.
-  between_sub_sd = 0.5, # Between-subject variation in CO
-  within_sub_rel_change_sd = 0.3, # Within-subject variation in CO (relative to the mean CO for the subject).
+  # Between-subject variation in CO
+  between_sub_sd = 0.5,
+  # Within-subject variation in CO (relative to the mean CO for the subject).
+  within_sub_rel_change_sd = 0.3,
   var_name = "co_true"
 )
 head(sim_CO)
@@ -128,8 +139,10 @@ sim_CO <- sim_CO |>
       true_val = co_true,
       sub_id = id,
       mean_bias = log(1), # 0, no bias.
-      sub_bias_sd = log(1.05), # between-subject variation of 5% of true CO.
-      residual_error_sd = log(1.05), # within-subject variation of 5% of true CO.
+      # between-subject variation of 5% of true CO.
+      sub_bias_sd = log(1.05),
+      # within-subject variation of 5% of true CO.
+      residual_error_sd = log(1.05),
       relative_errors = TRUE
     ),
     # Alternative method
@@ -137,8 +150,10 @@ sim_CO <- sim_CO |>
       true_val = co_true,
       sub_id = id,
       mean_bias = log(1.1), # 10% higher than true CO.
-      sub_bias_sd = log(1.1), # between-subject variation of 10% of true CO.
-      residual_error_sd = log(1.05), # within-subject variation of 5% of true CO.
+      # between-subject variation of 10% of true CO.
+      sub_bias_sd = log(1.1),
+      # within-subject variation of 5% of true CO.
+      residual_error_sd = log(1.05),
       relative_errors = TRUE
     )
   )
@@ -149,13 +164,16 @@ head(sim_CO)
 We first perform a Bland-Altman analysis on an absolute (non-log) scale.
 
 ```{r}
+#| out.width: 100%
+#| fig.width: 10
 BA_sim_abs <- compare_methods(
   sim_CO,
   ref_col = ref,
   alt_col = alt,
   id_col = id
 )
-BA_sim_abs <- add_confint(BA_sim_abs, nsim = 999) # Increase nsim in practice.
+# Increase nsim in practice.
+BA_sim_abs <- add_confint(BA_sim_abs, nsim = 999, .progress = "none")
 
 plot_BA_combine(BA_sim_abs, aspect_ratio = 1)
 ```
@@ -169,6 +187,8 @@ $$
 $$
 
 ```{r}
+#| out.width: 100%
+#| fig.width: 10
 BA_sim_log <- compare_methods(
   sim_CO,
   ref_col = ref,
@@ -177,10 +197,12 @@ BA_sim_log <- compare_methods(
   logtrans = TRUE
 )
 
-BA_sim_log <- add_confint(BA_sim_log, nsim = 999) # Increase nsim in practice.
+BA_sim_log <- add_confint(BA_sim_log, nsim = 999, .progress = "none")
+# Increase nsim in practice.
 
 plot_BA_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = TRUE)
-# aspect_ratio only affects the scatter plot (left panel) for log-transformed data.
+# aspect_ratio only affects the scatter plot (left panel) for
+# log-transformed data.
 ```
 
 On log-transformed measurements, there is no relationship between CO and agreement between methods (of course, this was expected, as we generated the data with proportional errors).
@@ -188,6 +210,8 @@ On log-transformed measurements, there is no relationship between CO and agreeme
 The results from the Bland-Altman analysis on log-transformed measurements (e.g. bias, limits of agreement, and change limits of agreement) can be exponentiated and interpreted on the original scale. The interpretation of these back-transformed results is that they estimate ratios between the measurements instead of absolute differences.
 
 ```{r}
+#| out.width: 100%
+#| fig.width: 10
 plot_BA_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = FALSE)
 ```
 
@@ -250,7 +274,8 @@ To extract these values programmatically, use:
 
 ```{r}
 bias <- fixef(mod)[[1]] # Get intercept from model
-sd_components <- as.data.frame(VarCorr(mod))[['sdcor']] # Get variance components (SD)
+# Get variance components (SD)
+sd_components <- as.data.frame(VarCorr(mod))[['sdcor']]
 ```
 
 Most Bland-Altman statistics are calculated from these values:
@@ -258,7 +283,8 @@ Most Bland-Altman statistics are calculated from these values:
 ```{r}
 calc_BA_stats_from_model <- function(m) {
   bias <- fixef(m)[[1]] # Get intercept from model
-  sd_components <- as.data.frame(VarCorr(m))[['sdcor']] # Get variance components (SD)
+  # Get variance components (SD)
+  sd_components <- as.data.frame(VarCorr(m))[['sdcor']]
 
   sd.between <- unname(sd_components[1])
   sd.within <- unname(sd_components[2])
