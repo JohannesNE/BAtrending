@@ -2,15 +2,15 @@
 % Please edit documentation in R/dataframe.R
 \name{as.data.frame.ba_analysis}
 \alias{as.data.frame.ba_analysis}
-\title{Convert BA object to data.frame}
+\title{Convert Bland-Altman analysis object to data.frame}
 \usage{
 \method{as.data.frame}{ba_analysis}(x, ...)
 }
 \arguments{
-\item{x}{BA analysis object}
+\item{x}{Bland-Altman analysis object}
 
 \item{...}{not used}
 }
 \description{
-Convert BA object to data.frame
+Convert Bland-Altman analysis object to data.frame
 }

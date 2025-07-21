@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_plots.R
 \name{add_BA_stats_geom_manual}
 \alias{add_BA_stats_geom_manual}
-\title{Manually add Bland Altman geometry to plot}
+\title{Manually add Bland-Altman geometry to plot}
 \usage{
 add_BA_stats_geom_manual(
   bias,
@@ -26,5 +26,5 @@ Treats estimates as ratios.}
 \item{line_labels}{Labels for Bias and LoA lines. Must be a named vector with names: 'bias', 'lwr', 'upr'}
 }
 \description{
-Manually add Bland Altman geometry to plot
+Manually add Bland-Altman geometry to plot
 }

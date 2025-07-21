@@ -11,14 +11,14 @@ plot_BA_normalized_log(
 )
 }
 \arguments{
-\item{ba_obj}{BA analysis object}
+\item{ba_obj}{Bland-Altman analysis object}
 
 \item{show_subject_legend}{Show legend for subjects}
 
 \item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{ggplot2::coord_fixed()}), Default (NULL) is automatic.}
 }
 \value{
-Bland Altman style plot with relative differences plotted on absolute differences.
+Bland-Altman style plot with relative differences plotted on absolute differences.
 }
 \description{
 Plot BA estimates from log transformed data on raw data.

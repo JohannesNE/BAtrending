@@ -1,15 +1,15 @@
 #' Create Bland-Altman plot
 #'
-#' Creates a standard Bland-Altman plot from a BA analysis object made with [compare_methods()].
+#' Creates a standard Bland-Altman plot from a Bland-Altman analysis object made with [compare_methods()].
 #'
-#' @param ba_obj BA analysis object
+#' @param ba_obj Bland-Altman analysis object
 #' @param aspect_ratio Set aspect ratio (x/y) between X and Y axis (sets `ggplot2::coord_fixed()`), Default (NULL) is automatic.
 #' @param show_subject_legend Show legend for subjects
 #' @param keep_log_scale Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated before plotting
 #'
 #' @returns Bland-Altman plot (ggplot)
 #'
-#' @seealso [plot_BA_normalized_log()] which shows the results of a proportional BA analysis (with log-transformed measurements)
+#' @seealso [plot_BA_normalized_log()] which shows the results of a proportional Bland-Altman analysis (with log-transformed measurements)
 #' on the non-transformed data.
 #'
 #' @examples
@@ -200,7 +200,7 @@ add_BA_stats_geom <- function(
   c(list("rect" = ci_shade), est_lines)
 }
 
-#' Manually add Bland Altman geometry to plot
+#' Manually add Bland-Altman geometry to plot
 #'
 #' @param bias,lwr,upr estimates to be plotted. Optionally including confidence intervals
 #' as `c(est, ci.lwr, ci.upr)`.
@@ -245,7 +245,7 @@ add_BA_stats_geom_manual <- function(
 #'
 #' @inheritParams plot_BA
 #'
-#' @return Bland Altman style plot with relative differences plotted on absolute differences.
+#' @return Bland-Altman style plot with relative differences plotted on absolute differences.
 #'
 #' @examples
 #' BA_CO <- compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE)
@@ -521,9 +521,9 @@ plot_BA_scatter <- function(
     theme_ba()
 }
 
-#' Plot all plots in extended Bland Altman analysis.
+#' Plot all plots in extended Bland-Altman analysis.
 #'
-#' Creates a scatter plot, a standard Bland Altman plot and a residuals plot for assessing trending ability.
+#' Creates a scatter plot, a standard Bland-Altman plot and a residuals plot for assessing trending ability.
 #'
 #' @inheritParams plot_BA
 #' @param equal_scales Plot the residuals on a plane with the scale of the original data.
@@ -550,7 +550,7 @@ plot_BA_combine <- function(
     keep_log_scale = keep_log_scale
   )
 
-  # Create Bland Altman plot
+  # Create Bland-Altman plot
   BA_plot <- plot_BA(
     ba_obj = ba_obj,
     show_subject_legend = show_subject_legend,
@@ -708,7 +708,7 @@ check_CI <- function(ba_obj, ba_obj_name = "ba_obj") {
   if (is.null(ba_obj$BA_stats_ci)) {
     cli::cli_inform(
       c(
-        i = "The BA analysis object has no confidence intervals.",
+        i = "The Bland-Altman analysis object has no confidence intervals.",
         "To add confidence intervals run {.run {ba_obj_name} <- add_confint({ba_obj_name})}. (see {.fun BAtrending::add_confint} for help)"
       )
     )

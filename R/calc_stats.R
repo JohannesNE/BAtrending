@@ -158,7 +158,7 @@ compare_methods <- function(
   )
 }
 
-#' Add confidence intervals to BA analysis object.
+#' Add confidence intervals to Bland-Altman analysis object.
 #'
 #' The confidence intervals are calculated with a percentile parametric bootstrap (see [lme4::confint.merMod()] for details).
 #'
@@ -167,13 +167,13 @@ compare_methods <- function(
 #' for percentage errors. This is a technical limitation, since the bootstrap analysis is based on a single mixed model
 #' (`diff ~ 1 + (1|id)`) which has no information about the mean value.
 #'
-#' @param ba_obj BA analysis object
+#' @param ba_obj Bland-Altman analysis object
 #' @param level Confidence level (default is 0.95)
 #' @param nsim Number of bootstrap samples
 #' @param .progress,PBargs see [lme4::bootMer()]
 #'
 #' @return
-#' BA analysis object (`x`) with added confidence intervals
+#' Bland-Altman analysis object (`x`) with added confidence intervals
 #'
 #' @export
 add_confint <- function(

@@ -1,6 +1,6 @@
-#' Convert BA object to data.frame
+#' Convert Bland-Altman analysis object to data.frame
 #'
-#' @param x BA analysis object
+#' @param x Bland-Altman analysis object
 #' @param ... not used
 #'
 #' @export

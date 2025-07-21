@@ -12,7 +12,7 @@ plot_BA(
 )
 }
 \arguments{
-\item{ba_obj}{BA analysis object}
+\item{ba_obj}{Bland-Altman analysis object}
 
 \item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{ggplot2::coord_fixed()}), Default (NULL) is automatic.}
 
@@ -24,7 +24,7 @@ plot_BA(
 Bland-Altman plot (ggplot)
 }
 \description{
-Creates a standard Bland-Altman plot from a BA analysis object made with \code{\link[=compare_methods]{compare_methods()}}.
+Creates a standard Bland-Altman plot from a Bland-Altman analysis object made with \code{\link[=compare_methods]{compare_methods()}}.
 }
 \examples{
 ba_obj <- compare_methods(CO, ic, rv, id_col = sub)
@@ -32,6 +32,6 @@ plot_BA(ba_obj)
 
 }
 \seealso{
-\code{\link[=plot_BA_normalized_log]{plot_BA_normalized_log()}} which shows the results of a proportional BA analysis (with log-transformed measurements)
+\code{\link[=plot_BA_normalized_log]{plot_BA_normalized_log()}} which shows the results of a proportional Bland-Altman analysis (with log-transformed measurements)
 on the non-transformed data.
 }

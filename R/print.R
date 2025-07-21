@@ -1,6 +1,6 @@
-#' Print method for ba_analysis objects
+#' Print method for Bland-Altman analysis objects
 #'
-#' @param x BA analysis object.
+#' @param x Bland-Altman analysis object.
 #' @param ... not used.
 #'
 #' @export

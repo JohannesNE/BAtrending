@@ -12,7 +12,7 @@ plot_BA_scatter(
 )
 }
 \arguments{
-\item{ba_obj}{BA analysis object}
+\item{ba_obj}{Bland-Altman analysis object}
 
 \item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{ggplot2::coord_fixed()}), Default (NULL) is automatic.}
 

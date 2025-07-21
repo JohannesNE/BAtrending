@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_stats.R
 \name{add_confint}
 \alias{add_confint}
-\title{Add confidence intervals to BA analysis object.}
+\title{Add confidence intervals to Bland-Altman analysis object.}
 \usage{
 add_confint(
   ba_obj,
@@ -13,7 +13,7 @@ add_confint(
 )
 }
 \arguments{
-\item{ba_obj}{BA analysis object}
+\item{ba_obj}{Bland-Altman analysis object}
 
 \item{level}{Confidence level (default is 0.95)}
 
@@ -22,7 +22,7 @@ add_confint(
 \item{.progress, PBargs}{see \code{\link[lme4:bootMer]{lme4::bootMer()}}}
 }
 \value{
-BA analysis object (\code{x}) with added confidence intervals
+Bland-Altman analysis object (\code{x}) with added confidence intervals
 }
 \description{
 The confidence intervals are calculated with a percentile parametric bootstrap (see \code{\link[lme4:confint.merMod]{lme4::confint.merMod()}} for details).

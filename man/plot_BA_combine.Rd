@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_plots.R
 \name{plot_BA_combine}
 \alias{plot_BA_combine}
-\title{Plot all plots in extended Bland Altman analysis.}
+\title{Plot all plots in extended Bland-Altman analysis.}
 \usage{
 plot_BA_combine(
   ba_obj,
@@ -15,7 +15,7 @@ plot_BA_combine(
 )
 }
 \arguments{
-\item{ba_obj}{BA analysis object}
+\item{ba_obj}{Bland-Altman analysis object}
 
 \item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{ggplot2::coord_fixed()}), Default (NULL) is automatic.}
 
@@ -30,5 +30,5 @@ plot_BA_combine(
 \item{return_as_list}{Return the three plots in a list. If \code{FALSE}, the plots are combined using \{patchwork\}.}
 }
 \description{
-Creates a scatter plot, a standard Bland Altman plot and a residuals plot for assessing trending ability.
+Creates a scatter plot, a standard Bland-Altman plot and a residuals plot for assessing trending ability.
 }

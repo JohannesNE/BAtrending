@@ -2,15 +2,15 @@
 % Please edit documentation in R/print.R
 \name{print.ba_analysis}
 \alias{print.ba_analysis}
-\title{Print method for ba_analysis objects}
+\title{Print method for Bland-Altman analysis objects}
 \usage{
 \method{print}{ba_analysis}(x, ...)
 }
 \arguments{
-\item{x}{BA analysis object.}
+\item{x}{Bland-Altman analysis object.}
 
 \item{...}{not used.}
 }
 \description{
-Print method for ba_analysis objects
+Print method for Bland-Altman analysis objects
 }
