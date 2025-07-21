@@ -33,5 +33,8 @@ Suggests:
     litedown,
     dplyr
 Config/testthat/edition: 3
+Config/Needs/website:
+    r-lib/pkgdown,
+    quarto
 VignetteBuilder: quarto
 URL: https://johannesne.github.io/BAtrending/
