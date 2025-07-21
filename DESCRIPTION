@@ -34,4 +34,4 @@ Suggests:
     dplyr
 Config/testthat/edition: 3
 VignetteBuilder: quarto
-URL: http://johannesNE.github.io/BAtrending/
+URL: https://johannesne.github.io/BAtrending/
