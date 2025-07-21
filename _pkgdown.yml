@@ -2,3 +2,20 @@ url: ~
 template:
   bootstrap: 5
   light-switch: true
+
+reference:
+- title: Compare methods
+- contents: 
+  - compare_methods
+  - add_confint
+- title: Show results
+- contents:
+  - matches("plot|table")
+  - add_BA_stats_geom_manual
+- title: Misc
+- contents: 
+  - as.data.frame.ba_analysis
+  - print.ba_analysis
+  - starts_with("simulate")
+- title: Datasets
+- contents: has_keyword("datasets")

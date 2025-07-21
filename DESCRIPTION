@@ -2,10 +2,12 @@ Package: BAtrending
 Type: Package
 Title: Bland-Altman Analysis and Trending Assessment
 Version: 0.1.0
-Author: Johannnes Enevoldsen
-Maintainer: Johannnes Enevoldsen <Johannnes.ne@gmail.com>
+Authors@R: c(
+    person("Johannes", "Enevoldsen", , "johannes.ne@gmail.com", role = c("aut", "cre"), 
+    comment = c(ORCID = "0000-0002-9190-6566"))
+    )
 Description: A package for conveniently conducting a Bland-Altman including assessment of trending ability.
-License: file LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: 
