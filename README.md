@@ -1,7 +1,8 @@
 
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# BAtrending
+# BAtrending <img src="man/figures/logo.png" align="right" height="136" alt="" />
 
 <!-- badges: start -->
 
@@ -48,7 +49,7 @@ BA_CO <- add_confint(BA_CO)
 plot_BA_combine(BA_CO, aspect_ratio = 1)
 ```
 
-<img src="man/figures/README-plot-1.png" width="100%" />
+<img src="man/figures/README-plot-1.png" style="width:100.0%" />
 
 The object (`BA_CO`) returned by `compare_methods()` contains a number
 of parameters from both the standard Bland-Altman analysis and for
@@ -60,28 +61,26 @@ BA_CO
 #> 
 #>                                    est      [95% CI] 
 #> === Distribution ===
-#> Mean                           :   5.035 [ 4.323;  5.722] 
-#> Between-subject variation (SD) :   1.210 [ 0.712;  1.695] 
-#> Within-subject variation (SD)  :   0.283 [ 0.225;  0.340] 
-#> Total variation (SD)           :   1.243 [ 0.764;  1.721] 
+#> Mean                           :   5.035 [ 4.345;  5.721] 
+#> Between-subject variation (SD) :   1.210 [ 0.704;  1.709] 
+#> Within-subject variation (SD)  :   0.283 [ 0.228;  0.340] 
+#> Total variation (SD)           :   1.243 [ 0.757;  1.735] 
 #> 
 #> === Method comparison ===
-#> Bias (alt - ref)               :  -0.705 [-1.234; -0.211] 
-#> Between-subject variation (SD) :   0.934 [ 0.529;  1.334] 
-#> Within-subject variation (SD)  :   0.413 [ 0.325;  0.496] 
-#> Total variation (SD)           :   1.022 [ 0.677;  1.398] 
+#> Bias (alt - ref)               :  -0.705 [-1.226; -0.159] 
+#> Between-subject variation (SD) :   0.934 [ 0.520;  1.345] 
+#> Within-subject variation (SD)  :   0.413 [ 0.329;  0.500] 
+#> Total variation (SD)           :   1.022 [ 0.660;  1.412] 
 #> Intraclass correlation
-#>   Between/Total variance       :   0.836 [ 0.605;  0.924] 
-#> 
+#> └ Between/Total variance       :   0.836 [ 0.604;  0.923] 
 #> Limits of agreement (95%)
-#> ├ Upper limit                  :   1.298 [ 0.431;  2.222] 
-#> └ Lower limit                  :  -2.707 [-3.540; -1.838] 
-#> 
-#> Percentage error               :   0.399 [ 0.264;  0.545] 
+#> ├ Upper limit                  :   1.298 [ 0.401;  2.225] 
+#> └ Lower limit                  :  -2.707 [-3.589; -1.818] 
+#> Percentage error               :   0.398 [ 0.257;  0.551] 
 #> 
 #> --- Trending ---
-#> Within-subject perc. error     :   0.161 [ 0.127;  0.193] 
-#> Change LoA [±] (95%)           :   1.146 [ 0.901;  1.374]
+#> Within-subject perc. error     :   0.161 [ 0.128;  0.195] 
+#> Change LoA [±] (95%)           :   1.146 [ 0.912;  1.385]
 ```
 
 ## Citation
@@ -94,7 +93,7 @@ To cite package ‘BAtrending’ in publications use:
 
 YourLastName Y, CoauthorLastName C (2023). “BATrending paper.” *Journal
 of Important Research*, *10*(2), 123-456.
-<doi:10.xxxx/your.paper.doi.here>
+doi:10.xxxx/your.paper.doi.here
 <https://doi.org/10.xxxx/your.paper.doi.here>.
 
 A BibTeX entry for LaTeX users is
