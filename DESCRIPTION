@@ -1,12 +1,11 @@
 Package: BAtrending
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Bland-Altman Analysis and Trending Assessment
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: MIT + file LICENSE
+Author: Johannnes Enevoldsen
+Maintainer: Johannnes Enevoldsen <Johannnes.ne@gmail.com>
+Description: A package for conveniently conducting a Bland-Altman including assessment of trending ability.
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: 
