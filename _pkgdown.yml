@@ -1,11 +1,10 @@
 url: https://johannesne.github.io/BAtrending/
 template:
   bootstrap: 5
-  light-switch: true
-
+  light-switch: yes
 reference:
 - title: Compare methods
-- contents: 
+- contents:
   - compare_methods
   - add_confint
 - title: Show results
@@ -13,7 +12,7 @@ reference:
   - matches("plot|table")
   - add_BA_stats_geom_manual
 - title: Misc
-- contents: 
+- contents:
   - as.data.frame.ba_analysis
   - print.ba_analysis
   - starts_with("simulate")
