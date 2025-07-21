@@ -52,6 +52,7 @@ BA_CO <- add_confint(BA_CO)
 #| out.width: 100%
 #| fig.width: 10
 #| fig.asp: 0.4
+#| fig.alt: Three plots visualizing the extended Bland-Altman analysis.
 plot_BA_combine(BA_CO, aspect_ratio = 1)
 ```
 

@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Setup
+## Setup
 
 | First, install the package using `pak::pak("JohannesNE/BAtrending")`
 | or `remotes::install_github("JohannesNE/BAtrending")`.
@@ -34,7 +34,7 @@ library(BAtrending)
 library(dplyr)
 ```
 
-# Part 1: A simple example
+## Part 1: A simple example
 
 The BAtrending package includes a small sample dataset, `CO`. It contains paired measurements of cardiac output (CO) using two methods: radionuclide ventriculography (rv) and impedance cardiography (ic). The dataset was published in [Bland JM, Altman DG. (1999) Measuring agreement in method comparison studies. Statistical Methods in Medical Research 8, 135-160](https://doi.org/10.1177/096228029900800204).
 
@@ -101,7 +101,7 @@ BA_table(BA_CO)
 
 `BA_table()` uses `tinytable::tt()` and can be exported to several common formats including PDF and .docx (see `tinytable::save_tt()` ).
 
-# Part 2: Proportional errors - logarithmic transformation
+## Part 2: Proportional errors - logarithmic transformation
 
 In the example above, we assumed that measurement errors were independent of the true CO. This assumption is supported by the Bland-Altman plot and residuals plots, which do not indicate a relationship between the average CO and the variation in measurement differences.
 
@@ -249,7 +249,7 @@ This is analogous to how the coefficient of variation ($CV = SD(x)/mean(x)$) is 
 
 [^bib]: R. C. Lewontin, On the Measurement of Relative Variability, Systematic Biology, Volume 15, Issue 2, June 1966, Pages 141–142, https://doi.org/10.2307/sysbio/15.2.141
 
-# Part 3: Manually fit the mixed model and extract features {#part-3-manually-fit-the-mixed-model-and-extract-features}
+## Part 3: Manually fit the mixed model and extract features {#part-3-manually-fit-the-mixed-model-and-extract-features}
 
 While `BAtrending` conveniently fits a mixed effects model and extracts relevant variables, it is useful to understand how to do this manually. 
 
@@ -329,7 +329,7 @@ c(
 
 Here, we use the simple mean of all measurements. In `compare_methods()` the mean value is estimated from a mixed model that accounts for repeated measurements within subjects (`avg ~ 1 + (1|sub)`). This model is also used for describing the distribution of measurements (e.g. `BA_CO$distribution_stats`).
 
-## Bootstrap confidence intervals
+### Bootstrap confidence intervals
 
 To calculate confidence intervals (CI) for the Bland-Altman statistics, we can use a parametric bootstrap on the model.
 
@@ -341,7 +341,7 @@ lme4::confint.merMod(
   method = "boot",
   nsim = 500, # increase nsim for actual analysis
   boot.type = "perc",
-  .progress = "none"
+  .progress = "none" # hide progress bar
 )
 ```
 
