@@ -2,7 +2,7 @@
 format: gfm
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -53,7 +53,7 @@ BA_CO <- add_confint(BA_CO)
 #| fig.width: 10
 #| fig.asp: 0.4
 #| fig.alt: Three plots visualizing the extended Bland-Altman analysis.
-plot_BA_combine(BA_CO, aspect_ratio = 1)
+BA_plot_combine(BA_CO, aspect_ratio = 1)
 ```
 
 The object (`BA_CO`) returned by `compare_methods()` contains a number of parameters from both the standard Bland-Altman analysis and for assessing trending ability. The `print()` method gives an overview: 

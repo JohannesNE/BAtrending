@@ -2,29 +2,29 @@ library(vdiffr)
 
 test_that("Standard BA plot", {
   expect_message(
-    test_plot <- plot_BA(comp_co),
+    test_plot <- BA_plot(comp_co),
     "has no confidence intervals"
   )
   expect_doppelganger("Standard BA no CI", test_plot)
 })
 
 test_that("Standard BA plot w CI", {
-  test_plot <- plot_BA(comp_co_w_ci)
+  test_plot <- BA_plot(comp_co_w_ci)
   expect_doppelganger("Standard BA plot w CI", test_plot)
 })
 
 test_that("Standard BA plot on log data w CI", {
-  test_plot <- plot_BA(comp_co_log_w_ci, keep_log_scale = TRUE)
+  test_plot <- BA_plot(comp_co_log_w_ci, keep_log_scale = TRUE)
   expect_doppelganger("Standard BA plot on log data w CI", test_plot)
 })
 
 test_that("Ratio BA plot w CI", {
-  test_plot <- plot_BA(comp_co_log_w_ci, keep_log_scale = FALSE)
+  test_plot <- BA_plot(comp_co_log_w_ci, keep_log_scale = FALSE)
   expect_doppelganger("Ratio BA w CI", test_plot)
 })
 
 test_that("normalized log plot w ci", {
-  test_plot <- plot_BA_normalized_log(comp_co_log_w_ci)
+  test_plot <- BA_plot_normalized_log(comp_co_log_w_ci)
   expect_doppelganger("normalized log plot w ci", test_plot)
 })
 
@@ -71,42 +71,42 @@ test_that("Add manual BA geom, Ratio w CI", {
 })
 
 test_that("Standard residuals plot", {
-  test_plot <- plot_BA_residuals(comp_co, show_sd = FALSE)
+  test_plot <- BA_plot_residuals(comp_co, show_sd = FALSE)
   expect_doppelganger("Standard residuals plot", test_plot)
 })
 
 test_that("Residuals plot on log data w ci", {
-  test_plot <- plot_BA_residuals(comp_co_log_w_ci)
+  test_plot <- BA_plot_residuals(comp_co_log_w_ci)
   expect_doppelganger("Residuals plot on log data", test_plot)
 })
 
 test_that("Combined plot with standard scale", {
-  test_plot <- plot_BA_combine(comp_co)
+  test_plot <- BA_plot_combine(comp_co)
   expect_doppelganger("Combined plot with standard scale", test_plot)
 })
 
 test_that("Combined plot with log scale", {
-  test_plot <- plot_BA_combine(comp_co_log, keep_log_scale = TRUE)
+  test_plot <- BA_plot_combine(comp_co_log, keep_log_scale = TRUE)
   expect_doppelganger("Combined plot with log scale", test_plot)
 })
 
 test_that("Combined plot with ratio scale", {
-  test_plot <- plot_BA_combine(comp_co_log)
+  test_plot <- BA_plot_combine(comp_co_log)
   expect_doppelganger("Combined plot with ratio scale", test_plot)
 })
 
 test_that("Combined plot with legend", {
-  test_plot <- plot_BA_combine(comp_co, show_subject_legend = TRUE)
+  test_plot <- BA_plot_combine(comp_co, show_subject_legend = TRUE)
   expect_doppelganger("Combined plot with legend", test_plot)
 })
 
 test_that("Combined plot with fixed aspect ratio", {
-  test_plot <- plot_BA_combine(comp_co, aspect_ratio = 1)
+  test_plot <- BA_plot_combine(comp_co, aspect_ratio = 1)
   expect_doppelganger("Combined plot with fixed aspect ratio", test_plot)
 })
 
 test_that("Combined plot can return list", {
-  test_plot_list <- plot_BA_combine(comp_co, return_as_list = TRUE)
+  test_plot_list <- BA_plot_combine(comp_co, return_as_list = TRUE)
   expect_type(test_plot_list, "list")
   expect_named(test_plot_list, c("scatter_plot", "BA_plot", "residuals_plot"))
 })
@@ -120,6 +120,6 @@ test_that("BA Plot works with units", {
     id_col = "sub",
     unit = "L/min"
   )
-  test_plot <- plot_BA(comp_co_unit)
+  test_plot <- BA_plot(comp_co_unit)
   expect_doppelganger("BA plot with unit", test_plot)
 })

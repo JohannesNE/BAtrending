@@ -56,27 +56,27 @@ BA_CO <- compare_methods(
 BA_CO <- add_confint(BA_CO, nsim = 999, .progress = "none")
 ```
 
-We can view the raw data (`rv` and `ic`) using `plot_BA_scatter()`. It is generally recommended to set the aspect ratio to 1 for easy comparison between the methods.
+We can view the raw data (`rv` and `ic`) using `BA_plot_scatter()`. It is generally recommended to set the aspect ratio to 1 for easy comparison between the methods.
 
 ```{r}
-plot_BA_scatter(BA_CO, aspect_ratio = 1)
+BA_plot_scatter(BA_CO, aspect_ratio = 1)
 ```
 
-A standard Bland-Altman plot is created with `plot_BA()`.
+A standard Bland-Altman plot is created with `BA_plot()`.
 
 ```{r}
-plot_BA(BA_CO, aspect_ratio = 1)
+BA_plot(BA_CO, aspect_ratio = 1)
 ```
 
-`plot_BA_combine()` is a convenience function that combines three plots: the scatter plot and Bland-Altman plots shown above, and a residuals plot. The residuals plot shows only the within-subject variation, which is the only variation relevant for assessing trending agreement.
+`BA_plot_combine()` is a convenience function that combines three plots: the scatter plot and Bland-Altman plots shown above, and a residuals plot. The residuals plot shows only the within-subject variation, which is the only variation relevant for assessing trending agreement.
 
 ```{r}
 #| out.width: 100%
 #| fig.width: 10
-plot_BA_combine(BA_CO, aspect_ratio = 1, equal_scales = TRUE)
+BA_plot_combine(BA_CO, aspect_ratio = 1, equal_scales = TRUE)
 ```
 
-Setting `equal_scales = TRUE` (default) matches the dimensions of the residuals plot to the standard Bland-Altman plot, so we can visually compare the within-subject variation (right panel) to the total variation shown in the Bland-Altman analysis (middle panel). The residuals plot (right panel, displaying within-subject variation) can also be created directly with `plot_BA_residuals()`.
+Setting `equal_scales = TRUE` (default) matches the dimensions of the residuals plot to the standard Bland-Altman plot, so we can visually compare the within-subject variation (right panel) to the total variation shown in the Bland-Altman analysis (middle panel). The residuals plot (right panel, displaying within-subject variation) can also be created directly with `BA_plot_residuals()`.
 
 On the Y-axis of the residuals plot, we observe that there is little within-subject variation in the difference between simultaneous measurements, especially compared to the total variation (Y-axis of the middle panel). By itself, this suggests good trending agreement, but we must also consider the variation in CO itself. The average CO ($(rv+ic)/2$) represents our best guess of the true CO, and is plotted on the X-axis of the middle and right panels. The middle panel shows that a wide range of CO values are included in the study, but the right panel reveals that the within-subject variation in CO is very limited. We do not know how the within-subject variability might change if CO itself changes significantly; therefore, we cannot confidently interpret the low within-subject variability as "good" trending agreement.
 
@@ -168,7 +168,7 @@ BA_sim_abs <- compare_methods(
 # Increase nsim in practice.
 BA_sim_abs <- add_confint(BA_sim_abs, nsim = 999, .progress = "none")
 
-plot_BA_combine(BA_sim_abs, aspect_ratio = 1)
+BA_plot_combine(BA_sim_abs, aspect_ratio = 1)
 ```
 
 The funnel-shaped scatter of differences in the Bland-Altman plot (middle panel) clearly indicates that the magnitude of the differences increases with higher CO.
@@ -193,7 +193,7 @@ BA_sim_log <- compare_methods(
 BA_sim_log <- add_confint(BA_sim_log, nsim = 999, .progress = "none")
 # Increase nsim in practice.
 
-plot_BA_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = TRUE)
+BA_plot_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = TRUE)
 # aspect_ratio only affects the scatter plot (left panel) for
 # log-transformed data.
 ```
@@ -205,7 +205,7 @@ The results from the Bland-Altman analysis on log-transformed measurements (e.g.
 ```{r}
 #| out.width: 100%
 #| fig.width: 10
-plot_BA_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = FALSE)
+BA_plot_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = FALSE)
 ```
 
 A ratio of 1 signifies "no bias" ($alt = ref$). The Y-axis is shown with logarithmic intervals to appropriately balance the ratios visually (i.e. an increase of 25% is balanced by a decrease of 20%).
@@ -215,7 +215,7 @@ A relative bias of `r round(exp(BA_sim_log$BA_stats$bias), 2)` indicates that th
 We can also show the results of the log-transformed Bland-Altman analysis on the non-transformed data with:
 
 ```{r}
-plot_BA_normalized_log(BA_sim_log, aspect_ratio = 1)
+BA_plot_normalized_log(BA_sim_log, aspect_ratio = 1)
 ```
 
 Again, we can generate a table of the back-transformed (exponentiated) results:

@@ -9,17 +9,17 @@
 #'
 #' @returns Bland-Altman plot (ggplot)
 #'
-#' @seealso [plot_BA_normalized_log()] which shows the results of a proportional Bland-Altman analysis (with log-transformed measurements)
+#' @seealso [BA_plot_normalized_log()] which shows the results of a proportional Bland-Altman analysis (with log-transformed measurements)
 #' on the non-transformed data.
 #'
 #' @examples
 #' ba_obj <- compare_methods(CO, ic, rv, id_col = sub)
-#' plot_BA(ba_obj)
+#' BA_plot(ba_obj)
 #'
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
 #' @export
-plot_BA <- function(
+BA_plot <- function(
   ba_obj,
   aspect_ratio = NULL,
   show_subject_legend = FALSE,
@@ -82,7 +82,7 @@ plot_BA <- function(
     create_axis_labels(ba_obj = ba_obj, exponentiated = exponentiated)
 }
 
-# Internal function to add ggplot settings to plot_BA and plot_BA_residuals
+# Internal function to add ggplot settings to BA_plot and BA_plot_residuals
 BA_plot_setup <- function(
   exponentiated,
   data_is_log_transformed,
@@ -243,16 +243,16 @@ add_BA_stats_geom_manual <- function(
 
 #' Plot BA estimates from log transformed data on raw data.
 #'
-#' @inheritParams plot_BA
+#' @inheritParams BA_plot
 #'
 #' @return Bland-Altman style plot with relative differences plotted on absolute differences.
 #'
 #' @examples
 #' BA_CO <- compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE)
-#' plot_BA_normalized_log(BA_CO)
+#' BA_plot_normalized_log(BA_CO)
 #'
 #' @export
-plot_BA_normalized_log <- function(
+BA_plot_normalized_log <- function(
   ba_obj,
   show_subject_legend = FALSE,
   aspect_ratio = NULL
@@ -362,14 +362,14 @@ plot_BA_normalized_log <- function(
 
 #' Plot within-subject variation (model residuals) in differences and averages.
 #'
-#' @inheritParams plot_BA
+#' @inheritParams BA_plot
 #' @param show_sd Mark 1.96*SD (within-subject) on the plot (analouge to 95% LoA).
 #'
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
 #'
 #' @export
-plot_BA_residuals <- function(
+BA_plot_residuals <- function(
   ba_obj,
   aspect_ratio = NULL,
   show_subject_legend = FALSE,
@@ -461,13 +461,13 @@ plot_BA_residuals <- function(
 
 #' Make scatter plot of paired measurements in analysis.
 #'
-#' @inheritParams plot_BA
+#' @inheritParams BA_plot
 #'
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
 #'
 #' @export
-plot_BA_scatter <- function(
+BA_plot_scatter <- function(
   ba_obj,
   aspect_ratio = NULL,
   show_subject_legend = FALSE,
@@ -525,13 +525,13 @@ plot_BA_scatter <- function(
 #'
 #' Creates a scatter plot, a standard Bland-Altman plot and a residuals plot for assessing trending ability.
 #'
-#' @inheritParams plot_BA
+#' @inheritParams BA_plot
 #' @param equal_scales Plot the residuals on a plane with the scale of the original data.
 #' @param return_as_list Return the three plots in a list. If `FALSE`, the plots are combined using \{patchwork\}.
 #' @param use_titles Show default titles on plots.
 #'
 #' @export
-plot_BA_combine <- function(
+BA_plot_combine <- function(
   ba_obj,
   aspect_ratio = NULL,
   show_subject_legend = FALSE,
@@ -543,7 +543,7 @@ plot_BA_combine <- function(
   assert_BA_obj(ba_obj)
 
   # Create scatter plot
-  scatter_plot <- plot_BA_scatter(
+  scatter_plot <- BA_plot_scatter(
     ba_obj = ba_obj,
     aspect_ratio = aspect_ratio,
     show_subject_legend = show_subject_legend,
@@ -551,7 +551,7 @@ plot_BA_combine <- function(
   )
 
   # Create Bland-Altman plot
-  BA_plot <- plot_BA(
+  BA_plot_obj <- BA_plot(
     ba_obj = ba_obj,
     show_subject_legend = show_subject_legend,
     aspect_ratio = aspect_ratio,
@@ -559,7 +559,7 @@ plot_BA_combine <- function(
   )
 
   # Create residuals plot
-  residuals_plot <- suppressMessages(plot_BA_residuals(
+  residuals_plot <- suppressMessages(BA_plot_residuals(
     ba_obj = ba_obj,
     aspect_ratio = aspect_ratio,
     show_subject_legend = show_subject_legend,
@@ -569,8 +569,8 @@ plot_BA_combine <- function(
   if (equal_scales) {
     ratio_scale <- attr(ba_obj, "logtrans") && !keep_log_scale
 
-    # Find limits of BA_plot
-    BA_plot_build <- ggplot2::ggplot_build(BA_plot)
+    # Find limits of BA_plot_obj
+    BA_plot_build <- ggplot2::ggplot_build(BA_plot_obj)
 
     # Data Ranges
     # y_data_range <- BA_plot_build$layout$panel_scales_y[[1]]$range$range
@@ -609,7 +609,7 @@ plot_BA_combine <- function(
 
   # Default titles
   if (use_titles) {
-    BA_plot <- BA_plot +
+    BA_plot_obj <- BA_plot_obj +
       ggplot2::labs(title = "Bland-Altman analysis")
 
     residuals_plot <- residuals_plot +
@@ -620,13 +620,13 @@ plot_BA_combine <- function(
   if (return_as_list) {
     list(
       scatter_plot = scatter_plot,
-      BA_plot = BA_plot,
+      BA_plot = BA_plot_obj,
       residuals_plot = residuals_plot
     )
   } else {
     patchwork::wrap_plots(
       scatter_plot,
-      BA_plot,
+      BA_plot_obj,
       residuals_plot,
       guides = "collect"
     )

@@ -1,6 +1,6 @@
 
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.qmd. Please edit that file -->
 
 # BAtrending <img src="man/figures/logo.png" align="right" height="136" alt="" />
 
@@ -46,10 +46,11 @@ BA_CO <- add_confint(BA_CO)
 ```
 
 ``` r
-plot_BA_combine(BA_CO, aspect_ratio = 1)
+BA_plot_combine(BA_CO, aspect_ratio = 1)
 ```
 
-<img src="man/figures/README-plot-1.png" style="width:100.0%" />
+<img src="man/figures/README-plot-1.png" style="width:100.0%"
+data-fig-alt="Three plots visualizing the extended Bland-Altman analysis." />
 
 The object (`BA_CO`) returned by `compare_methods()` contains a number
 of parameters from both the standard Bland-Altman analysis and for
@@ -61,26 +62,26 @@ BA_CO
 #> 
 #>                                    est      [95% CI] 
 #> === Distribution ===
-#> Mean                           :   5.035 [ 4.345;  5.721] 
-#> Between-subject variation (SD) :   1.210 [ 0.704;  1.709] 
-#> Within-subject variation (SD)  :   0.283 [ 0.228;  0.340] 
-#> Total variation (SD)           :   1.243 [ 0.757;  1.735] 
+#> Mean                           :   5.035 [ 4.372;  5.696] 
+#> Between-subject variation (SD) :   1.210 [ 0.703;  1.699] 
+#> Within-subject variation (SD)  :   0.283 [ 0.229;  0.341] 
+#> Total variation (SD)           :   1.243 [ 0.759;  1.720] 
 #> 
 #> === Method comparison ===
-#> Bias (alt - ref)               :  -0.705 [-1.226; -0.159] 
-#> Between-subject variation (SD) :   0.934 [ 0.520;  1.345] 
-#> Within-subject variation (SD)  :   0.413 [ 0.329;  0.500] 
-#> Total variation (SD)           :   1.022 [ 0.660;  1.412] 
+#> Bias (alt - ref)               :  -0.705 [-1.224; -0.167] 
+#> Between-subject variation (SD) :   0.934 [ 0.535;  1.337] 
+#> Within-subject variation (SD)  :   0.413 [ 0.329;  0.501] 
+#> Total variation (SD)           :   1.022 [ 0.682;  1.406] 
 #> Intraclass correlation
-#> └ Between/Total variance       :   0.836 [ 0.604;  0.923] 
+#> └ Between/Total variance       :   0.836 [ 0.616;  0.923] 
 #> Limits of agreement (95%)
-#> ├ Upper limit                  :   1.298 [ 0.401;  2.225] 
-#> └ Lower limit                  :  -2.707 [-3.589; -1.818] 
-#> Percentage error               :   0.398 [ 0.257;  0.551] 
+#> ├ Upper limit                  :   1.298 [ 0.454;  2.224] 
+#> └ Lower limit                  :  -2.707 [-3.615; -1.786] 
+#> Percentage error               :   0.398 [ 0.266;  0.549] 
 #> 
 #> --- Trending ---
-#> Within-subject perc. error     :   0.161 [ 0.128;  0.195] 
-#> Change LoA [±] (95%)           :   1.146 [ 0.912;  1.385]
+#> Within-subject perc. error     :   0.161 [ 0.128;  0.196] 
+#> Change LoA [±] (95%)           :   1.146 [ 0.911;  1.390]
 ```
 
 ## Citation
