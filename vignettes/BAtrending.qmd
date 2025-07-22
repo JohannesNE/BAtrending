@@ -9,18 +9,15 @@ vignette: >
   %\VignetteIndexEntry{Introduction to BAtrending}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    message: false
+    out.width: "50%"
+    fig.width: 5
+    fig.align: "center"
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  message = FALSE,
-  comment = "#>",
-  out.width = "50%",
-  fig.width = 5,
-  fig.align = "center"
-)
-```
 
 ## Setup
 
