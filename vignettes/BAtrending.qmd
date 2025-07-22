@@ -46,7 +46,7 @@ head(CO)
 `compare_methods()` uses `lme4::lmer()` to fit a mixed model with differences (alt - ref) as the dependent variable. From this model, Bland-Altman statistics and trending parameters are calculated, accounting for repeated measurements. Additionally, a mixed model with averages ((alt + ref)/2) as the dependent variable is fit. This model is used to determine between-subject and within-subject variation in the measured variable. In [Part 3](#part-3-manually-fit-the-mixed-model-and-extract-features) we demonstrate how to manually fit the mixed model and extract relevant features.
 
 ```{r}
-#| results: hide
+#| output: false
 #| message: false
 
 BA_CO <- compare_methods(
