@@ -1,10 +1,6 @@
 ---
 title: "Introduction to BAtrending"
-format: 
-  html:
-    toc: true
-  pdf:
-    toc: true
+format: html
 vignette: >
   %\VignetteIndexEntry{Introduction to BAtrending}
   %\VignetteEngine{quarto::html}
