@@ -19,6 +19,6 @@ BA_table(ba_obj, decimals = 2, decimals_pct = 1, keep_log_scale = FALSE)
 A table of the estimates from the Bland-Altman analysis.
 }
 \description{
-Uses \code{tinytable:tt()} to create a publication-ready table of the results of the Bland-Altman analysis.
+Uses \code{\link[=tinytable:tt]{tinytable:tt()}} to create a publication-ready table of the results of the Bland-Altman analysis.
 By default, results from a log-transformed analysis is exponentiated.
 }

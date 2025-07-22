@@ -19,7 +19,7 @@ ba_stat_labels <- c(
 
 #' Create a table with the results of the Bland-Altman analysis
 #'
-#' Uses `tinytable:tt()` to create a publication-ready table of the results of the Bland-Altman analysis.
+#' Uses [tinytable:tt()] to create a publication-ready table of the results of the Bland-Altman analysis.
 #' By default, results from a log-transformed analysis is exponentiated.
 #'
 #' @param ba_obj An object created with `BAtrending::compare_methods()`.

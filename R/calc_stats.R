@@ -174,6 +174,7 @@ compare_methods <- function(
 #' @param ba_obj Bland-Altman analysis object
 #' @param level Confidence level (default is 0.95)
 #' @param nsim Number of bootstrap samples
+#' @param boot.type Type of interval (one of `"perc"` (default), `"basic"`, `"norm"`). Passed to [boot::boot.ci()]
 #' @param .progress,PBargs see [lme4::bootMer()]
 #'
 #' @return
@@ -184,6 +185,7 @@ add_confint <- function(
   ba_obj,
   level = 0.95,
   nsim = 1999,
+  boot.type = c("perc", "basic", "norm"),
   .progress = "txt",
   PBargs = list(style = 3)
 ) {
@@ -201,6 +203,7 @@ add_confint <- function(
     method = "boot",
     level = level,
     nsim = nsim,
+    boot.type = boot.type,
     .progress = .progress,
     PBargs = PBargs
   )
@@ -217,6 +220,7 @@ add_confint <- function(
     method = "boot",
     level = level,
     nsim = nsim,
+    boot.type = boot.type,
     .progress = .progress,
     PBargs = PBargs
   )

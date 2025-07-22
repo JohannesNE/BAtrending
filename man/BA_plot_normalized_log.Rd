@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_plots.R
 \name{BA_plot_normalized_log}
 \alias{BA_plot_normalized_log}
-\title{Plot BA estimates from log transformed data on raw data.}
+\title{Plot relative Bland-Altman estimates on raw data.}
 \usage{
 BA_plot_normalized_log(
   ba_obj,
@@ -21,7 +21,7 @@ BA_plot_normalized_log(
 Bland-Altman style plot with relative differences plotted on absolute differences.
 }
 \description{
-Plot BA estimates from log transformed data on raw data.
+Visualizes a Bland-Altman analysis with log-transformed data (showing relative errors) on the non-transformed data.
 }
 \examples{
 BA_CO <- compare_methods(CO, "ic", "rv", id_col = "sub", logtrans = TRUE)

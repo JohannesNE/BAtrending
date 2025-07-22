@@ -8,6 +8,7 @@ add_confint(
   ba_obj,
   level = 0.95,
   nsim = 1999,
+  boot.type = c("perc", "basic", "norm"),
   .progress = "txt",
   PBargs = list(style = 3)
 )
@@ -18,6 +19,8 @@ add_confint(
 \item{level}{Confidence level (default is 0.95)}
 
 \item{nsim}{Number of bootstrap samples}
+
+\item{boot.type}{Type of interval (one of \code{"perc"} (default), \code{"basic"}, \code{"norm"}). Passed to \code{\link[boot:boot.ci]{boot::boot.ci()}}}
 
 \item{.progress, PBargs}{see \code{\link[lme4:bootMer]{lme4::bootMer()}}}
 }

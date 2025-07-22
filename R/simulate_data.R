@@ -48,7 +48,7 @@ simulate_repeated_data <- function(
 #' @param mean_bias Mean bias.
 #' @param sub_bias_sd Standard deviation of subject-specific biases.
 #' @param residual_error_sd Standard deviation of residual errors.
-#' @param relative_errors Should errors be relative to true value.
+#' @param proportional_errors Should errors be proportional to true value.
 #' If TRUE, errors are added on a log scale, and the result is exponentiated. To add a bias of 10% (true_value * 1.1),
 #' the mean_bias should be set to log(1.1). A SD of log(1.2) corresponds to ±20%.
 #'
@@ -62,7 +62,7 @@ simulate_repeated_data <- function(
 #'   mean_bias = log(1.1),
 #'   sub_bias_sd = log(1.2),
 #'   residual_error_sd = log(1.1),
-#'   relative_errors = TRUE
+#'   proportional_errors = TRUE
 #' )
 #' plot(df$true_co, df$ref, col=df$id)
 #' abline(a=0, b=1)
@@ -74,7 +74,7 @@ simulate_measurement <- function(
   residual_error_sd,
   mean_bias = 0,
   sub_bias_sd = 0,
-  relative_errors = FALSE
+  proportional_errors = FALSE
 ) {
   stopifnot(length(true_val) == length(sub_id))
   stopifnot(all(residual_error_sd >= 0, sub_bias_sd >= 0))
@@ -90,7 +90,7 @@ simulate_measurement <- function(
 
   residual_error_vec <- stats::rnorm(n_obs, mean = 0, sd = residual_error_sd)
 
-  if (relative_errors) {
+  if (proportional_errors) {
     res <- exp(log(true_val) + mean_bias + sub_bias_vec + residual_error_vec)
   } else {
     res <- true_val + mean_bias + sub_bias_vec + residual_error_vec

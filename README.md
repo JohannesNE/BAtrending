@@ -62,26 +62,26 @@ BA_CO
 #> 
 #>                                    est      [95% CI] 
 #> === Distribution ===
-#> Mean                           :   5.035 [ 4.372;  5.696] 
-#> Between-subject variation (SD) :   1.210 [ 0.703;  1.699] 
-#> Within-subject variation (SD)  :   0.283 [ 0.229;  0.341] 
-#> Total variation (SD)           :   1.243 [ 0.759;  1.720] 
+#> Mean                           :   5.035 [ 4.362;  5.748] 
+#> Between-subject variation (SD) :   1.210 [ 0.712;  1.703] 
+#> Within-subject variation (SD)  :   0.283 [ 0.225;  0.340] 
+#> Total variation (SD)           :   1.243 [ 0.767;  1.726] 
 #> 
 #> === Method comparison ===
-#> Bias (alt - ref)               :  -0.705 [-1.224; -0.167] 
-#> Between-subject variation (SD) :   0.934 [ 0.535;  1.337] 
-#> Within-subject variation (SD)  :   0.413 [ 0.329;  0.501] 
-#> Total variation (SD)           :   1.022 [ 0.682;  1.406] 
+#> Bias (alt - ref)               :  -0.705 [-1.251; -0.207] 
+#> Between-subject variation (SD) :   0.934 [ 0.541;  1.305] 
+#> Within-subject variation (SD)  :   0.413 [ 0.332;  0.497] 
+#> Total variation (SD)           :   1.022 [ 0.674;  1.369] 
 #> Intraclass correlation
-#> └ Between/Total variance       :   0.836 [ 0.616;  0.923] 
+#> └ Between/Total variance       :   0.836 [ 0.625;  0.919] 
 #> Limits of agreement (95%)
-#> ├ Upper limit                  :   1.298 [ 0.454;  2.224] 
-#> └ Lower limit                  :  -2.707 [-3.615; -1.786] 
-#> Percentage error               :   0.398 [ 0.266;  0.549] 
+#> ├ Upper limit                  :   1.298 [ 0.398;  2.094] 
+#> └ Lower limit                  :  -2.707 [-3.567; -1.816] 
+#> Percentage error               :   0.398 [ 0.263;  0.534] 
 #> 
 #> --- Trending ---
-#> Within-subject perc. error     :   0.161 [ 0.128;  0.196] 
-#> Change LoA [±] (95%)           :   1.146 [ 0.911;  1.390]
+#> Within-subject perc. error     :   0.161 [ 0.129;  0.194] 
+#> Change LoA [±] (95%)           :   1.146 [ 0.919;  1.378]
 ```
 
 ## Citation

@@ -10,7 +10,7 @@ simulate_measurement(
   residual_error_sd,
   mean_bias = 0,
   sub_bias_sd = 0,
-  relative_errors = FALSE
+  proportional_errors = FALSE
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ simulate_measurement(
 
 \item{sub_bias_sd}{Standard deviation of subject-specific biases.}
 
-\item{relative_errors}{Should errors be relative to true value.
+\item{proportional_errors}{Should errors be proportional to true value.
 If TRUE, errors are added on a log scale, and the result is exponentiated. To add a bias of 10\% (true_value * 1.1),
 the mean_bias should be set to log(1.1). A SD of log(1.2) corresponds to ±20\%.}
 }
@@ -43,7 +43,7 @@ df$ref <- simulate_measurement(
   mean_bias = log(1.1),
   sub_bias_sd = log(1.2),
   residual_error_sd = log(1.1),
-  relative_errors = TRUE
+  proportional_errors = TRUE
 )
 plot(df$true_co, df$ref, col=df$id)
 abline(a=0, b=1)

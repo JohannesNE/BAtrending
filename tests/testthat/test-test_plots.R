@@ -1,10 +1,7 @@
 library(vdiffr)
 
 test_that("Standard BA plot", {
-  expect_message(
-    test_plot <- BA_plot(comp_co),
-    "has no confidence intervals"
-  )
+  test_plot <- BA_plot(comp_co)
   expect_doppelganger("Standard BA no CI", test_plot)
 })
 

@@ -11,7 +11,7 @@ knitr:
     comment: "#>"
     message: false
     out.width: "50%"
-    fig.width: 5
+    fig.width: 4
     fig.align: "center"
 ---
 
@@ -20,7 +20,7 @@ knitr:
 | First, install the package using `pak::pak("JohannesNE/BAtrending")`
 | or `remotes::install_github("JohannesNE/BAtrending")`.
 
-Then, load the package:
+Load the package (this tutorial also uses the package `dplyr`):
 
 ```{r setup}
 library(BAtrending)
@@ -39,7 +39,7 @@ head(CO)
 
 `compare_methods()` is the primary analysis function in `BAtrending`.
 
-`compare_methods()` uses `lme4::lmer()` to fit a mixed model with differences (alt - ref) as the dependent variable. From this model, Bland-Altman statistics and trending parameters are calculated, accounting for repeated measurements. Additionally, a mixed model with averages ((alt + ref)/2) as the dependent variable is fit. This model is used to determine between-subject and within-subject variation in the measured variable. Later, we demonstrate how to [manually fit the mixed model and extract relevant features](#manually-fit-the-mixed-model-and-extract-features).
+`compare_methods()` uses `lme4::lmer()` to fit a mixed model with differences (`D = alt - ref`) as the dependent variable. From this model, Bland-Altman statistics and trending parameters are calculated, accounting for repeated measurements. Additionally, a mixed model with averages (`avg = (alt + ref)/2`) as the dependent variable is fit. This second model is used to determine the between-subject and within-subject distribution of the measured variable. Later, we demonstrate how to [manually fit the mixed model and extract relevant features](#manually-fit-the-mixed-model-and-extract-features).
 
 ```{r}
 #| output: false
@@ -52,7 +52,7 @@ BA_CO <- compare_methods(
   id_col = sub
 )
 # Bootstrap confidence intervals.
-# `nsim` should probably be at least 2000 in practice.
+# `nsim` should probably be at least 2000 for real use.
 BA_CO <- add_confint(BA_CO, nsim = 999, .progress = "none")
 ```
 
@@ -68,7 +68,9 @@ A standard Bland-Altman plot is created with `BA_plot()`.
 BA_plot(BA_CO, aspect_ratio = 1)
 ```
 
-`BA_plot_combine()` is a convenience function that combines three plots: the scatter plot and Bland-Altman plots shown above, and a residuals plot. The residuals plot shows only the within-subject variation, which is the only variation relevant for assessing trending agreement.
+`BA_plot_combine()` is a convenience function that combines three plots: the scatter plot and Bland-Altman plot shown above and a residuals plot. The residuals plot shows only the within-subject variation, which is the only variation relevant for assessing trending agreement (the residuals plot can be created directly with `BA_plot_residuals()`).
+
+Setting `equal_scales = TRUE` (default) matches the dimensions of the residuals plot to the standard Bland-Altman plot, so we can visually compare the within-subject variation (right panel) to the total variation shown in the Bland-Altman analysis (middle panel). 
 
 ```{r}
 #| out.width: 100%
@@ -76,9 +78,7 @@ BA_plot(BA_CO, aspect_ratio = 1)
 BA_plot_combine(BA_CO, aspect_ratio = 1, equal_scales = TRUE)
 ```
 
-Setting `equal_scales = TRUE` (default) matches the dimensions of the residuals plot to the standard Bland-Altman plot, so we can visually compare the within-subject variation (right panel) to the total variation shown in the Bland-Altman analysis (middle panel). The residuals plot (right panel, displaying within-subject variation) can also be created directly with `BA_plot_residuals()`.
-
-On the Y-axis of the residuals plot, we observe that there is little within-subject variation in the difference between simultaneous measurements, especially compared to the total variation (Y-axis of the middle panel). By itself, this suggests good trending agreement, but we must also consider the variation in CO itself. The average CO ($(rv+ic)/2$) represents our best guess of the true CO, and is plotted on the X-axis of the middle and right panels. The middle panel shows that a wide range of CO values are included in the study, but the right panel reveals that the within-subject variation in CO is very limited. We do not know how the within-subject variability might change if CO itself changes significantly; therefore, we cannot confidently interpret the low within-subject variability as "good" trending agreement.
+On the Y-axis of the residuals plot, we observe that there is little within-subject variation in the difference between simultaneous measurements, especially compared to the total variation (Y-axis of the middle panel). By itself, this suggests good trending agreement, but we must also consider how much CO acutally varied in the study. The average CO ($(rv+ic)/2$) represents our best guess of the true CO and is plotted on the X-axis of the middle and right panels. The middle panel shows that a wide range of CO values are included in the study, but the right panel reveals that the within-subject variation in CO is very limited. We do not know how the within-subject variability would change if CO itself varied significantly within subjects; therefore, we cannot confidently interpret the low within-subject variability as "good" trending agreement.
 
 The results from the analysis can be shown in table form in the console with `print(BA_CO)` or by simply calling the object name:
 
@@ -92,13 +92,13 @@ A publication-ready table is created with:
 BA_table(BA_CO)
 ```
 
-`BA_table()` uses `tinytable::tt()` and can be exported to several common formats including PDF and .docx (see `tinytable::save_tt()` ).
+`BA_table()` uses `tinytable::tt()` and can be exported to several common formats including PDF and .docx (see `tinytable::save_tt()`).
 
 ## Proportional errors - logarithmic transformation
 
 In the example above, we assumed that measurement errors were independent of the true CO. This assumption is supported by the Bland-Altman plot and residuals plots, which do not indicate a relationship between the average CO and the variation in measurement differences.
 
-It is, however, common to encounter data or have prior knowledge suggesting that measurement errors increase proportionally to the measured value.
+However, it is common to encounter data, or have prior knowledge, suggesting that measurement errors increase proportionally to the measured value.
 
 In the following section, we will simulate simultaneous measurements of CO with two methods that have measurement errors proportional to the true CO.
 
@@ -136,7 +136,7 @@ sim_CO <- sim_CO |>
       sub_bias_sd = log(1.05),
       # within-subject variation of 5% of true CO.
       residual_error_sd = log(1.05),
-      relative_errors = TRUE
+      proportional_errors = TRUE
     ),
     # Alternative method
     alt = simulate_measurement(
@@ -147,7 +147,7 @@ sim_CO <- sim_CO |>
       sub_bias_sd = log(1.1),
       # within-subject variation of 5% of true CO.
       residual_error_sd = log(1.05),
-      relative_errors = TRUE
+      proportional_errors = TRUE
     )
   )
 
@@ -165,7 +165,7 @@ BA_sim_abs <- compare_methods(
   alt_col = alt,
   id_col = id
 )
-# Increase nsim in practice.
+# Increase nsim for real use.
 BA_sim_abs <- add_confint(BA_sim_abs, nsim = 999, .progress = "none")
 
 BA_plot_combine(BA_sim_abs, aspect_ratio = 1)
@@ -190,8 +190,8 @@ BA_sim_log <- compare_methods(
   logtrans = TRUE
 )
 
+# Increase nsim for real use.
 BA_sim_log <- add_confint(BA_sim_log, nsim = 999, .progress = "none")
-# Increase nsim in practice.
 
 BA_plot_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = TRUE)
 # aspect_ratio only affects the scatter plot (left panel) for
@@ -200,7 +200,7 @@ BA_plot_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = TRUE)
 
 On log-transformed measurements, there is no relationship between CO and agreement between methods (of course, this was expected, as we generated the data with proportional errors).
 
-The results from the Bland-Altman analysis on log-transformed measurements (e.g. bias, limits of agreement, and change limits of agreement) can be exponentiated and interpreted on the original scale. The interpretation of these back-transformed results is that they estimate ratios between the measurements instead of absolute differences.
+The results from the Bland-Altman analysis on log-transformed measurements (e.g. bias, limits of agreement and change limits of agreement) can be exponentiated and interpreted on the original scale. The interpretation of these back-transformed results is that they estimate ratios between the measurements instead of absolute differences.
 
 ```{r}
 #| out.width: 100%
@@ -226,7 +226,7 @@ BA_table(BA_sim_log, keep_log_scale = FALSE)
 
 The back-transformed *change limits of agreement* is `r round(exp(BA_sim_log$BA_stats$change.loa), 2)`. This is interpreted as: if we measure a change in CO with both methods simultaneously, we expect the change from one method to be at most `r round((exp(BA_sim_log$BA_stats$change.loa)-1)*100, 0)`% higher than the other method in 95% of cases.
 
-Percentage errors are not meaningful for log-transformed data, and are also not needed. A Bland-Altman analysis on log-transformed data inherently gives measures of agreement that are relative to the measured value. 
+Percentage errors are not meaningful for log-transformed data and are also not needed. A Bland-Altman analysis on log-transformed data inherently gives measures of agreement that are relative to the measured value. 
 
 To compare results from an analysis on log-transformed measurements with an analysis on absolute (non-transformed) measurements, the SD of differences between log-transformed measurements ($D_{\log} = \log(CO_{alt}) - \log(CO_{ref})$) is approximately equal to the SD of differences on the original measurements ($D$) relative to the mean of these measurements:
 

@@ -123,6 +123,8 @@ BA_plot_setup <- function(
     expand = ggplot2::expansion(mult = c(0.1, 0.20))
   )
 
+  coord$default <- TRUE # Supress warning when coord is replaced
+
   list(
     hline = hline,
     y_scale = y_scale,
@@ -241,7 +243,9 @@ add_BA_stats_geom_manual <- function(
   )
 }
 
-#' Plot BA estimates from log transformed data on raw data.
+#' Plot relative Bland-Altman estimates on raw data.
+#'
+#' Visualizes a Bland-Altman analysis with log-transformed data (showing relative errors) on the non-transformed data.
 #'
 #' @inheritParams BA_plot
 #'
@@ -304,7 +308,11 @@ BA_plot_normalized_log <- function(
       data = BA_stats,
       inherit.aes = FALSE
     ),
-    ggplot2::coord_cartesian(xlim = set_limits(d$avg), clip = "off")
+    ggplot2::coord_cartesian(
+      xlim = set_limits(d$avg),
+      clip = "off",
+      default = TRUE
+    )
   )
 
   # Add list of geoms for CIs
@@ -504,6 +512,7 @@ BA_plot_scatter <- function(
 
   if (is.numeric(aspect_ratio)) {
     plot_coord <- ggplot2::coord_fixed(ratio = aspect_ratio)
+    plot_coord$default <- TRUE # Supress warning when coord is replaced
   }
 
   ggplot2::ggplot(
@@ -706,11 +715,13 @@ create_axis_labels <- function(
 check_CI <- function(ba_obj, ba_obj_name = "ba_obj") {
   # Check for CI
   if (is.null(ba_obj$BA_stats_ci)) {
-    cli::cli_inform(
-      c(
-        i = "The Bland-Altman analysis object has no confidence intervals.",
-        "To add confidence intervals run {.run {ba_obj_name} <- add_confint({ba_obj_name})}. (see {.fun BAtrending::add_confint} for help)"
+    if (interactive()) {
+      cli::cli_inform(
+        c(
+          i = "The Bland-Altman analysis object has no confidence intervals.",
+          "To add confidence intervals run {.run {ba_obj_name} <- add_confint({ba_obj_name})}. (see {.fun BAtrending::add_confint} for help)"
+        )
       )
-    )
+    }
   }
 }

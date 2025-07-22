@@ -14,7 +14,7 @@ test_that("log simulation works", {
     mean_bias = log(1.1),
     sub_bias_sd = log(1.2),
     residual_error_sd = log(1.1),
-    relative_errors = TRUE
+    proportional_errors = TRUE
   )
   expect_equal(mean(df$ref / df$true), 1.1, tolerance = 0.1)
 })

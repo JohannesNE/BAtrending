@@ -2,6 +2,7 @@ url: https://johannesne.github.io/BAtrending/
 template:
   bootstrap: 5
   light-switch: yes
+
 reference:
 - title: Compare methods
 - contents:

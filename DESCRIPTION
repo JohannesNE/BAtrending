@@ -37,4 +37,4 @@ Config/Needs/website:
     r-lib/pkgdown,
     quarto
 VignetteBuilder: quarto
-URL: https://johannesne.github.io/BAtrending/
+URL: https://github.com/johannesne/BAtrending, https://johannesne.github.io/BAtrending/
