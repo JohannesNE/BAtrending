@@ -27,7 +27,7 @@ library(BAtrending)
 library(dplyr)
 ```
 
-## Part 1: A simple example
+## A simple example
 
 The BAtrending package includes a small sample dataset, `CO`. It contains paired measurements of cardiac output (CO) using two methods: radionuclide ventriculography (rv) and impedance cardiography (ic). The dataset was published in [Bland JM, Altman DG. (1999) Measuring agreement in method comparison studies. Statistical Methods in Medical Research 8, 135-160](https://doi.org/10.1177/096228029900800204).
 
@@ -39,7 +39,7 @@ head(CO)
 
 `compare_methods()` is the primary analysis function in `BAtrending`.
 
-`compare_methods()` uses `lme4::lmer()` to fit a mixed model with differences (alt - ref) as the dependent variable. From this model, Bland-Altman statistics and trending parameters are calculated, accounting for repeated measurements. Additionally, a mixed model with averages ((alt + ref)/2) as the dependent variable is fit. This model is used to determine between-subject and within-subject variation in the measured variable. In [Part 3](#part-3-manually-fit-the-mixed-model-and-extract-features) we demonstrate how to manually fit the mixed model and extract relevant features.
+`compare_methods()` uses `lme4::lmer()` to fit a mixed model with differences (alt - ref) as the dependent variable. From this model, Bland-Altman statistics and trending parameters are calculated, accounting for repeated measurements. Additionally, a mixed model with averages ((alt + ref)/2) as the dependent variable is fit. This model is used to determine between-subject and within-subject variation in the measured variable. Later, we demonstrate how to [manually fit the mixed model and extract relevant features](#manually-fit-the-mixed-model-and-extract-features).
 
 ```{r}
 #| output: false
@@ -94,7 +94,7 @@ BA_table(BA_CO)
 
 `BA_table()` uses `tinytable::tt()` and can be exported to several common formats including PDF and .docx (see `tinytable::save_tt()` ).
 
-## Part 2: Proportional errors - logarithmic transformation
+## Proportional errors - logarithmic transformation
 
 In the example above, we assumed that measurement errors were independent of the true CO. This assumption is supported by the Bland-Altman plot and residuals plots, which do not indicate a relationship between the average CO and the variation in measurement differences.
 
@@ -242,7 +242,7 @@ This is analogous to how the coefficient of variation ($CV = SD(x)/mean(x)$) is 
 
 [^bib]: R. C. Lewontin, On the Measurement of Relative Variability, Systematic Biology, Volume 15, Issue 2, June 1966, Pages 141–142, https://doi.org/10.2307/sysbio/15.2.141
 
-## Part 3: Manually fit the mixed model and extract features {#part-3-manually-fit-the-mixed-model-and-extract-features}
+## Manually fit the mixed model and extract features {#manually-fit-the-mixed-model-and-extract-features}
 
 While `BAtrending` conveniently fits a mixed effects model and extracts relevant variables, it is useful to understand how to do this manually. 
 

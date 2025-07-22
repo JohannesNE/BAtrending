@@ -39,6 +39,9 @@ This model is used to descibe within-subject and between-subject variation in th
 \examples{
 data(CO)
 compare_methods(CO, ref_col = rv, alt_col = ic, id_col = sub)
+
+\dontrun{
 compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub") # also works
+}
 
 }

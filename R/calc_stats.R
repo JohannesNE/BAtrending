@@ -25,8 +25,12 @@
 #' @examples
 #' data(CO)
 #' compare_methods(CO, ref_col = rv, alt_col = ic, id_col = sub)
-#' compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub") # also works
 #'
+#' \dontrun{
+#' compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub") # also works
+#' }
+#'
+#' @export
 compare_methods <- function(
   df,
   ref_col,

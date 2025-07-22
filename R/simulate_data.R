@@ -40,6 +40,9 @@ simulate_repeated_data <- function(
 
 #' Simulate measurement
 #'
+#' Simulate measurement of a variable by adding random error.
+#' The function allows adding a subject specific error (`sub_bias_sd`), that varies between subjects.
+#'
 #' @param true_val A numeric vector of true values.
 #' @param sub_id A factor or vector representing subject IDs. Must be the same length as var_true.
 #' @param mean_bias Mean bias.

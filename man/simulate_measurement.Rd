@@ -32,7 +32,8 @@ the mean_bias should be set to log(1.1). A SD of log(1.2) corresponds to ±20\%.
 A numeric vector representing simulated measurements.
 }
 \description{
-Simulate measurement
+Simulate measurement of a variable by adding random error.
+The function allows adding a subject specific error (\code{sub_bias_sd}), that varies between subjects.
 }
 \examples{
 df <- simulate_repeated_data(n_sub = 50, n_rep = 5, var_name = "true_co")

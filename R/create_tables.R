@@ -19,8 +19,8 @@ ba_stat_labels <- c(
 
 #' Create a table with the results of the Bland-Altman analysis
 #'
-#' @description
-#' Uses \{tinytable\}.
+#' Uses `tinytable:tt()` to create a publication-ready table of the results of the Bland-Altman analysis.
+#' By default, results from a log-transformed analysis is exponentiated.
 #'
 #' @param ba_obj An object created with `BAtrending::compare_methods()`.
 #' @param decimals A single numeric value specifying the number of decimal places for estimates and confidence intervals.
@@ -28,7 +28,7 @@ ba_stat_labels <- c(
 #' @param keep_log_scale Show log transformed differences. If `FALSE` (default), values and parameters are exponentiated.
 #'
 #' @returns
-#' A table of the estimates from the Bland-Altman analysis (uses \{tinytable\}).
+#' A table of the estimates from the Bland-Altman analysis.
 #'
 #' @export
 BA_table <- function(
