@@ -44,6 +44,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/johannesne/BAtrending/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
@@ -65,7 +66,7 @@
 
 
 
-
+      <small class="dont-index">Source: <a href="https://github.com/johannesne/BAtrending/blob/main/vignettes/BAtrending.qmd" class="external-link"><code>vignettes/BAtrending.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -78,10 +79,10 @@
 </h2>
 <div class="line-block">First, install the package using <code>pak::pak("JohannesNE/BAtrending")</code><br>
 or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
-<p>Then, load the package:</p>
+<p>Load the package (this tutorial also uses the package <code>dplyr</code>):</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://johannesne.github.io/BAtrending/">BAtrending</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johannesne/BAtrending" class="external-link">BAtrending</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="a-simple-example">A simple example<a class="anchor" aria-label="anchor" href="#a-simple-example"></a>
@@ -100,7 +101,7 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <span><span class="co">#&gt; 6   2 6.16 4.06</span></span></code></pre></div>
 </div>
 <p><code><a href="../reference/compare_methods.html">compare_methods()</a></code> is the primary analysis function in <code>BAtrending</code>.</p>
-<p><code><a href="../reference/compare_methods.html">compare_methods()</a></code> uses <code><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lme4::lmer()</a></code> to fit a mixed model with differences (alt - ref) as the dependent variable. From this model, Bland-Altman statistics and trending parameters are calculated, accounting for repeated measurements. Additionally, a mixed model with averages ((alt + ref)/2) as the dependent variable is fit. This model is used to determine between-subject and within-subject variation in the measured variable. Later, we demonstrate how to <a href="#manually-fit-the-mixed-model-and-extract-features">manually fit the mixed model and extract relevant features</a>.</p>
+<p><code><a href="../reference/compare_methods.html">compare_methods()</a></code> uses <code><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lme4::lmer()</a></code> to fit a mixed model with differences (<code>D = alt - ref</code>) as the dependent variable. From this model, Bland-Altman statistics and trending parameters are calculated, accounting for repeated measurements. Additionally, a mixed model with averages (<code>avg = (alt + ref)/2</code>) as the dependent variable is fit. This second model is used to determine the between-subject and within-subject distribution of the measured variable. Later, we demonstrate how to <a href="#manually-fit-the-mixed-model-and-extract-features">manually fit the mixed model and extract relevant features</a>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">BA_CO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compare_methods.html">compare_methods</a></span><span class="op">(</span></span>
@@ -110,7 +111,7 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <span>  id_col <span class="op">=</span> <span class="va">sub</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co"># Bootstrap confidence intervals.</span></span>
-<span><span class="co"># `nsim` should probably be at least 2000 in practice.</span></span>
+<span><span class="co"># `nsim` should probably be at least 2000 for real use.</span></span>
 <span><span class="va">BA_CO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_confint.html">add_confint</a></span><span class="op">(</span><span class="va">BA_CO</span>, nsim <span class="op">=</span> <span class="fl">999</span>, .progress <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>We can view the raw data (<code>rv</code> and <code>ic</code>) using <code><a href="../reference/BA_plot_scatter.html">BA_plot_scatter()</a></code>. It is generally recommended to set the aspect ratio to 1 for easy comparison between the methods.</p>
@@ -135,7 +136,8 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 </div>
 </div>
 </div>
-<p><code><a href="../reference/BA_plot_combine.html">BA_plot_combine()</a></code> is a convenience function that combines three plots: the scatter plot and Bland-Altman plots shown above, and a residuals plot. The residuals plot shows only the within-subject variation, which is the only variation relevant for assessing trending agreement.</p>
+<p><code><a href="../reference/BA_plot_combine.html">BA_plot_combine()</a></code> is a convenience function that combines three plots: the scatter plot and Bland-Altman plot shown above and a residuals plot. The residuals plot shows only the within-subject variation, which is the only variation relevant for assessing trending agreement (the residuals plot can be created directly with <code><a href="../reference/BA_plot_residuals.html">BA_plot_residuals()</a></code>).</p>
+<p>Setting <code>equal_scales = TRUE</code> (default) matches the dimensions of the residuals plot to the standard Bland-Altman plot, so we can visually compare the within-subject variation (right panel) to the total variation shown in the Bland-Altman analysis (middle panel).</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/BA_plot_combine.html">BA_plot_combine</a></span><span class="op">(</span><span class="va">BA_CO</span>, aspect_ratio <span class="op">=</span> <span class="fl">1</span>, equal_scales <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -146,8 +148,7 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 </div>
 </div>
 </div>
-<p>Setting <code>equal_scales = TRUE</code> (default) matches the dimensions of the residuals plot to the standard Bland-Altman plot, so we can visually compare the within-subject variation (right panel) to the total variation shown in the Bland-Altman analysis (middle panel). The residuals plot (right panel, displaying within-subject variation) can also be created directly with <code><a href="../reference/BA_plot_residuals.html">BA_plot_residuals()</a></code>.</p>
-<p>On the Y-axis of the residuals plot, we observe that there is little within-subject variation in the difference between simultaneous measurements, especially compared to the total variation (Y-axis of the middle panel). By itself, this suggests good trending agreement, but we must also consider the variation in CO itself. The average CO (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mi>v</mi><mo>+</mo><mi>i</mi><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(rv+ic)/2</annotation></semantics></math>) represents our best guess of the true CO, and is plotted on the X-axis of the middle and right panels. The middle panel shows that a wide range of CO values are included in the study, but the right panel reveals that the within-subject variation in CO is very limited. We do not know how the within-subject variability might change if CO itself changes significantly; therefore, we cannot confidently interpret the low within-subject variability as “good” trending agreement.</p>
+<p>On the Y-axis of the residuals plot, we observe that there is little within-subject variation in the difference between simultaneous measurements, especially compared to the total variation (Y-axis of the middle panel). By itself, this suggests good trending agreement, but we must also consider how much CO acutally varied in the study. The average CO (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mi>v</mi><mo>+</mo><mi>i</mi><mi>c</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(rv+ic)/2</annotation></semantics></math>) represents our best guess of the true CO and is plotted on the X-axis of the middle and right panels. The middle panel shows that a wide range of CO values are included in the study, but the right panel reveals that the within-subject variation in CO is very limited. We do not know how the within-subject variability would change if CO itself varied significantly within subjects; therefore, we cannot confidently interpret the low within-subject variability as “good” trending agreement.</p>
 <p>The results from the analysis can be shown in table form in the console with <code>print(BA_CO)</code> or by simply calling the object name:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
@@ -156,26 +157,26 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;                                    est      [95% CI] </span></span>
 <span><span class="co">#&gt; === Distribution ===</span></span>
-<span><span class="co">#&gt; Mean                           :   5.035 [ 4.327;  5.732] </span></span>
-<span><span class="co">#&gt; Between-subject variation (SD) :   1.210 [ 0.707;  1.704] </span></span>
-<span><span class="co">#&gt; Within-subject variation (SD)  :   0.283 [ 0.227;  0.343] </span></span>
-<span><span class="co">#&gt; Total variation (SD)           :   1.243 [ 0.764;  1.730] </span></span>
+<span><span class="co">#&gt; Mean                           :   5.035 [ 4.372;  5.704] </span></span>
+<span><span class="co">#&gt; Between-subject variation (SD) :   1.210 [ 0.706;  1.692] </span></span>
+<span><span class="co">#&gt; Within-subject variation (SD)  :   0.283 [ 0.224;  0.337] </span></span>
+<span><span class="co">#&gt; Total variation (SD)           :   1.243 [ 0.757;  1.710] </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; === Method comparison ===</span></span>
-<span><span class="co">#&gt; Bias (alt - ref)               :  -0.705 [-1.254; -0.190] </span></span>
-<span><span class="co">#&gt; Between-subject variation (SD) :   0.934 [ 0.544;  1.341] </span></span>
-<span><span class="co">#&gt; Within-subject variation (SD)  :   0.413 [ 0.327;  0.496] </span></span>
-<span><span class="co">#&gt; Total variation (SD)           :   1.022 [ 0.682;  1.404] </span></span>
+<span><span class="co">#&gt; Bias (alt - ref)               :  -0.705 [-1.270; -0.164] </span></span>
+<span><span class="co">#&gt; Between-subject variation (SD) :   0.934 [ 0.532;  1.341] </span></span>
+<span><span class="co">#&gt; Within-subject variation (SD)  :   0.413 [ 0.332;  0.494] </span></span>
+<span><span class="co">#&gt; Total variation (SD)           :   1.022 [ 0.673;  1.400] </span></span>
 <span><span class="co">#&gt; Intraclass correlation</span></span>
-<span><span class="co">#&gt; └ Between/Total variance       :   0.836 [ 0.603;  0.925] </span></span>
+<span><span class="co">#&gt; └ Between/Total variance       :   0.836 [ 0.584;  0.923] </span></span>
 <span><span class="co">#&gt; Limits of agreement (95%)</span></span>
-<span><span class="co">#&gt; ├ Upper limit                  :   1.298 [ 0.425;  2.137] </span></span>
-<span><span class="co">#&gt; └ Lower limit                  :  -2.707 [-3.645; -1.859] </span></span>
-<span><span class="co">#&gt; Percentage error               :   0.398 [ 0.266;  0.548] </span></span>
+<span><span class="co">#&gt; ├ Upper limit                  :   1.298 [ 0.435;  2.182] </span></span>
+<span><span class="co">#&gt; └ Lower limit                  :  -2.707 [-3.681; -1.807] </span></span>
+<span><span class="co">#&gt; Percentage error               :   0.398 [ 0.263;  0.546] </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; --- Trending ---</span></span>
-<span><span class="co">#&gt; Within-subject perc. error     :   0.161 [ 0.128;  0.193] </span></span>
-<span><span class="co">#&gt; Change LoA [±] (95%)           :   1.146 [ 0.907;  1.374]</span></span></code></pre></div>
+<span><span class="co">#&gt; Within-subject perc. error     :   0.161 [ 0.130;  0.193] </span></span>
+<span><span class="co">#&gt; Change LoA [±] (95%)           :   1.146 [ 0.921;  1.371]</span></span></code></pre></div>
 </div>
 <p>A publication-ready table is created with:</p>
 <div class="cell" data-layout-align="center">
@@ -186,8 +187,8 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 
     <script>
 
-      function styleCell_b58mru70ag4alv38y6ma(i, j, css_id) {
-          var table = document.getElementById("tinytable_b58mru70ag4alv38y6ma");
+      function styleCell_r98sree86rvbm7ok7fxw(i, j, css_id) {
+          var table = document.getElementById("tinytable_r98sree86rvbm7ok7fxw");
           var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -196,8 +197,8 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
               console.warn(`Cell at (${i}, ${j}) not found.`);
           }
       }
-      function insertSpanRow_gy7s756dai6mpy2ekh3f(i, colspan, content) {
-        var table = document.getElementById('tinytable_b58mru70ag4alv38y6ma');
+      function insertSpanRow_51x0q7fe7k9fxnjwzoi8(i, colspan, content) {
+        var table = document.getElementById('tinytable_r98sree86rvbm7ok7fxw');
         // Find the row with data-row attribute matching i
         var targetRow = table.querySelector(`tr [data-row="${i}"]`).closest('tr');
         var newRow = table.insertRow(targetRow.rowIndex);
@@ -209,8 +210,8 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
         // this may be unsafe, but innerText does not interpret <br>
         newCell.innerHTML = content;
       }
-      function spanCell_b58mru70ag4alv38y6ma(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_b58mru70ag4alv38y6ma");
+      function spanCell_r98sree86rvbm7ok7fxw(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_r98sree86rvbm7ok7fxw");
         const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
         if (!targetCell) {
           console.warn(`Cell at (${i}, ${j}) not found.`);
@@ -238,30 +239,30 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
         }
       }
       // tinytable span after
-      window.addEventListener('load', function () { insertSpanRow_gy7s756dai6mpy2ekh3f(12, 2, 'Limits of agreement (95%)') });
-      window.addEventListener('load', function () { insertSpanRow_gy7s756dai6mpy2ekh3f(7, 2, '<strong>Method comparison (alt - ref)</strong>') });
-      window.addEventListener('load', function () { insertSpanRow_gy7s756dai6mpy2ekh3f(2, 2, '<strong>Distribution</strong>¹') });
+      window.addEventListener('load', function () { insertSpanRow_51x0q7fe7k9fxnjwzoi8(12, 2, 'Limits of agreement (95%)') });
+      window.addEventListener('load', function () { insertSpanRow_51x0q7fe7k9fxnjwzoi8(7, 2, '<strong>Method comparison (alt - ref)</strong>') });
+      window.addEventListener('load', function () { insertSpanRow_51x0q7fe7k9fxnjwzoi8(2, 2, '<strong>Distribution</strong>¹') });
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '16', j: 0 }, { i: '16', j: 1 },  ], css_id: 'tinytable_css_79eb465ocael50wmq2km',},
-          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 },  ], css_id: 'tinytable_css_99jh0rxzh4jx6xy37aex',},
+          { positions: [ { i: '16', j: 0 }, { i: '16', j: 1 },  ], css_id: 'tinytable_css_ziay7lz7wbr5ylodfhz8',},
+          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 },  ], css_id: 'tinytable_css_ti4vtxn5oi15gjig11c0',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_b58mru70ag4alv38y6ma(cell.i, cell.j, group.css_id);
+                  styleCell_r98sree86rvbm7ok7fxw(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script><style>
       /* tinytable css entries after */
-      .table td.tinytable_css_79eb465ocael50wmq2km, .table th.tinytable_css_79eb465ocael50wmq2km { border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_99jh0rxzh4jx6xy37aex, .table th.tinytable_css_99jh0rxzh4jx6xy37aex { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_ziay7lz7wbr5ylodfhz8, .table th.tinytable_css_ziay7lz7wbr5ylodfhz8 { border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_ti4vtxn5oi15gjig11c0, .table th.tinytable_css_ti4vtxn5oi15gjig11c0 { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
     </style>
 <div class="container">
-      <table class="table table table-borderless" id="tinytable_b58mru70ag4alv38y6ma" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table table-borderless" id="tinytable_r98sree86rvbm7ok7fxw" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
 <th scope="col" data-row="0" data-col="0"></th>
                 <th scope="col" data-row="0" data-col="1">Estimate [95% CI]</th>
@@ -279,58 +280,58 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <tbody>
 <tr>
 <td data-row="2" data-col="0">Mean</td>
-                  <td data-row="2" data-col="1">5.03 [4.33; 5.73]</td>
+                  <td data-row="2" data-col="1">5.03 [4.37; 5.70]</td>
                 </tr>
 <tr>
 <td data-row="3" data-col="0">Between-subject SD</td>
-                  <td data-row="3" data-col="1">1.21 [0.71; 1.70]</td>
+                  <td data-row="3" data-col="1">1.21 [0.71; 1.69]</td>
                 </tr>
 <tr>
 <td data-row="4" data-col="0">Within-subject SD</td>
-                  <td data-row="4" data-col="1">0.28 [0.23; 0.34]</td>
+                  <td data-row="4" data-col="1">0.28 [0.22; 0.34]</td>
                 </tr>
 <tr>
 <td data-row="5" data-col="0">Total SD</td>
-                  <td data-row="5" data-col="1">1.24 [0.76; 1.73]</td>
+                  <td data-row="5" data-col="1">1.24 [0.76; 1.71]</td>
                 </tr>
 <tr>
 <td data-row="7" data-col="0">Bias</td>
-                  <td data-row="7" data-col="1">-0.70 [-1.25; -0.19]</td>
+                  <td data-row="7" data-col="1">-0.70 [-1.27; -0.16]</td>
                 </tr>
 <tr>
 <td data-row="8" data-col="0">Between-subject SD</td>
-                  <td data-row="8" data-col="1">0.93 [0.54; 1.34]</td>
+                  <td data-row="8" data-col="1">0.93 [0.53; 1.34]</td>
                 </tr>
 <tr>
 <td data-row="9" data-col="0">Within-subject SD</td>
-                  <td data-row="9" data-col="1">0.41 [0.33; 0.50]</td>
+                  <td data-row="9" data-col="1">0.41 [0.33; 0.49]</td>
                 </tr>
 <tr>
 <td data-row="10" data-col="0">Total SD</td>
-                  <td data-row="10" data-col="1">1.02 [0.68; 1.40]</td>
+                  <td data-row="10" data-col="1">1.02 [0.67; 1.40]</td>
                 </tr>
 <tr>
 <td data-row="12" data-col="0">  Upper limit</td>
-                  <td data-row="12" data-col="1">1.30 [0.43; 2.14]</td>
+                  <td data-row="12" data-col="1">1.30 [0.44; 2.18]</td>
                 </tr>
 <tr>
 <td data-row="13" data-col="0">  Lower limit</td>
-                  <td data-row="13" data-col="1">-2.71 [-3.64; -1.86]</td>
+                  <td data-row="13" data-col="1">-2.71 [-3.68; -1.81]</td>
                 </tr>
 <tr>
 <td data-row="14" data-col="0">Percentage error<sup>2</sup>
 </td>
-                  <td data-row="14" data-col="1">39.8 [26.6; 54.8] %</td>
+                  <td data-row="14" data-col="1">39.8 [26.3; 54.6] %</td>
                 </tr>
 <tr>
 <td data-row="15" data-col="0">Within-subject percentage error<sup>2</sup>
 </td>
-                  <td data-row="15" data-col="1">16.1 [12.8; 19.3] %</td>
+                  <td data-row="15" data-col="1">16.1 [13.0; 19.3] %</td>
                 </tr>
 <tr>
 <td data-row="16" data-col="0">Change limits of agreement (95%)<sup>3</sup>
 </td>
-                  <td data-row="16" data-col="1">±1.15 [0.91; 1.37]</td>
+                  <td data-row="16" data-col="1">±1.15 [0.92; 1.37]</td>
                 </tr>
 </tbody>
 </table>
@@ -338,11 +339,11 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
-<p><code><a href="../reference/BA_table.html">BA_table()</a></code> uses <code><a href="https://vincentarelbundock.github.io/tinytable/man/tt.html" class="external-link">tinytable::tt()</a></code> and can be exported to several common formats including PDF and .docx (see <code><a href="https://vincentarelbundock.github.io/tinytable/man/save_tt.html" class="external-link">tinytable::save_tt()</a></code> ).</p>
+<p><code><a href="../reference/BA_table.html">BA_table()</a></code> uses <code><a href="https://vincentarelbundock.github.io/tinytable/man/tt.html" class="external-link">tinytable::tt()</a></code> and can be exported to several common formats including PDF and .docx (see <code><a href="https://vincentarelbundock.github.io/tinytable/man/save_tt.html" class="external-link">tinytable::save_tt()</a></code>).</p>
 </section><section class="level2"><h2 id="proportional-errors---logarithmic-transformation">Proportional errors - logarithmic transformation<a class="anchor" aria-label="anchor" href="#proportional-errors---logarithmic-transformation"></a>
 </h2>
 <p>In the example above, we assumed that measurement errors were independent of the true CO. This assumption is supported by the Bland-Altman plot and residuals plots, which do not indicate a relationship between the average CO and the variation in measurement differences.</p>
-<p>It is, however, common to encounter data or have prior knowledge suggesting that measurement errors increase proportionally to the measured value.</p>
+<p>However, it is common to encounter data, or have prior knowledge, suggesting that measurement errors increase proportionally to the measured value.</p>
 <p>In the following section, we will simulate simultaneous measurements of CO with two methods that have measurement errors proportional to the true CO.</p>
 <p>First, we simulate 5 true CO values in each of 50 subjects. <code>BAtrending</code> provides a convenience function, <code><a href="../reference/simulate_repeated_data.html">simulate_repeated_data()</a></code>, for this purpose.</p>
 <div class="cell" data-layout-align="center">
@@ -390,7 +391,7 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <span>      sub_bias_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.05</span><span class="op">)</span>,</span>
 <span>      <span class="co"># within-subject variation of 5% of true CO.</span></span>
 <span>      residual_error_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.05</span><span class="op">)</span>,</span>
-<span>      relative_errors <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>      proportional_errors <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    <span class="co"># Alternative method</span></span>
 <span>    alt <span class="op">=</span> <span class="fu"><a href="../reference/simulate_measurement.html">simulate_measurement</a></span><span class="op">(</span></span>
@@ -401,7 +402,7 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <span>      sub_bias_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span>,</span>
 <span>      <span class="co"># within-subject variation of 5% of true CO.</span></span>
 <span>      residual_error_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.05</span><span class="op">)</span>,</span>
-<span>      relative_errors <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>      proportional_errors <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -423,7 +424,7 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <span>  alt_col <span class="op">=</span> <span class="va">alt</span>,</span>
 <span>  id_col <span class="op">=</span> <span class="va">id</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co"># Increase nsim in practice.</span></span>
+<span><span class="co"># Increase nsim for real use.</span></span>
 <span><span class="va">BA_sim_abs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_confint.html">add_confint</a></span><span class="op">(</span><span class="va">BA_sim_abs</span>, nsim <span class="op">=</span> <span class="fl">999</span>, .progress <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/BA_plot_combine.html">BA_plot_combine</a></span><span class="op">(</span><span class="va">BA_sim_abs</span>, aspect_ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
@@ -449,8 +450,8 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <span>  logtrans <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># Increase nsim for real use.</span></span>
 <span><span class="va">BA_sim_log</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_confint.html">add_confint</a></span><span class="op">(</span><span class="va">BA_sim_log</span>, nsim <span class="op">=</span> <span class="fl">999</span>, .progress <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
-<span><span class="co"># Increase nsim in practice.</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/BA_plot_combine.html">BA_plot_combine</a></span><span class="op">(</span><span class="va">BA_sim_log</span>, aspect_ratio <span class="op">=</span> <span class="fl">1</span>, keep_log_scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
@@ -464,7 +465,7 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <span><span class="co"># log-transformed data.</span></span></code></pre></div>
 </div>
 <p>On log-transformed measurements, there is no relationship between CO and agreement between methods (of course, this was expected, as we generated the data with proportional errors).</p>
-<p>The results from the Bland-Altman analysis on log-transformed measurements (e.g. bias, limits of agreement, and change limits of agreement) can be exponentiated and interpreted on the original scale. The interpretation of these back-transformed results is that they estimate ratios between the measurements instead of absolute differences.</p>
+<p>The results from the Bland-Altman analysis on log-transformed measurements (e.g. bias, limits of agreement and change limits of agreement) can be exponentiated and interpreted on the original scale. The interpretation of these back-transformed results is that they estimate ratios between the measurements instead of absolute differences.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/BA_plot_combine.html">BA_plot_combine</a></span><span class="op">(</span><span class="va">BA_sim_log</span>, aspect_ratio <span class="op">=</span> <span class="fl">1</span>, keep_log_scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -650,7 +651,7 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 </div>
 </div>
 <p>The back-transformed <em>change limits of agreement</em> is 1.23. This is interpreted as: if we measure a change in CO with both methods simultaneously, we expect the change from one method to be at most 23% higher than the other method in 95% of cases.</p>
-<p>Percentage errors are not meaningful for log-transformed data, and are also not needed. A Bland-Altman analysis on log-transformed data inherently gives measures of agreement that are relative to the measured value.</p>
+<p>Percentage errors are not meaningful for log-transformed data and are also not needed. A Bland-Altman analysis on log-transformed data inherently gives measures of agreement that are relative to the measured value.</p>
 <p>To compare results from an analysis on log-transformed measurements with an analysis on absolute (non-transformed) measurements, the SD of differences between log-transformed measurements (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mo>log</mo></msub><mo>=</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>C</mi><msub><mi>O</mi><mrow><mi>a</mi><mi>l</mi><mi>t</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>C</mi><msub><mi>O</mi><mrow><mi>r</mi><mi>e</mi><mi>f</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">D_{\log} = \log(CO_{alt}) - \log(CO_{ref})</annotation></semantics></math>) is approximately equal to the SD of differences on the original measurements (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>) relative to the mean of these measurements:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>D</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>D</mi><mo>log</mo></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mfrac><mrow><mi>S</mi><mi>D</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>D</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mi>m</mi><mi>e</mi><mi>a</mi><mi>n</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>C</mi><msub><mi>O</mi><mrow><mi>a</mi><mi>l</mi><mi>t</mi></mrow></msub><mo>,</mo><mi>C</mi><msub><mi>O</mi><mrow><mi>r</mi><mi>e</mi><mi>f</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">
 SD(D_{\log}) \approx \frac{SD(D)}{mean(CO_{alt}, CO_{ref})},

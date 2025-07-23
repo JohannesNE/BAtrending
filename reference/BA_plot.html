@@ -19,6 +19,7 @@
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/johannesne/BAtrending/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch"><li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
@@ -33,7 +34,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Create Bland-Altman plot</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/johannesne/BAtrending/blob/main/R/create_plots.R" class="external-link"><code>R/create_plots.R</code></a></small>
       <div class="d-none name"><code>BA_plot.Rd</code></div>
     </div>
 
@@ -85,9 +86,6 @@ on the non-transformed data.</p></div>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ba_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="compare_methods.html">compare_methods</a></span><span class="op">(</span><span class="va">CO</span>, <span class="va">ic</span>, <span class="va">rv</span>, id_col <span class="op">=</span> <span class="va">sub</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">BA_plot</span><span class="op">(</span><span class="va">ba_obj</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The Bland-Altman analysis object has no confidence intervals.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> To add confidence intervals run `ba_obj &lt;- add_confint(ba_obj)`. (see</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `BAtrending::add_confint()` for help)</span>
 <span class="r-plt img"><img src="BA_plot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

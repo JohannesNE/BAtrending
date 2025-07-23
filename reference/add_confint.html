@@ -19,6 +19,7 @@
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/johannesne/BAtrending/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch"><li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
@@ -33,7 +34,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Add confidence intervals to Bland-Altman analysis object.</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/johannesne/BAtrending/blob/main/R/calc_stats.R" class="external-link"><code>R/calc_stats.R</code></a></small>
       <div class="d-none name"><code>add_confint.Rd</code></div>
     </div>
 
@@ -47,6 +48,7 @@
 <span>  <span class="va">ba_obj</span>,</span>
 <span>  level <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  nsim <span class="op">=</span> <span class="fl">1999</span>,</span>
+<span>  boot.type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"perc"</span>, <span class="st">"basic"</span>, <span class="st">"norm"</span><span class="op">)</span>,</span>
 <span>  .progress <span class="op">=</span> <span class="st">"txt"</span>,</span>
 <span>  PBargs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>style <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -66,6 +68,10 @@
 
 <dt id="arg-nsim">nsim<a class="anchor" aria-label="anchor" href="#arg-nsim"></a></dt>
 <dd><p>Number of bootstrap samples</p></dd>
+
+
+<dt id="arg-boot-type">boot.type<a class="anchor" aria-label="anchor" href="#arg-boot-type"></a></dt>
+<dd><p>Type of interval (one of <code>"perc"</code> (default), <code>"basic"</code>, <code>"norm"</code>). Passed to <code><a href="https://rdrr.io/pkg/boot/man/boot.ci.html" class="external-link">boot::boot.ci()</a></code></p></dd>
 
 
 <dt id="arg--progress-pbargs">.progress, PBargs<a class="anchor" aria-label="anchor" href="#arg--progress-pbargs"></a></dt>

@@ -44,6 +44,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/johannesne/BAtrending/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
@@ -84,7 +85,7 @@
 <p>BAtrending package includes a small sample dataset, <code>CO</code>. It contains paired measurements of cardiac output (CO) with two methods: radionuclide ventriculography (rv) and impedance cardiography (ic). The dataset was published in <a href="https://doi.org/10.1177/096228029900800204" class="external-link">Bland JM, Altman DG. (1999) Measuring agreement in method comparison studies. Statistical Methods in Medical Research 8, 135-160</a>.</p>
 <p>The <code>CO</code> dataset has 60 measurements in 12 subjects.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://johannesne.github.io/BAtrending/">BAtrending</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johannesne/BAtrending" class="external-link">BAtrending</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">BA_CO</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compare_methods.html">compare_methods</a></span><span class="op">(</span><span class="va">CO</span>, ref_col <span class="op">=</span> <span class="st">"rv"</span>, alt_col <span class="op">=</span> <span class="st">"ic"</span>, id_col <span class="op">=</span> <span class="st">"sub"</span><span class="op">)</span></span>
 <span><span class="co"># Bootstrap confidence intervals</span></span>
@@ -99,26 +100,26 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;                                    est      [95% CI] </span></span>
 <span><span class="co">#&gt; === Distribution ===</span></span>
-<span><span class="co">#&gt; Mean                           :   5.035 [ 4.372;  5.696] </span></span>
-<span><span class="co">#&gt; Between-subject variation (SD) :   1.210 [ 0.703;  1.699] </span></span>
-<span><span class="co">#&gt; Within-subject variation (SD)  :   0.283 [ 0.229;  0.341] </span></span>
-<span><span class="co">#&gt; Total variation (SD)           :   1.243 [ 0.759;  1.720] </span></span>
+<span><span class="co">#&gt; Mean                           :   5.035 [ 4.362;  5.748] </span></span>
+<span><span class="co">#&gt; Between-subject variation (SD) :   1.210 [ 0.712;  1.703] </span></span>
+<span><span class="co">#&gt; Within-subject variation (SD)  :   0.283 [ 0.225;  0.340] </span></span>
+<span><span class="co">#&gt; Total variation (SD)           :   1.243 [ 0.767;  1.726] </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; === Method comparison ===</span></span>
-<span><span class="co">#&gt; Bias (alt - ref)               :  -0.705 [-1.224; -0.167] </span></span>
-<span><span class="co">#&gt; Between-subject variation (SD) :   0.934 [ 0.535;  1.337] </span></span>
-<span><span class="co">#&gt; Within-subject variation (SD)  :   0.413 [ 0.329;  0.501] </span></span>
-<span><span class="co">#&gt; Total variation (SD)           :   1.022 [ 0.682;  1.406] </span></span>
+<span><span class="co">#&gt; Bias (alt - ref)               :  -0.705 [-1.251; -0.207] </span></span>
+<span><span class="co">#&gt; Between-subject variation (SD) :   0.934 [ 0.541;  1.305] </span></span>
+<span><span class="co">#&gt; Within-subject variation (SD)  :   0.413 [ 0.332;  0.497] </span></span>
+<span><span class="co">#&gt; Total variation (SD)           :   1.022 [ 0.674;  1.369] </span></span>
 <span><span class="co">#&gt; Intraclass correlation</span></span>
-<span><span class="co">#&gt; └ Between/Total variance       :   0.836 [ 0.616;  0.923] </span></span>
+<span><span class="co">#&gt; └ Between/Total variance       :   0.836 [ 0.625;  0.919] </span></span>
 <span><span class="co">#&gt; Limits of agreement (95%)</span></span>
-<span><span class="co">#&gt; ├ Upper limit                  :   1.298 [ 0.454;  2.224] </span></span>
-<span><span class="co">#&gt; └ Lower limit                  :  -2.707 [-3.615; -1.786] </span></span>
-<span><span class="co">#&gt; Percentage error               :   0.398 [ 0.266;  0.549] </span></span>
+<span><span class="co">#&gt; ├ Upper limit                  :   1.298 [ 0.398;  2.094] </span></span>
+<span><span class="co">#&gt; └ Lower limit                  :  -2.707 [-3.567; -1.816] </span></span>
+<span><span class="co">#&gt; Percentage error               :   0.398 [ 0.263;  0.534] </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; --- Trending ---</span></span>
-<span><span class="co">#&gt; Within-subject perc. error     :   0.161 [ 0.128;  0.196] </span></span>
-<span><span class="co">#&gt; Change LoA [±] (95%)           :   1.146 [ 0.911;  1.390]</span></span></code></pre></div>
+<span><span class="co">#&gt; Within-subject perc. error     :   0.161 [ 0.129;  0.194] </span></span>
+<span><span class="co">#&gt; Change LoA [±] (95%)           :   1.146 [ 0.919;  1.378]</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
@@ -132,7 +133,14 @@
 <p>Please also cite the ‘lme4’ package, upon which ‘BAtrending’ relies heavily. See <code>citation("lme4")</code>.</p>
 </div>
 </div>
-  </main><aside class="col-md-3"><div class="license">
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/johannesne/BAtrending/" class="external-link">Browse source code</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>

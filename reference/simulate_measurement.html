@@ -21,6 +21,7 @@ The function allows adding a subject specific error (sub_bias_sd), that varies b
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/johannesne/BAtrending/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch"><li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
@@ -35,7 +36,7 @@ The function allows adding a subject specific error (sub_bias_sd), that varies b
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Simulate measurement</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/johannesne/BAtrending/blob/main/R/simulate_data.R" class="external-link"><code>R/simulate_data.R</code></a></small>
       <div class="d-none name"><code>simulate_measurement.Rd</code></div>
     </div>
 
@@ -52,7 +53,7 @@ The function allows adding a subject specific error (<code>sub_bias_sd</code>), 
 <span>  <span class="va">residual_error_sd</span>,</span>
 <span>  mean_bias <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  sub_bias_sd <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  relative_errors <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  proportional_errors <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -80,8 +81,8 @@ The function allows adding a subject specific error (<code>sub_bias_sd</code>), 
 <dd><p>Standard deviation of subject-specific biases.</p></dd>
 
 
-<dt id="arg-relative-errors">relative_errors<a class="anchor" aria-label="anchor" href="#arg-relative-errors"></a></dt>
-<dd><p>Should errors be relative to true value.
+<dt id="arg-proportional-errors">proportional_errors<a class="anchor" aria-label="anchor" href="#arg-proportional-errors"></a></dt>
+<dd><p>Should errors be proportional to true value.
 If TRUE, errors are added on a log scale, and the result is exponentiated. To add a bias of 10% (true_value * 1.1),
 the mean_bias should be set to log(1.1). A SD of log(1.2) corresponds to ±20%.</p></dd>
 
@@ -100,7 +101,7 @@ the mean_bias should be set to log(1.1). A SD of log(1.2) corresponds to ±20%.<
 <span class="r-in"><span>  mean_bias <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  sub_bias_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  residual_error_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  relative_errors <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  proportional_errors <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">true_co</span>, <span class="va">df</span><span class="op">$</span><span class="va">ref</span>, col<span class="op">=</span><span class="va">df</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>a<span class="op">=</span><span class="fl">0</span>, b<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
