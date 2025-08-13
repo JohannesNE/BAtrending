@@ -2,6 +2,12 @@ url: https://johannesne.github.io/BAtrending/
 template:
   bootstrap: 5
   light-switch: yes
+  includes:
+    in_header: >
+      <!-- Cloudflare Web Analytics -->
+      <script defer src='https://static.cloudflareinsights.com/beacon.min.js' 
+      data-cf-beacon='{"token": "3a337c45c64f439e9f2e853215f94689"}'></script>
+      <!-- End Cloudflare Web Analytics -->
 
 reference:
 - title: Compare methods
