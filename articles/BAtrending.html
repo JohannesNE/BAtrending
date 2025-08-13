@@ -19,6 +19,7 @@
 <link href="BAtrending_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to BAtrending">
 <meta property="og:image" content="https://johannesne.github.io/BAtrending/logo.png">
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "3a337c45c64f439e9f2e853215f94689"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -157,38 +158,40 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;                                    est      [95% CI] </span></span>
 <span><span class="co">#&gt; === Distribution ===</span></span>
-<span><span class="co">#&gt; Mean                           :   5.035 [ 4.372;  5.704] </span></span>
-<span><span class="co">#&gt; Between-subject variation (SD) :   1.210 [ 0.706;  1.692] </span></span>
-<span><span class="co">#&gt; Within-subject variation (SD)  :   0.283 [ 0.224;  0.337] </span></span>
-<span><span class="co">#&gt; Total variation (SD)           :   1.243 [ 0.757;  1.710] </span></span>
+<span><span class="co">#&gt; Mean                           :   5.035 [ 4.323;  5.763] </span></span>
+<span><span class="co">#&gt; Between-subject variation (SD) :   1.210 [ 0.725;  1.724] </span></span>
+<span><span class="co">#&gt; Within-subject variation (SD)  :   0.283 [ 0.227;  0.336] </span></span>
+<span><span class="co">#&gt; Total variation (SD)           :   1.243 [ 0.777;  1.746] </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; === Method comparison ===</span></span>
-<span><span class="co">#&gt; Bias (alt - ref)               :  -0.705 [-1.270; -0.164] </span></span>
-<span><span class="co">#&gt; Between-subject variation (SD) :   0.934 [ 0.532;  1.341] </span></span>
-<span><span class="co">#&gt; Within-subject variation (SD)  :   0.413 [ 0.332;  0.494] </span></span>
-<span><span class="co">#&gt; Total variation (SD)           :   1.022 [ 0.673;  1.400] </span></span>
+<span><span class="co">#&gt; Bias (alt - ref)               :  -0.705 [-1.271; -0.193] </span></span>
+<span><span class="co">#&gt; Between-subject variation (SD) :   0.934 [ 0.515;  1.331] </span></span>
+<span><span class="co">#&gt; Within-subject variation (SD)  :   0.413 [ 0.327;  0.492] </span></span>
+<span><span class="co">#&gt; Total variation (SD)           :   1.022 [ 0.670;  1.395] </span></span>
 <span><span class="co">#&gt; Intraclass correlation</span></span>
-<span><span class="co">#&gt; └ Between/Total variance       :   0.836 [ 0.584;  0.923] </span></span>
+<span><span class="co">#&gt; └ Between/Total variance       :   0.836 [ 0.601;  0.922] </span></span>
 <span><span class="co">#&gt; Limits of agreement (95%)</span></span>
-<span><span class="co">#&gt; ├ Upper limit                  :   1.298 [ 0.435;  2.182] </span></span>
-<span><span class="co">#&gt; └ Lower limit                  :  -2.707 [-3.681; -1.807] </span></span>
-<span><span class="co">#&gt; Percentage error               :   0.398 [ 0.263;  0.546] </span></span>
+<span><span class="co">#&gt; ├ Upper limit                  :   1.298 [ 0.466;  2.172] </span></span>
+<span><span class="co">#&gt; └ Lower limit                  :  -2.707 [-3.616; -1.837] </span></span>
+<span><span class="co">#&gt; Percentage error               :   0.398 [ 0.262;  0.544] </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; --- Trending ---</span></span>
-<span><span class="co">#&gt; Within-subject perc. error     :   0.161 [ 0.130;  0.193] </span></span>
-<span><span class="co">#&gt; Change LoA [±] (95%)           :   1.146 [ 0.921;  1.371]</span></span></code></pre></div>
+<span><span class="co">#&gt; Within-subject perc. error     :   0.161 [ 0.127;  0.192] </span></span>
+<span><span class="co">#&gt; Change LoA [±] (95%)           :   1.146 [ 0.906;  1.364]</span></span></code></pre></div>
 </div>
 <p>A publication-ready table is created with:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/BA_table.html">BA_table</a></span><span class="op">(</span><span class="va">BA_CO</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/BA_table.html">BA_table</a></span><span class="op">(</span><span class="va">BA_CO</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Argument `indent` is deprecated and will be removed in a future</span></span>
+<span><span class="co">#&gt; version. Use `style_tt("~group", indent = 1)` instead.</span></span></code></pre></div>
 <div class="cell-output-display">
 <!-- preamble start -->
 
     <script>
 
-      function styleCell_r98sree86rvbm7ok7fxw(i, j, css_id) {
-          var table = document.getElementById("tinytable_r98sree86rvbm7ok7fxw");
+      function styleCell_h12izm3w86w0ymxknsws(i, j, css_id) {
+          var table = document.getElementById("tinytable_h12izm3w86w0ymxknsws");
           var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -197,21 +200,8 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
               console.warn(`Cell at (${i}, ${j}) not found.`);
           }
       }
-      function insertSpanRow_51x0q7fe7k9fxnjwzoi8(i, colspan, content) {
-        var table = document.getElementById('tinytable_r98sree86rvbm7ok7fxw');
-        // Find the row with data-row attribute matching i
-        var targetRow = table.querySelector(`tr [data-row="${i}"]`).closest('tr');
-        var newRow = table.insertRow(targetRow.rowIndex);
-        var newCell = newRow.insertCell(0);
-        newCell.setAttribute("colspan", colspan);
-        newCell.setAttribute("data-col", "0");
-        newCell.setAttribute("data-row", i - 1);
-        // newCell.innerText = content;
-        // this may be unsafe, but innerText does not interpret <br>
-        newCell.innerHTML = content;
-      }
-      function spanCell_r98sree86rvbm7ok7fxw(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_r98sree86rvbm7ok7fxw");
+      function spanCell_h12izm3w86w0ymxknsws(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_h12izm3w86w0ymxknsws");
         const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
         if (!targetCell) {
           console.warn(`Cell at (${i}, ${j}) not found.`);
@@ -239,30 +229,30 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
         }
       }
       // tinytable span after
-      window.addEventListener('load', function () { insertSpanRow_51x0q7fe7k9fxnjwzoi8(12, 2, 'Limits of agreement (95%)') });
-      window.addEventListener('load', function () { insertSpanRow_51x0q7fe7k9fxnjwzoi8(7, 2, '<strong>Method comparison (alt - ref)</strong>') });
-      window.addEventListener('load', function () { insertSpanRow_51x0q7fe7k9fxnjwzoi8(2, 2, '<strong>Distribution</strong>¹') });
+      window.addEventListener('load', function () { spanCell_h12izm3w86w0ymxknsws(11, 0, 1, 2) })
+      window.addEventListener('load', function () { spanCell_h12izm3w86w0ymxknsws(6, 0, 1, 2) })
+      window.addEventListener('load', function () { spanCell_h12izm3w86w0ymxknsws(1, 0, 1, 2) })
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '16', j: 0 }, { i: '16', j: 1 },  ], css_id: 'tinytable_css_ziay7lz7wbr5ylodfhz8',},
-          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 },  ], css_id: 'tinytable_css_ti4vtxn5oi15gjig11c0',},
+          { positions: [ { i: '16', j: 0 }, { i: '16', j: 1 },  ], css_id: 'tinytable_css_y9afayqn05pzi5t4pl0a',},
+          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 },  ], css_id: 'tinytable_css_mvvr5qvy7bquz2vob5h4',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_r98sree86rvbm7ok7fxw(cell.i, cell.j, group.css_id);
+                  styleCell_h12izm3w86w0ymxknsws(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script><style>
       /* tinytable css entries after */
-      .table td.tinytable_css_ziay7lz7wbr5ylodfhz8, .table th.tinytable_css_ziay7lz7wbr5ylodfhz8 { border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_ti4vtxn5oi15gjig11c0, .table th.tinytable_css_ti4vtxn5oi15gjig11c0 { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_y9afayqn05pzi5t4pl0a, .table th.tinytable_css_y9afayqn05pzi5t4pl0a { border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_mvvr5qvy7bquz2vob5h4, .table th.tinytable_css_mvvr5qvy7bquz2vob5h4 { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
     </style>
 <div class="container">
-      <table class="table table table-borderless" id="tinytable_r98sree86rvbm7ok7fxw" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table table-borderless" id="tinytable_h12izm3w86w0ymxknsws" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
 <th scope="col" data-row="0" data-col="0"></th>
                 <th scope="col" data-row="0" data-col="1">Estimate [95% CI]</th>
@@ -279,28 +269,37 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 </tfoot>
 <tbody>
 <tr>
+<td data-row="1" data-col="0">
+<strong>Distribution</strong>¹</td>
+                  <td data-row="1" data-col="1"></td>
+                </tr>
+<tr>
 <td data-row="2" data-col="0">Mean</td>
-                  <td data-row="2" data-col="1">5.03 [4.37; 5.70]</td>
+                  <td data-row="2" data-col="1">5.03 [4.32; 5.76]</td>
                 </tr>
 <tr>
 <td data-row="3" data-col="0">Between-subject SD</td>
-                  <td data-row="3" data-col="1">1.21 [0.71; 1.69]</td>
+                  <td data-row="3" data-col="1">1.21 [0.73; 1.72]</td>
                 </tr>
 <tr>
 <td data-row="4" data-col="0">Within-subject SD</td>
-                  <td data-row="4" data-col="1">0.28 [0.22; 0.34]</td>
+                  <td data-row="4" data-col="1">0.28 [0.23; 0.34]</td>
                 </tr>
 <tr>
 <td data-row="5" data-col="0">Total SD</td>
-                  <td data-row="5" data-col="1">1.24 [0.76; 1.71]</td>
+                  <td data-row="5" data-col="1">1.24 [0.78; 1.75]</td>
+                </tr>
+<tr>
+<td data-row="6" data-col="0"><strong>Method comparison (alt - ref)</strong></td>
+                  <td data-row="6" data-col="1"></td>
                 </tr>
 <tr>
 <td data-row="7" data-col="0">Bias</td>
-                  <td data-row="7" data-col="1">-0.70 [-1.27; -0.16]</td>
+                  <td data-row="7" data-col="1">-0.70 [-1.27; -0.19]</td>
                 </tr>
 <tr>
 <td data-row="8" data-col="0">Between-subject SD</td>
-                  <td data-row="8" data-col="1">0.93 [0.53; 1.34]</td>
+                  <td data-row="8" data-col="1">0.93 [0.52; 1.33]</td>
                 </tr>
 <tr>
 <td data-row="9" data-col="0">Within-subject SD</td>
@@ -308,30 +307,34 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
                 </tr>
 <tr>
 <td data-row="10" data-col="0">Total SD</td>
-                  <td data-row="10" data-col="1">1.02 [0.67; 1.40]</td>
+                  <td data-row="10" data-col="1">1.02 [0.67; 1.39]</td>
                 </tr>
 <tr>
-<td data-row="12" data-col="0">  Upper limit</td>
-                  <td data-row="12" data-col="1">1.30 [0.44; 2.18]</td>
-                </tr>
-<tr>
-<td data-row="13" data-col="0">  Lower limit</td>
-                  <td data-row="13" data-col="1">-2.71 [-3.68; -1.81]</td>
-                </tr>
-<tr>
-<td data-row="14" data-col="0">Percentage error<sup>2</sup>
+<td data-row="11" data-col="0">Limits of agreement (95%)<sup>2</sup>
 </td>
-                  <td data-row="14" data-col="1">39.8 [26.3; 54.6] %</td>
+                  <td data-row="11" data-col="1"></td>
                 </tr>
 <tr>
-<td data-row="15" data-col="0">Within-subject percentage error<sup>2</sup>
+<td data-row="12" data-col="0">  Upper limit<sup>2</sup>
 </td>
-                  <td data-row="15" data-col="1">16.1 [13.0; 19.3] %</td>
+                  <td data-row="12" data-col="1">1.30 [0.47; 2.17]</td>
                 </tr>
 <tr>
-<td data-row="16" data-col="0">Change limits of agreement (95%)<sup>3</sup>
+<td data-row="13" data-col="0">  Lower limit<sup>3</sup>
 </td>
-                  <td data-row="16" data-col="1">±1.15 [0.92; 1.37]</td>
+                  <td data-row="13" data-col="1">-2.71 [-3.62; -1.84]</td>
+                </tr>
+<tr>
+<td data-row="14" data-col="0">Percentage error</td>
+                  <td data-row="14" data-col="1">39.8 [26.2; 54.4] %</td>
+                </tr>
+<tr>
+<td data-row="15" data-col="0">Within-subject percentage error</td>
+                  <td data-row="15" data-col="1">16.1 [12.7; 19.2] %</td>
+                </tr>
+<tr>
+<td data-row="16" data-col="0">Change limits of agreement (95%)</td>
+                  <td data-row="16" data-col="1">±1.15 [0.91; 1.36]</td>
                 </tr>
 </tbody>
 </table>
@@ -492,14 +495,16 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <p>Again, we can generate a table of the back-transformed (exponentiated) results:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/BA_table.html">BA_table</a></span><span class="op">(</span><span class="va">BA_sim_log</span>, keep_log_scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/BA_table.html">BA_table</a></span><span class="op">(</span><span class="va">BA_sim_log</span>, keep_log_scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Argument `indent` is deprecated and will be removed in a future</span></span>
+<span><span class="co">#&gt; version. Use `style_tt("~group", indent = 1)` instead.</span></span></code></pre></div>
 <div class="cell-output-display">
 <!-- preamble start -->
 
     <script>
 
-      function styleCell_zlezskagb36qq1ltcqjf(i, j, css_id) {
-          var table = document.getElementById("tinytable_zlezskagb36qq1ltcqjf");
+      function styleCell_my767emcy5wz4i53ot73(i, j, css_id) {
+          var table = document.getElementById("tinytable_my767emcy5wz4i53ot73");
           var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -508,21 +513,8 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
               console.warn(`Cell at (${i}, ${j}) not found.`);
           }
       }
-      function insertSpanRow_sgt4x77ntvhbbq12sev3(i, colspan, content) {
-        var table = document.getElementById('tinytable_zlezskagb36qq1ltcqjf');
-        // Find the row with data-row attribute matching i
-        var targetRow = table.querySelector(`tr [data-row="${i}"]`).closest('tr');
-        var newRow = table.insertRow(targetRow.rowIndex);
-        var newCell = newRow.insertCell(0);
-        newCell.setAttribute("colspan", colspan);
-        newCell.setAttribute("data-col", "0");
-        newCell.setAttribute("data-row", i - 1);
-        // newCell.innerText = content;
-        // this may be unsafe, but innerText does not interpret <br>
-        newCell.innerHTML = content;
-      }
-      function spanCell_zlezskagb36qq1ltcqjf(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_zlezskagb36qq1ltcqjf");
+      function spanCell_my767emcy5wz4i53ot73(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_my767emcy5wz4i53ot73");
         const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
         if (!targetCell) {
           console.warn(`Cell at (${i}, ${j}) not found.`);
@@ -550,30 +542,30 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
         }
       }
       // tinytable span after
-      window.addEventListener('load', function () { insertSpanRow_sgt4x77ntvhbbq12sev3(12, 2, 'Limits of agreement (95%)') });
-      window.addEventListener('load', function () { insertSpanRow_sgt4x77ntvhbbq12sev3(7, 2, '<strong>Method comparison, exp(log-analysis), (alt / ref)</strong>') });
-      window.addEventListener('load', function () { insertSpanRow_sgt4x77ntvhbbq12sev3(2, 2, '<strong>Distribution</strong>¹') });
+      window.addEventListener('load', function () { spanCell_my767emcy5wz4i53ot73(11, 0, 1, 2) })
+      window.addEventListener('load', function () { spanCell_my767emcy5wz4i53ot73(6, 0, 1, 2) })
+      window.addEventListener('load', function () { spanCell_my767emcy5wz4i53ot73(1, 0, 1, 2) })
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '16', j: 0 }, { i: '16', j: 1 },  ], css_id: 'tinytable_css_ot73hv9twqo5mgm4y5ba',},
-          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 },  ], css_id: 'tinytable_css_puxumy767emcy5wz4i53',},
+          { positions: [ { i: '16', j: 0 }, { i: '16', j: 1 },  ], css_id: 'tinytable_css_gwiotqfazztrhw5n05o8',},
+          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 },  ], css_id: 'tinytable_css_20jywe5n5eoock9jxho8',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_zlezskagb36qq1ltcqjf(cell.i, cell.j, group.css_id);
+                  styleCell_my767emcy5wz4i53ot73(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script><style>
       /* tinytable css entries after */
-      .table td.tinytable_css_ot73hv9twqo5mgm4y5ba, .table th.tinytable_css_ot73hv9twqo5mgm4y5ba { border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_puxumy767emcy5wz4i53, .table th.tinytable_css_puxumy767emcy5wz4i53 { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_gwiotqfazztrhw5n05o8, .table th.tinytable_css_gwiotqfazztrhw5n05o8 { border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_20jywe5n5eoock9jxho8, .table th.tinytable_css_20jywe5n5eoock9jxho8 { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
     </style>
 <div class="container">
-      <table class="table table table-borderless" id="tinytable_zlezskagb36qq1ltcqjf" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table table-borderless" id="tinytable_my767emcy5wz4i53ot73" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
 <th scope="col" data-row="0" data-col="0"></th>
                 <th scope="col" data-row="0" data-col="1">Estimate [95% CI]</th>
@@ -590,6 +582,11 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 </tfoot>
 <tbody>
 <tr>
+<td data-row="1" data-col="0">
+<strong>Distribution</strong>¹</td>
+                  <td data-row="1" data-col="1"></td>
+                </tr>
+<tr>
 <td data-row="2" data-col="0">Mean</td>
                   <td data-row="2" data-col="1">5.58 [5.28; 5.87]</td>
                 </tr>
@@ -604,6 +601,10 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <tr>
 <td data-row="5" data-col="0">Total SD</td>
                   <td data-row="5" data-col="1">1.86 [1.70; 2.04]</td>
+                </tr>
+<tr>
+<td data-row="6" data-col="0"><strong>Method comparison, exp(log-analysis), (alt / ref)</strong></td>
+                  <td data-row="6" data-col="1"></td>
                 </tr>
 <tr>
 <td data-row="7" data-col="0">Bias</td>
@@ -622,26 +623,30 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
                   <td data-row="10" data-col="1">1.14 [1.12; 1.17]</td>
                 </tr>
 <tr>
-<td data-row="12" data-col="0">  Upper limit</td>
+<td data-row="11" data-col="0">Limits of agreement (95%)<sup>2</sup>
+</td>
+                  <td data-row="11" data-col="1"></td>
+                </tr>
+<tr>
+<td data-row="12" data-col="0">  Upper limit<sup>2</sup>
+</td>
                   <td data-row="12" data-col="1">1.41 [1.34; 1.47]</td>
                 </tr>
 <tr>
-<td data-row="13" data-col="0">  Lower limit</td>
+<td data-row="13" data-col="0">  Lower limit<sup>3</sup>
+</td>
                   <td data-row="13" data-col="1">0.83 [0.79; 0.87]</td>
                 </tr>
 <tr>
-<td data-row="14" data-col="0">Percentage error<sup>2</sup>
-</td>
+<td data-row="14" data-col="0">Percentage error</td>
                   <td data-row="14" data-col="1">–</td>
                 </tr>
 <tr>
-<td data-row="15" data-col="0">Within-subject percentage error<sup>2</sup>
-</td>
+<td data-row="15" data-col="0">Within-subject percentage error</td>
                   <td data-row="15" data-col="1">–</td>
                 </tr>
 <tr>
-<td data-row="16" data-col="0">Change limits of agreement (95%)<sup>3</sup>
-</td>
+<td data-row="16" data-col="0">Change limits of agreement (95%)</td>
                   <td data-row="16" data-col="1">⋇1.23 [1.21; 1.26]</td>
                 </tr>
 </tbody>
@@ -780,15 +785,15 @@ SD(D_{\log}) \approx \frac{SD(D)}{mean(CO_{alt}, CO_{ref})},
 <span>  boot.type <span class="op">=</span> <span class="st">"perc"</span>,</span>
 <span>  .progress <span class="op">=</span> <span class="st">"none"</span> <span class="co"># hide progress bar</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt;                             2.5 %     97.5 %</span></span>
-<span><span class="co">#&gt; bias                   -1.2616162 -0.1721710</span></span>
-<span><span class="co">#&gt; sd.between              0.5359167  1.3309683</span></span>
-<span><span class="co">#&gt; sd.within               0.3256488  0.4931277</span></span>
-<span><span class="co">#&gt; sd.total                0.6713923  1.3912518</span></span>
-<span><span class="co">#&gt; intraclass.correlation  0.6049251  0.9216700</span></span>
-<span><span class="co">#&gt; loa.lwr                -3.5809664 -1.8254782</span></span>
-<span><span class="co">#&gt; loa.upr                 0.3849381  2.2180610</span></span>
-<span><span class="co">#&gt; change.loa              0.9026523  1.3668804</span></span></code></pre></div>
+<span><span class="co">#&gt;                             2.5 %      97.5 %</span></span>
+<span><span class="co">#&gt; bias                   -1.2061751 -0.08814597</span></span>
+<span><span class="co">#&gt; sd.between              0.5351591  1.35939359</span></span>
+<span><span class="co">#&gt; sd.within               0.3320858  0.49600577</span></span>
+<span><span class="co">#&gt; sd.total                0.6706459  1.43500369</span></span>
+<span><span class="co">#&gt; intraclass.correlation  0.6195045  0.92353631</span></span>
+<span><span class="co">#&gt; loa.lwr                -3.6285918 -1.81087948</span></span>
+<span><span class="co">#&gt; loa.upr                 0.3632678  2.20054508</span></span>
+<span><span class="co">#&gt; change.loa              0.9204949  1.37485786</span></span></code></pre></div>
 </div>
 <p>This does not calculate CIs for the percentage errors, since this requires an estimate of the mean CO, which is not part of this mixed model. In <code>BAtrending</code>, CIs for percentage error are calculated by scaling the CI for <code>sd.total</code>, treating the mean CO as a known value. Ideally, the uncertainty of the mean CO should be included in the CI for the percentage error.</p>
 </section></section><script id="quarto-html-after-body" type="application/javascript">
