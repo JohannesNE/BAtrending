@@ -5,15 +5,15 @@ ba_stat_labels <- c(
   distr.sd.within = "Within-subject SD",
   distr.sd.total = "Total SD",
   bias = "Bias",
-  sd.between = "Between-subject SD",
-  sd.within = "Within-subject SD",
-  sd.total = "Total SD",
+  sd.between = "Between-subject SD ($\\sigma_{between,D}$)",
+  sd.within = "Within-subject SD ($\\sigma_{within,D}$)",
+  sd.total = "Total SD ($\\sigma_{total,D}$)",
   # intraclass.correlation = "Intraclass correlation",
   loa.upr = "\U2003 Upper limit",
   loa.lwr = "\U2003 Lower limit",
   percentage.error = "Percentage error",
   percentage.error.within = "Within-subject percentage error",
-  change.loa = "Change limits of agreement (95%)"
+  change.loa = "Change limits of agreement (95%)" # \U0025 is percent sign
 )
 
 
@@ -125,7 +125,7 @@ BA_table_df <- function(
 
 BA_table_tt <- function(ba_df, exponentiated = FALSE, is_log_trans = FALSE) {
   loa_group_label <- list(
-    "**Distribution**¹" = which(ba_df$stat == "distr.mean"),
+    "**Distribution**" = which(ba_df$stat == "distr.mean"),
     "**Method comparison (alt - ref)**" = which(
       ba_df$stat == "bias"
     ),
@@ -150,18 +150,23 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE, is_log_trans = FALSE) {
 
   tab_footnotes <- list(
     # It is currently not possible to automatically set at footnote on a label.
-    "1" = "Distribution of the averages of simultaneous measurements (alt + ref)/2.",
+    "1" = list(
+      i = 1,
+      j = 1,
+      text = "Distribution of the averages of simultaneous measurements (alt + ref)/2."
+    ),
     "2" = list(
       i = which(
         ba_df$stat %in% c("percentage.error", "percentage.error.within")
-      ),
+      ) +
+        3, # +3 as two headers are inserted
       j = 1,
-      text = "Percentage error = 1.96 · Total (or Within-subject) SD/mean"
+      text = "Percentage error = 1.96 · $\\sigma_{total,D}$ (or $\\sigma_{within,D}$)/mean"
     ),
     "3" = list(
-      i = which(ba_df$stat == "change.loa"),
+      i = which(ba_df$stat == "change.loa") + 3, # +2 as two headers are inserted
       j = 1,
-      text = "Change limits of agreement (95%) = 1.96 · √2 · Within-subject SD."
+      text = "Change limits of agreement (95%) = 1.96 · √2 · $\\sigma_{within,D}$."
     ),
     footnote_abbreviations
   )
@@ -173,13 +178,12 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE, is_log_trans = FALSE) {
   ba_table_tt <- tinytable::format_tt(ba_table_tt, replace = "--") # Replace NA with --
   ba_table_tt <- tinytable::group_tt(
     ba_table_tt,
-    i = loa_group_label,
-    indent = 0
+    i = loa_group_label
   )
   ba_table_tt <- tinytable::format_tt(
     ba_table_tt,
     markdown = TRUE,
-    escape = TRUE # Escape characters (importat for %)
+    escape = "html"
   )
 
   ba_table_tt
