@@ -4,7 +4,7 @@ ba_stat_labels <- c(
   distr.sd.between = "Between-subject SD",
   distr.sd.within = "Within-subject SD",
   distr.sd.total = "Total SD",
-  bias = "Bias ($Bias_D$)",
+  bias = "Bias ($bias_D$)",
   sd.between = "Between-subject SD ($\\sigma_{between,D}$)",
   sd.within = "Within-subject SD ($\\sigma_{within,D}$)",
   sd.total = "Total SD ($\\sigma_{total,D}$)",
