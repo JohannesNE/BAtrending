@@ -22,7 +22,7 @@ Imports:
     rlang,
     scales,
     patchwork,
-    tinytable,
+    tinytable (>= 0.13.0),
     cli
 Suggests: 
     vdiffr,
@@ -32,6 +32,7 @@ Suggests:
     rmarkdown,
     litedown,
     dplyr
+Remotes: vincentarelbundock/tinytable
 Config/testthat/edition: 3
 Config/Needs/website:
     r-lib/pkgdown,
