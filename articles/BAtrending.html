@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">BAtrending</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -158,26 +158,26 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;                                    est      [95% CI] </span></span>
 <span><span class="co">#&gt; === Distribution ===</span></span>
-<span><span class="co">#&gt; Mean                           :   5.035 [ 4.257;  5.717] </span></span>
-<span><span class="co">#&gt; Between-subject variation (SD) :   1.210 [ 0.729;  1.711] </span></span>
-<span><span class="co">#&gt; Within-subject variation (SD)  :   0.283 [ 0.224;  0.339] </span></span>
-<span><span class="co">#&gt; Total variation (SD)           :   1.243 [ 0.783;  1.732] </span></span>
+<span><span class="co">#&gt; Mean                           :   5.035 [ 4.322;  5.776] </span></span>
+<span><span class="co">#&gt; Between-subject variation (SD) :   1.210 [ 0.690;  1.706] </span></span>
+<span><span class="co">#&gt; Within-subject variation (SD)  :   0.283 [ 0.226;  0.337] </span></span>
+<span><span class="co">#&gt; Total variation (SD)           :   1.243 [ 0.735;  1.730] </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; === Method comparison ===</span></span>
-<span><span class="co">#&gt; Bias (alt - ref)               :  -0.705 [-1.269; -0.146] </span></span>
-<span><span class="co">#&gt; Between-subject variation (SD) :   0.934 [ 0.523;  1.335] </span></span>
-<span><span class="co">#&gt; Within-subject variation (SD)  :   0.413 [ 0.333;  0.504] </span></span>
-<span><span class="co">#&gt; Total variation (SD)           :   1.022 [ 0.656;  1.397] </span></span>
+<span><span class="co">#&gt; Bias (alt - ref)               :  -0.705 [-1.212; -0.167] </span></span>
+<span><span class="co">#&gt; Between-subject variation (SD) :   0.934 [ 0.521;  1.346] </span></span>
+<span><span class="co">#&gt; Within-subject variation (SD)  :   0.413 [ 0.331;  0.499] </span></span>
+<span><span class="co">#&gt; Total variation (SD)           :   1.022 [ 0.662;  1.412] </span></span>
 <span><span class="co">#&gt; Intraclass correlation</span></span>
-<span><span class="co">#&gt; └ Between/Total variance       :   0.836 [ 0.601;  0.919] </span></span>
+<span><span class="co">#&gt; └ Between/Total variance       :   0.836 [ 0.605;  0.922] </span></span>
 <span><span class="co">#&gt; Limits of agreement (95%)</span></span>
-<span><span class="co">#&gt; ├ Upper limit                  :   1.298 [ 0.407;  2.234] </span></span>
-<span><span class="co">#&gt; └ Lower limit                  :  -2.707 [-3.663; -1.792] </span></span>
-<span><span class="co">#&gt; Percentage error               :   0.398 [ 0.256;  0.545] </span></span>
+<span><span class="co">#&gt; ├ Upper limit                  :   1.298 [ 0.425;  2.235] </span></span>
+<span><span class="co">#&gt; └ Lower limit                  :  -2.707 [-3.603; -1.823] </span></span>
+<span><span class="co">#&gt; Percentage error               :   0.398 [ 0.258;  0.551] </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; --- Trending ---</span></span>
-<span><span class="co">#&gt; Within-subject perc. error     :   0.161 [ 0.130;  0.197] </span></span>
-<span><span class="co">#&gt; Change LoA [±] (95%)           :   1.146 [ 0.923;  1.398]</span></span></code></pre></div>
+<span><span class="co">#&gt; Within-subject perc. error     :   0.161 [ 0.129;  0.195] </span></span>
+<span><span class="co">#&gt; Change LoA [±] (95%)           :   1.146 [ 0.919;  1.382]</span></span></code></pre></div>
 </div>
 <p>A publication-ready table is created with:</p>
 <div class="cell" data-layout-align="center">
@@ -196,74 +196,38 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
         fontCache: 'global'
       }
     };
-    </script><!-- tinytable mathjax end --><script>
-
-      function styleCell_xvlpca8zk878zzv83b4f(i, j, css_id) {
-          var table = document.getElementById("tinytable_xvlpca8zk878zzv83b4f");
-          var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-          if (cell) {
-              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
-              cell.classList.add(css_id);
-          } else {
-              console.warn(`Cell at (${i}, ${j}) not found.`);
-          }
-      }
-      function spanCell_xvlpca8zk878zzv83b4f(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_xvlpca8zk878zzv83b4f");
-        const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-        if (!targetCell) {
-          console.warn(`Cell at (${i}, ${j}) not found.`);
-        }
-
-        // Get all cells that need to be removed
-        const cellsToRemove = [];
-        for (let r = 0; r < rowspan; r++) {
-          for (let c = 0; c < colspan; c++) {
-            if (r === 0 && c === 0) continue; // Skip the target cell
-            const cell = table.querySelector(`[data-row="${i + r}"][data-col="${j + c}"]`);
-            if (cell) {
-              cellsToRemove.push(cell);
-            }
-          }
-        }
-
-        // Remove all cells
-        cellsToRemove.forEach(cell => cell.remove());
-
-        // Set rowspan and colspan of the target cell if it exists
-        if (targetCell) {
-          targetCell.rowSpan = rowspan;
-          targetCell.colSpan = colspan;
-        }
-      }
+    </script><!-- tinytable mathjax end --><script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script><script>
+      // Create table-specific functions using external factory
+      const tableFns_vhsm5efwx31d2p23x5q7 = TinyTable.createTableFunctions("tinytable_vhsm5efwx31d2p23x5q7");
       // tinytable span after
-      window.addEventListener('load', function () { spanCell_xvlpca8zk878zzv83b4f(11, 0, 1, 2) })
-      window.addEventListener('load', function () { spanCell_xvlpca8zk878zzv83b4f(6, 0, 1, 2) })
-      window.addEventListener('load', function () { spanCell_xvlpca8zk878zzv83b4f(1, 0, 1, 2) })
+      window.addEventListener('load', function () { tableFns_vhsm5efwx31d2p23x5q7.spanCell(11, 1, 1, 2) })
+      window.addEventListener('load', function () { tableFns_vhsm5efwx31d2p23x5q7.spanCell(6, 1, 1, 2) })
+      window.addEventListener('load', function () { tableFns_vhsm5efwx31d2p23x5q7.spanCell(1, 1, 1, 2) })
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '16', j: 0 }, { i: '16', j: 1 },  ], css_id: 'tinytable_css_kt6rp5d78n0jjapcy6v5',},
-          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 },  ], css_id: 'tinytable_css_mq639m6ui0xv2t1f6a82',},
+          { positions: [ { i: '16', j: 1 }, { i: '16', j: 2 } ], css_id: 'tinytable_css_tzski81tdg7yrbsx1kr0',},
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_3y8pxtq3j6ouvew5d7wp',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_xvlpca8zk878zzv83b4f(cell.i, cell.j, group.css_id);
+                  tableFns_vhsm5efwx31d2p23x5q7.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
-    </script><style>
-      /* tinytable css entries after */
-      .table td.tinytable_css_kt6rp5d78n0jjapcy6v5, .table th.tinytable_css_kt6rp5d78n0jjapcy6v5 { border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_mq639m6ui0xv2t1f6a82, .table th.tinytable_css_mq639m6ui0xv2t1f6a82 { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+    </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+<style>
+    /* tinytable css entries after */
+    #tinytable_vhsm5efwx31d2p23x5q7 td.tinytable_css_tzski81tdg7yrbsx1kr0, #tinytable_vhsm5efwx31d2p23x5q7 th.tinytable_css_tzski81tdg7yrbsx1kr0 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_vhsm5efwx31d2p23x5q7 td.tinytable_css_3y8pxtq3j6ouvew5d7wp, #tinytable_vhsm5efwx31d2p23x5q7 th.tinytable_css_3y8pxtq3j6ouvew5d7wp {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
     </style>
 <div class="container">
-      <table class="table table table-borderless" id="tinytable_xvlpca8zk878zzv83b4f" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table tinytable" id="tinytable_vhsm5efwx31d2p23x5q7" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
-<th scope="col" data-row="0" data-col="0"></th>
-                <th scope="col" data-row="0" data-col="1">Estimate [95% CI]</th>
+<th scope="col" data-row="0" data-col="1"></th>
+                <th scope="col" data-row="0" data-col="2">Estimate [95% CI]</th>
               </tr></thead>
 <tfoot>
 <tr><td colspan="2">
@@ -277,73 +241,73 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 </tfoot>
 <tbody>
 <tr>
-<td data-row="1" data-col="0">
+<td data-row="1" data-col="1">
 <strong>Distribution</strong><sup>1</sup>
 </td>
-                  <td data-row="1" data-col="1"><strong>Distribution</strong></td>
+                  <td data-row="1" data-col="2"><strong>Distribution</strong></td>
                 </tr>
 <tr>
-<td data-row="2" data-col="0">Mean</td>
-                  <td data-row="2" data-col="1">5.03 [4.26; 5.72]</td>
+<td data-row="2" data-col="1">Mean</td>
+                  <td data-row="2" data-col="2">5.03 [4.32; 5.78]</td>
                 </tr>
 <tr>
-<td data-row="3" data-col="0">Between-subject SD</td>
-                  <td data-row="3" data-col="1">1.21 [0.73; 1.71]</td>
+<td data-row="3" data-col="1">Between-subject SD</td>
+                  <td data-row="3" data-col="2">1.21 [0.69; 1.71]</td>
                 </tr>
 <tr>
-<td data-row="4" data-col="0">Within-subject SD</td>
-                  <td data-row="4" data-col="1">0.28 [0.22; 0.34]</td>
+<td data-row="4" data-col="1">Within-subject SD</td>
+                  <td data-row="4" data-col="2">0.28 [0.23; 0.34]</td>
                 </tr>
 <tr>
-<td data-row="5" data-col="0">Total SD</td>
-                  <td data-row="5" data-col="1">1.24 [0.78; 1.73]</td>
+<td data-row="5" data-col="1">Total SD</td>
+                  <td data-row="5" data-col="2">1.24 [0.73; 1.73]</td>
                 </tr>
 <tr>
-<td data-row="6" data-col="0"><strong>Method comparison (alt - ref)</strong></td>
-                  <td data-row="6" data-col="1"><strong>Method comparison (alt - ref)</strong></td>
+<td data-row="6" data-col="1"><strong>Method comparison (alt - ref)</strong></td>
+                  <td data-row="6" data-col="2"><strong>Method comparison (alt - ref)</strong></td>
                 </tr>
 <tr>
-<td data-row="7" data-col="0">Bias (\(Bias_D\))</td>
-                  <td data-row="7" data-col="1">-0.70 [-1.27; -0.15]</td>
+<td data-row="7" data-col="1">Bias (\(bias_D\))</td>
+                  <td data-row="7" data-col="2">-0.70 [-1.21; -0.17]</td>
                 </tr>
 <tr>
-<td data-row="8" data-col="0">Between-subject SD (\(\sigma_{between,D}\))</td>
-                  <td data-row="8" data-col="1">0.93 [0.52; 1.33]</td>
+<td data-row="8" data-col="1">Between-subject SD (\(\sigma_{between,D}\))</td>
+                  <td data-row="8" data-col="2">0.93 [0.52; 1.35]</td>
                 </tr>
 <tr>
-<td data-row="9" data-col="0">Within-subject SD (\(\sigma_{within,D}\))</td>
-                  <td data-row="9" data-col="1">0.41 [0.33; 0.50]</td>
+<td data-row="9" data-col="1">Within-subject SD (\(\sigma_{within,D}\))</td>
+                  <td data-row="9" data-col="2">0.41 [0.33; 0.50]</td>
                 </tr>
 <tr>
-<td data-row="10" data-col="0">Total SD (\(\sigma_{total,D}\))</td>
-                  <td data-row="10" data-col="1">1.02 [0.66; 1.40]</td>
+<td data-row="10" data-col="1">Total SD (\(\sigma_{total,D}\))</td>
+                  <td data-row="10" data-col="2">1.02 [0.66; 1.41]</td>
                 </tr>
 <tr>
-<td data-row="11" data-col="0">Limits of agreement (95%)</td>
-                  <td data-row="11" data-col="1">Limits of agreement (95%)</td>
+<td data-row="11" data-col="1">Limits of agreement (95%)</td>
+                  <td data-row="11" data-col="2">Limits of agreement (95%)</td>
                 </tr>
 <tr>
-<td data-row="12" data-col="0">  Upper limit</td>
-                  <td data-row="12" data-col="1">1.30 [0.41; 2.23]</td>
+<td data-row="12" data-col="1">  Upper limit</td>
+                  <td data-row="12" data-col="2">1.30 [0.42; 2.23]</td>
                 </tr>
 <tr>
-<td data-row="13" data-col="0">  Lower limit</td>
-                  <td data-row="13" data-col="1">-2.71 [-3.66; -1.79]</td>
+<td data-row="13" data-col="1">  Lower limit</td>
+                  <td data-row="13" data-col="2">-2.71 [-3.60; -1.82]</td>
                 </tr>
 <tr>
-<td data-row="14" data-col="0">Percentage error<sup>2</sup>
+<td data-row="14" data-col="1">Percentage error<sup>2</sup>
 </td>
-                  <td data-row="14" data-col="1">39.8 [25.6; 54.5] %</td>
+                  <td data-row="14" data-col="2">39.8 [25.8; 55.1] %</td>
                 </tr>
 <tr>
-<td data-row="15" data-col="0">Within-subject percentage error<sup>2</sup>
+<td data-row="15" data-col="1">Within-subject percentage error<sup>2</sup>
 </td>
-                  <td data-row="15" data-col="1">16.1 [13.0; 19.7] %</td>
+                  <td data-row="15" data-col="2">16.1 [12.9; 19.5] %</td>
                 </tr>
 <tr>
-<td data-row="16" data-col="0">Change limits of agreement (95%)<sup>3</sup>
+<td data-row="16" data-col="1">Change limits of agreement (95%)<sup>3</sup>
 </td>
-                  <td data-row="16" data-col="1">±1.15 [0.92; 1.40]</td>
+                  <td data-row="16" data-col="2">±1.15 [0.92; 1.38]</td>
                 </tr>
 </tbody>
 </table>
@@ -518,74 +482,38 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
         fontCache: 'global'
       }
     };
-    </script><!-- tinytable mathjax end --><script>
-
-      function styleCell_oylz3z277uhc5apq2u7i(i, j, css_id) {
-          var table = document.getElementById("tinytable_oylz3z277uhc5apq2u7i");
-          var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-          if (cell) {
-              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
-              cell.classList.add(css_id);
-          } else {
-              console.warn(`Cell at (${i}, ${j}) not found.`);
-          }
-      }
-      function spanCell_oylz3z277uhc5apq2u7i(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_oylz3z277uhc5apq2u7i");
-        const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-        if (!targetCell) {
-          console.warn(`Cell at (${i}, ${j}) not found.`);
-        }
-
-        // Get all cells that need to be removed
-        const cellsToRemove = [];
-        for (let r = 0; r < rowspan; r++) {
-          for (let c = 0; c < colspan; c++) {
-            if (r === 0 && c === 0) continue; // Skip the target cell
-            const cell = table.querySelector(`[data-row="${i + r}"][data-col="${j + c}"]`);
-            if (cell) {
-              cellsToRemove.push(cell);
-            }
-          }
-        }
-
-        // Remove all cells
-        cellsToRemove.forEach(cell => cell.remove());
-
-        // Set rowspan and colspan of the target cell if it exists
-        if (targetCell) {
-          targetCell.rowSpan = rowspan;
-          targetCell.colSpan = colspan;
-        }
-      }
+    </script><!-- tinytable mathjax end --><script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script><script>
+      // Create table-specific functions using external factory
+      const tableFns_y5wz4i53ot73hv9twqo5 = TinyTable.createTableFunctions("tinytable_y5wz4i53ot73hv9twqo5");
       // tinytable span after
-      window.addEventListener('load', function () { spanCell_oylz3z277uhc5apq2u7i(11, 0, 1, 2) })
-      window.addEventListener('load', function () { spanCell_oylz3z277uhc5apq2u7i(6, 0, 1, 2) })
-      window.addEventListener('load', function () { spanCell_oylz3z277uhc5apq2u7i(1, 0, 1, 2) })
+      window.addEventListener('load', function () { tableFns_y5wz4i53ot73hv9twqo5.spanCell(11, 1, 1, 2) })
+      window.addEventListener('load', function () { tableFns_y5wz4i53ot73hv9twqo5.spanCell(6, 1, 1, 2) })
+      window.addEventListener('load', function () { tableFns_y5wz4i53ot73hv9twqo5.spanCell(1, 1, 1, 2) })
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '16', j: 0 }, { i: '16', j: 1 },  ], css_id: 'tinytable_css_8fmgttkco1b0emg12438',},
-          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 },  ], css_id: 'tinytable_css_05o82myj50e9qcpqwzqe',},
+          { positions: [ { i: '16', j: 1 }, { i: '16', j: 2 } ], css_id: 'tinytable_css_5apq2u7ijoitoob2y4ql',},
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_mgm4y5baoylz3z277uhc',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_oylz3z277uhc5apq2u7i(cell.i, cell.j, group.css_id);
+                  tableFns_y5wz4i53ot73hv9twqo5.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
-    </script><style>
-      /* tinytable css entries after */
-      .table td.tinytable_css_8fmgttkco1b0emg12438, .table th.tinytable_css_8fmgttkco1b0emg12438 { border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_05o82myj50e9qcpqwzqe, .table th.tinytable_css_05o82myj50e9qcpqwzqe { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+    </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+<style>
+    /* tinytable css entries after */
+    #tinytable_y5wz4i53ot73hv9twqo5 td.tinytable_css_5apq2u7ijoitoob2y4ql, #tinytable_y5wz4i53ot73hv9twqo5 th.tinytable_css_5apq2u7ijoitoob2y4ql {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_y5wz4i53ot73hv9twqo5 td.tinytable_css_mgm4y5baoylz3z277uhc, #tinytable_y5wz4i53ot73hv9twqo5 th.tinytable_css_mgm4y5baoylz3z277uhc {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
     </style>
 <div class="container">
-      <table class="table table table-borderless" id="tinytable_oylz3z277uhc5apq2u7i" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table tinytable" id="tinytable_y5wz4i53ot73hv9twqo5" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
-<th scope="col" data-row="0" data-col="0"></th>
-                <th scope="col" data-row="0" data-col="1">Estimate [95% CI]</th>
+<th scope="col" data-row="0" data-col="1"></th>
+                <th scope="col" data-row="0" data-col="2">Estimate [95% CI]</th>
               </tr></thead>
 <tfoot>
 <tr><td colspan="2">
@@ -599,73 +527,73 @@ or <code>remotes::install_github("JohannesNE/BAtrending")</code>.</div>
 </tfoot>
 <tbody>
 <tr>
-<td data-row="1" data-col="0">
+<td data-row="1" data-col="1">
 <strong>Distribution</strong><sup>1</sup>
 </td>
-                  <td data-row="1" data-col="1"><strong>Distribution</strong></td>
+                  <td data-row="1" data-col="2"><strong>Distribution</strong></td>
                 </tr>
 <tr>
-<td data-row="2" data-col="0">Mean</td>
-                  <td data-row="2" data-col="1">5.58 [5.28; 5.87]</td>
+<td data-row="2" data-col="1">Mean</td>
+                  <td data-row="2" data-col="2">5.58 [5.28; 5.87]</td>
                 </tr>
 <tr>
-<td data-row="3" data-col="0">Between-subject SD</td>
-                  <td data-row="3" data-col="1">0.67 [0.19; 0.98]</td>
+<td data-row="3" data-col="1">Between-subject SD</td>
+                  <td data-row="3" data-col="2">0.67 [0.19; 0.98]</td>
                 </tr>
 <tr>
-<td data-row="4" data-col="0">Within-subject SD</td>
-                  <td data-row="4" data-col="1">1.73 [1.57; 1.90]</td>
+<td data-row="4" data-col="1">Within-subject SD</td>
+                  <td data-row="4" data-col="2">1.73 [1.57; 1.90]</td>
                 </tr>
 <tr>
-<td data-row="5" data-col="0">Total SD</td>
-                  <td data-row="5" data-col="1">1.86 [1.70; 2.04]</td>
+<td data-row="5" data-col="1">Total SD</td>
+                  <td data-row="5" data-col="2">1.86 [1.70; 2.04]</td>
                 </tr>
 <tr>
-<td data-row="6" data-col="0"><strong>Method comparison, exp(log-analysis), (alt / ref)</strong></td>
-                  <td data-row="6" data-col="1"><strong>Method comparison, exp(log-analysis), (alt / ref)</strong></td>
+<td data-row="6" data-col="1"><strong>Method comparison, exp(log-analysis), (alt / ref)</strong></td>
+                  <td data-row="6" data-col="2"><strong>Method comparison, exp(log-analysis), (alt / ref)</strong></td>
                 </tr>
 <tr>
-<td data-row="7" data-col="0">Bias (\(Bias_D\))</td>
-                  <td data-row="7" data-col="1">1.08 [1.05; 1.11]</td>
+<td data-row="7" data-col="1">Bias (\(bias_D\))</td>
+                  <td data-row="7" data-col="2">1.08 [1.05; 1.11]</td>
                 </tr>
 <tr>
-<td data-row="8" data-col="0">Between-subject SD (\(\sigma_{between,D}\))</td>
-                  <td data-row="8" data-col="1">1.12 [1.09; 1.15]</td>
+<td data-row="8" data-col="1">Between-subject SD (\(\sigma_{between,D}\))</td>
+                  <td data-row="8" data-col="2">1.12 [1.09; 1.15]</td>
                 </tr>
 <tr>
-<td data-row="9" data-col="0">Within-subject SD (\(\sigma_{within,D}\))</td>
-                  <td data-row="9" data-col="1">1.08 [1.07; 1.09]</td>
+<td data-row="9" data-col="1">Within-subject SD (\(\sigma_{within,D}\))</td>
+                  <td data-row="9" data-col="2">1.08 [1.07; 1.09]</td>
                 </tr>
 <tr>
-<td data-row="10" data-col="0">Total SD (\(\sigma_{total,D}\))</td>
-                  <td data-row="10" data-col="1">1.14 [1.12; 1.17]</td>
+<td data-row="10" data-col="1">Total SD (\(\sigma_{total,D}\))</td>
+                  <td data-row="10" data-col="2">1.14 [1.12; 1.17]</td>
                 </tr>
 <tr>
-<td data-row="11" data-col="0">Limits of agreement (95%)</td>
-                  <td data-row="11" data-col="1">Limits of agreement (95%)</td>
+<td data-row="11" data-col="1">Limits of agreement (95%)</td>
+                  <td data-row="11" data-col="2">Limits of agreement (95%)</td>
                 </tr>
 <tr>
-<td data-row="12" data-col="0">  Upper limit</td>
-                  <td data-row="12" data-col="1">1.41 [1.34; 1.47]</td>
+<td data-row="12" data-col="1">  Upper limit</td>
+                  <td data-row="12" data-col="2">1.41 [1.34; 1.47]</td>
                 </tr>
 <tr>
-<td data-row="13" data-col="0">  Lower limit</td>
-                  <td data-row="13" data-col="1">0.83 [0.79; 0.87]</td>
+<td data-row="13" data-col="1">  Lower limit</td>
+                  <td data-row="13" data-col="2">0.83 [0.79; 0.87]</td>
                 </tr>
 <tr>
-<td data-row="14" data-col="0">Percentage error<sup>2</sup>
+<td data-row="14" data-col="1">Percentage error<sup>2</sup>
 </td>
-                  <td data-row="14" data-col="1">–</td>
+                  <td data-row="14" data-col="2">–</td>
                 </tr>
 <tr>
-<td data-row="15" data-col="0">Within-subject percentage error<sup>2</sup>
+<td data-row="15" data-col="1">Within-subject percentage error<sup>2</sup>
 </td>
-                  <td data-row="15" data-col="1">–</td>
+                  <td data-row="15" data-col="2">–</td>
                 </tr>
 <tr>
-<td data-row="16" data-col="0">Change limits of agreement (95%)<sup>3</sup>
+<td data-row="16" data-col="1">Change limits of agreement (95%)<sup>3</sup>
 </td>
-                  <td data-row="16" data-col="1">⋇1.23 [1.21; 1.26]</td>
+                  <td data-row="16" data-col="2">⋇1.23 [1.21; 1.26]</td>
                 </tr>
 </tbody>
 </table>
@@ -804,14 +732,14 @@ SD(D_{\log}) \approx \frac{SD(D)}{mean(CO_{alt}, CO_{ref})},
 <span>  .progress <span class="op">=</span> <span class="st">"none"</span> <span class="co"># hide progress bar</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;                             2.5 %     97.5 %</span></span>
-<span><span class="co">#&gt; bias                   -1.2497092 -0.2077324</span></span>
-<span><span class="co">#&gt; sd.between              0.5367184  1.3592430</span></span>
-<span><span class="co">#&gt; sd.within               0.3303314  0.4958765</span></span>
-<span><span class="co">#&gt; sd.total                0.6734345  1.4210015</span></span>
-<span><span class="co">#&gt; intraclass.correlation  0.6274614  0.9190108</span></span>
-<span><span class="co">#&gt; loa.lwr                -3.6386939 -1.8010791</span></span>
-<span><span class="co">#&gt; loa.upr                 0.3994606  2.2732691</span></span>
-<span><span class="co">#&gt; change.loa              0.9156319  1.3744997</span></span></code></pre></div>
+<span><span class="co">#&gt; bias                   -1.2600445 -0.1602803</span></span>
+<span><span class="co">#&gt; sd.between              0.5162210  1.3585029</span></span>
+<span><span class="co">#&gt; sd.within               0.3322510  0.4909408</span></span>
+<span><span class="co">#&gt; sd.total                0.6731298  1.4198371</span></span>
+<span><span class="co">#&gt; intraclass.correlation  0.5888612  0.9237231</span></span>
+<span><span class="co">#&gt; loa.lwr                -3.6339916 -1.7802937</span></span>
+<span><span class="co">#&gt; loa.upr                 0.3360198  2.2223549</span></span>
+<span><span class="co">#&gt; change.loa              0.9209529  1.3608186</span></span></code></pre></div>
 </div>
 <p>This does not calculate CIs for the percentage errors, since this requires an estimate of the mean CO, which is not part of this mixed model. In <code>BAtrending</code>, CIs for percentage error are calculated by scaling the CI for <code>sd.total</code>, treating the mean CO as a known value. Ideally, the uncertainty of the mean CO should be included in the CI for the percentage error.</p>
 </section></section><script id="quarto-html-after-body" type="application/javascript">
