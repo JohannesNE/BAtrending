@@ -6,7 +6,8 @@
 \usage{
 BA_plot_scatter(
   ba_obj,
-  aspect_ratio = NULL,
+  aspect_ratio = 1,
+  square_plot = TRUE,
   show_subject_legend = FALSE,
   keep_log_scale = FALSE
 )
@@ -15,6 +16,8 @@ BA_plot_scatter(
 \item{ba_obj}{Bland-Altman analysis object}
 
 \item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{ggplot2::coord_fixed()}), Default (NULL) is automatic.}
+
+\item{square_plot}{Use the same range for X and Y axes.}
 
 \item{show_subject_legend}{Show legend for subjects}
 

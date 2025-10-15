@@ -470,6 +470,7 @@ BA_plot_residuals <- function(
 #' Make scatter plot of paired measurements in analysis.
 #'
 #' @inheritParams BA_plot
+#' @param square_plot Use the same range for X and Y axes.
 #'
 #' @importFrom ggplot2 aes
 #' @importFrom rlang .data
@@ -477,11 +478,18 @@ BA_plot_residuals <- function(
 #' @export
 BA_plot_scatter <- function(
   ba_obj,
-  aspect_ratio = NULL,
+  aspect_ratio = 1,
+  square_plot = TRUE,
   show_subject_legend = FALSE,
   keep_log_scale = FALSE
 ) {
   assert_BA_obj(ba_obj)
+
+  if (square_plot && aspect_ratio != 1) {
+    cli::cli_abort(
+      "When {.arg square_plot = TRUE}, {.arg aspect_ratio} must be 1"
+    )
+  }
 
   data_is_log_transformed <- attr(ba_obj, "logtrans")
   if (keep_log_scale && !data_is_log_transformed) {
@@ -511,7 +519,21 @@ BA_plot_scatter <- function(
   plot_coord <- NULL
 
   if (is.numeric(aspect_ratio)) {
-    plot_coord <- ggplot2::coord_fixed(ratio = aspect_ratio)
+    if (square_plot) {
+      # Find combined range of axes
+      comb_rng <- range(
+        c(d[[var_names_raw$ref_col]], d[[var_names_raw$alt_col]]),
+        na.rm = TRUE
+      )
+
+      plot_coord <- ggplot2::coord_fixed(
+        ratio = 1,
+        xlim = comb_rng,
+        ylim = comb_rng
+      )
+    } else {
+      plot_coord <- ggplot2::coord_fixed(ratio = aspect_ratio)
+    }
     plot_coord$default <- TRUE # Supress warning when coord is replaced
   }
 
@@ -535,6 +557,9 @@ BA_plot_scatter <- function(
 #' Creates a scatter plot, a standard Bland-Altman plot and a residuals plot for assessing trending ability.
 #'
 #' @inheritParams BA_plot
+#' @param aspect_ratio Set aspect ratio (x/y) between X and Y axis (sets `ggplot2::coord_fixed()`),
+#' Default (NULL) is automatic.
+#' This only applies to the BA plots. The scatter plot always have an aspect ratio of 1.
 #' @param equal_scales Plot the residuals on a plane with the scale of the original data.
 #' @param return_as_list Return the three plots in a list. If `FALSE`, the plots are combined using \{patchwork\}.
 #' @param use_titles Show default titles on plots.
@@ -554,7 +579,6 @@ BA_plot_combine <- function(
   # Create scatter plot
   scatter_plot <- BA_plot_scatter(
     ba_obj = ba_obj,
-    aspect_ratio = aspect_ratio,
     show_subject_legend = show_subject_legend,
     keep_log_scale = keep_log_scale
   )

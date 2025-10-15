@@ -17,7 +17,9 @@ BA_plot_combine(
 \arguments{
 \item{ba_obj}{Bland-Altman analysis object}
 
-\item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{ggplot2::coord_fixed()}), Default (NULL) is automatic.}
+\item{aspect_ratio}{Set aspect ratio (x/y) between X and Y axis (sets \code{ggplot2::coord_fixed()}),
+Default (NULL) is automatic.
+This only applies to the BA plots. The scatter plot always have an aspect ratio of 1.}
 
 \item{show_subject_legend}{Show legend for subjects}
 
