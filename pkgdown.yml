@@ -3,7 +3,7 @@ pkgdown: 2.1.3.9000
 pkgdown_sha: 1f2f7401ca3d9d1983eb705a2203c4c4abd4184d
 articles:
   BAtrending: BAtrending.html
-last_built: 2025-10-13T12:04Z
+last_built: 2025-10-15T10:44Z
 urls:
   reference: https://johannesne.github.io/BAtrending/reference
   article: https://johannesne.github.io/BAtrending/articles

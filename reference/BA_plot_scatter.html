@@ -46,7 +46,8 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BA_plot_scatter</span><span class="op">(</span></span>
 <span>  <span class="va">ba_obj</span>,</span>
-<span>  aspect_ratio <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  aspect_ratio <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  square_plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show_subject_legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  keep_log_scale <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -62,6 +63,10 @@
 
 <dt id="arg-aspect-ratio">aspect_ratio<a class="anchor" aria-label="anchor" href="#arg-aspect-ratio"></a></dt>
 <dd><p>Set aspect ratio (x/y) between X and Y axis (sets <code><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">ggplot2::coord_fixed()</a></code>), Default (NULL) is automatic.</p></dd>
+
+
+<dt id="arg-square-plot">square_plot<a class="anchor" aria-label="anchor" href="#arg-square-plot"></a></dt>
+<dd><p>Use the same range for X and Y axes.</p></dd>
 
 
 <dt id="arg-show-subject-legend">show_subject_legend<a class="anchor" aria-label="anchor" href="#arg-show-subject-legend"></a></dt>
