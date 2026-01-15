@@ -157,6 +157,6 @@
       | $\sigma_{within,D}$.                                             |
       +===========================================+======================+
       | SD: standard deviation; alt: alternative method; ref: reference  |
-      | method; ×/÷: multiply or divide                                  |
+      | method; ×/÷: multiply or divide by                               |
       +===========================================+======================+ 
 
