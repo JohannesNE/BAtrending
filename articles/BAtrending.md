@@ -123,26 +123,26 @@ BA_CO
 #> 
 #>                                    est      [95% CI] 
 #> === Distribution ===
-#> Mean                           :   5.035 [ 4.320;  5.722] 
-#> Between-subject variation (SD) :   1.210 [ 0.710;  1.680] 
-#> Within-subject variation (SD)  :   0.283 [ 0.227;  0.339] 
-#> Total variation (SD)           :   1.243 [ 0.765;  1.707] 
+#> Mean                           :   5.035 [ 4.351;  5.718] 
+#> Between-subject variation (SD) :   1.210 [ 0.723;  1.685] 
+#> Within-subject variation (SD)  :   0.283 [ 0.230;  0.340] 
+#> Total variation (SD)           :   1.243 [ 0.778;  1.705] 
 #> 
 #> === Method comparison ===
-#> Bias (alt - ref)               :  -0.705 [-1.249; -0.174] 
-#> Between-subject variation (SD) :   0.934 [ 0.526;  1.333] 
-#> Within-subject variation (SD)  :   0.413 [ 0.329;  0.493] 
-#> Total variation (SD)           :   1.022 [ 0.662;  1.386] 
+#> Bias (alt - ref)               :  -0.705 [-1.223; -0.159] 
+#> Between-subject variation (SD) :   0.934 [ 0.542;  1.319] 
+#> Within-subject variation (SD)  :   0.413 [ 0.321;  0.494] 
+#> Total variation (SD)           :   1.022 [ 0.679;  1.385] 
 #> Intraclass correlation
-#> └ Between/Total variance       :   0.836 [ 0.602;  0.923] 
+#> └ Between/Total variance       :   0.836 [ 0.623;  0.924] 
 #> Limits of agreement (95%)
-#> ├ Upper limit                  :   1.298 [ 0.424;  2.251] 
-#> └ Lower limit                  :  -2.707 [-3.586; -1.785] 
-#> Percentage error               :   0.398 [ 0.258;  0.541] 
+#> ├ Upper limit                  :   1.298 [ 0.403;  2.127] 
+#> └ Lower limit                  :  -2.707 [-3.588; -1.843] 
+#> Percentage error               :   0.398 [ 0.265;  0.541] 
 #> 
 #> --- Trending ---
-#> Within-subject perc. error     :   0.161 [ 0.128;  0.192] 
-#> Change LoA [±] (95%)           :   1.146 [ 0.913;  1.366]
+#> Within-subject perc. error     :   0.161 [ 0.125;  0.193] 
+#> Change LoA [±] (95%)           :   1.146 [ 0.891;  1.368]
 ```
 
 A publication-ready table is created with:
@@ -154,21 +154,21 @@ BA_table(BA_CO)
 |                                                                                    | Estimate \[95% CI\]               |
 |------------------------------------------------------------------------------------|-----------------------------------|
 | **Distribution**¹                                                                  | **Distribution**                  |
-| Mean                                                                               | 5.03 \[4.32; 5.72\]               |
-| Between-subject SD                                                                 | 1.21 \[0.71; 1.68\]               |
+| Mean                                                                               | 5.03 \[4.35; 5.72\]               |
+| Between-subject SD                                                                 | 1.21 \[0.72; 1.69\]               |
 | Within-subject SD                                                                  | 0.28 \[0.23; 0.34\]               |
-| Total SD                                                                           | 1.24 \[0.76; 1.71\]               |
+| Total SD                                                                           | 1.24 \[0.78; 1.70\]               |
 | **Method comparison (alt - ref)**                                                  | **Method comparison (alt - ref)** |
-| Bias (\\bias_D\\)                                                                  | -0.70 \[-1.25; -0.17\]            |
-| Between-subject SD (\\\sigma\_{between,D}\\)                                       | 0.93 \[0.53; 1.33\]               |
-| Within-subject SD (\\\sigma\_{within,D}\\)                                         | 0.41 \[0.33; 0.49\]               |
-| Total SD (\\\sigma\_{total,D}\\)                                                   | 1.02 \[0.66; 1.39\]               |
+| Bias (\\bias_D\\)                                                                  | -0.70 \[-1.22; -0.16\]            |
+| Between-subject SD (\\\sigma\_{between,D}\\)                                       | 0.93 \[0.54; 1.32\]               |
+| Within-subject SD (\\\sigma\_{within,D}\\)                                         | 0.41 \[0.32; 0.49\]               |
+| Total SD (\\\sigma\_{total,D}\\)                                                   | 1.02 \[0.68; 1.39\]               |
 | Limits of agreement (95%)                                                          | Limits of agreement (95%)         |
-|   Upper limit                                                                      | 1.30 \[0.42; 2.25\]               |
-|   Lower limit                                                                      | -2.71 \[-3.59; -1.78\]            |
-| Percentage error²                                                                  | 39.8 \[25.8; 54.1\] %             |
-| Within-subject percentage error²                                                   | 16.1 \[12.8; 19.2\] %             |
-| Change limits of agreement (95%)³                                                  | ±1.15 \[0.91; 1.37\]              |
+|   Upper limit                                                                      | 1.30 \[0.40; 2.13\]               |
+|   Lower limit                                                                      | -2.71 \[-3.59; -1.84\]            |
+| Percentage error²                                                                  | 39.8 \[26.5; 54.1\] %             |
+| Within-subject percentage error²                                                   | 16.1 \[12.5; 19.3\] %             |
+| Change limits of agreement (95%)³                                                  | ±1.15 \[0.89; 1.37\]              |
 | ¹ Distribution of the averages of simultaneous measurements (alt + ref)/2.         |                                   |
 | ² Percentage error = 1.96 · \\\sigma\_{total,D}\\ (or \\\sigma\_{within,D}\\)/mean |                                   |
 | ³ Change limits of agreement (95%) = 1.96 · √2 · \\\sigma\_{within,D}\\.           |                                   |
@@ -362,28 +362,28 @@ results:
 BA_table(BA_sim_log, keep_log_scale = FALSE)
 ```
 
-|                                                                                                  | Estimate \[95% CI\]                                   |
-|--------------------------------------------------------------------------------------------------|-------------------------------------------------------|
-| **Distribution**¹                                                                                | **Distribution**                                      |
-| Mean                                                                                             | 5.58 \[5.28; 5.87\]                                   |
-| Between-subject SD                                                                               | 0.67 \[0.19; 0.98\]                                   |
-| Within-subject SD                                                                                | 1.73 \[1.57; 1.90\]                                   |
-| Total SD                                                                                         | 1.86 \[1.70; 2.04\]                                   |
-| **Method comparison, exp(log-analysis), (alt / ref)**                                            | **Method comparison, exp(log-analysis), (alt / ref)** |
-| Bias (\\bias_D\\)                                                                                | 1.08 \[1.05; 1.11\]                                   |
-| Between-subject SD (\\\sigma\_{between,D}\\)                                                     | 1.12 \[1.09; 1.15\]                                   |
-| Within-subject SD (\\\sigma\_{within,D}\\)                                                       | 1.08 \[1.07; 1.09\]                                   |
-| Total SD (\\\sigma\_{total,D}\\)                                                                 | 1.14 \[1.12; 1.17\]                                   |
-| Limits of agreement (95%)                                                                        | Limits of agreement (95%)                             |
-|   Upper limit                                                                                    | 1.41 \[1.34; 1.47\]                                   |
-|   Lower limit                                                                                    | 0.83 \[0.79; 0.87\]                                   |
-| Percentage error²                                                                                | –                                                     |
-| Within-subject percentage error²                                                                 | –                                                     |
-| Change limits of agreement (95%)³                                                                | ×/÷1.23 \[1.21; 1.26\]                                |
-| ¹ Distribution of the averages of simultaneous measurements (alt + ref)/2.                       |                                                       |
-| ² Percentage error = 1.96 · \\\sigma\_{total,D}\\ (or \\\sigma\_{within,D}\\)/mean               |                                                       |
-| ³ Change limits of agreement (95%) = 1.96 · √2 · \\\sigma\_{within,D}\\.                         |                                                       |
-|  SD: standard deviation; alt: alternative method; ref: reference method; ×/÷: multiply or divide |                                                       |
+|                                                                                                     | Estimate \[95% CI\]                                   |
+|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| **Distribution**¹                                                                                   | **Distribution**                                      |
+| Mean                                                                                                | 5.58 \[5.28; 5.87\]                                   |
+| Between-subject SD                                                                                  | 0.67 \[0.19; 0.98\]                                   |
+| Within-subject SD                                                                                   | 1.73 \[1.57; 1.90\]                                   |
+| Total SD                                                                                            | 1.86 \[1.70; 2.04\]                                   |
+| **Method comparison, exp(log-analysis), (alt / ref)**                                               | **Method comparison, exp(log-analysis), (alt / ref)** |
+| Bias (\\bias_D\\)                                                                                   | 1.08 \[1.05; 1.11\]                                   |
+| Between-subject SD (\\\sigma\_{between,D}\\)                                                        | 1.12 \[1.09; 1.15\]                                   |
+| Within-subject SD (\\\sigma\_{within,D}\\)                                                          | 1.08 \[1.07; 1.09\]                                   |
+| Total SD (\\\sigma\_{total,D}\\)                                                                    | 1.14 \[1.12; 1.17\]                                   |
+| Limits of agreement (95%)                                                                           | Limits of agreement (95%)                             |
+|   Upper limit                                                                                       | 1.41 \[1.34; 1.47\]                                   |
+|   Lower limit                                                                                       | 0.83 \[0.79; 0.87\]                                   |
+| Percentage error²                                                                                   | –                                                     |
+| Within-subject percentage error²                                                                    | –                                                     |
+| Change limits of agreement (95%)³                                                                   | ×/÷1.23 \[1.21; 1.26\]                                |
+| ¹ Distribution of the averages of simultaneous measurements (alt + ref)/2.                          |                                                       |
+| ² Percentage error = 1.96 · \\\sigma\_{total,D}\\ (or \\\sigma\_{within,D}\\)/mean                  |                                                       |
+| ³ Change limits of agreement (95%) = 1.96 · √2 · \\\sigma\_{within,D}\\.                            |                                                       |
+|  SD: standard deviation; alt: alternative method; ref: reference method; ×/÷: multiply or divide by |                                                       |
 
 The back-transformed *change limits of agreement* is 1.23. This is
 interpreted as: if we measure a change in CO with both methods
