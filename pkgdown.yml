@@ -1,9 +1,9 @@
 pandoc: 3.1.11
-pkgdown: 2.1.3.9000
-pkgdown_sha: 1f2f7401ca3d9d1983eb705a2203c4c4abd4184d
+pkgdown: 2.2.0.9000
+pkgdown_sha: c07d935583c90125586821e3b39ed52f16593e42
 articles:
   BAtrending: BAtrending.html
-last_built: 2025-10-15T10:44Z
+last_built: 2026-01-15T20:57Z
 urls:
   reference: https://johannesne.github.io/BAtrending/reference
   article: https://johannesne.github.io/BAtrending/articles
