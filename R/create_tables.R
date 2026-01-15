@@ -98,7 +98,7 @@ BA_table_df <- function(
   )
 
   # Add ± to relevant stats
-  range_symbol <- if (exponentiate) "⋇" else "±"
+  range_symbol <- if (exponentiate) "×/÷" else "±"
   ba_est_full$est_ci <- ifelse(
     ba_est_full$stat %in% c("change.loa"),
     paste0(range_symbol, ba_est_full$est_ci),
@@ -140,7 +140,7 @@ BA_table_tt <- function(ba_df, exponentiated = FALSE, is_log_trans = FALSE) {
         "**Method comparison, exp(log-analysis), (alt / ref)**"
       footnote_abbreviations <- paste0(
         footnote_abbreviations,
-        "; ⋇: multiply or divide"
+        "; ×/÷: multiply or divide"
       )
     } else {
       names(loa_group_label)[2] <-
