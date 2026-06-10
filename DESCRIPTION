@@ -23,14 +23,14 @@ Imports:
     scales,
     patchwork,
     tinytable (>= 0.13.0),
-    cli
+    cli,
+    litedown
 Suggests: 
     vdiffr,
     testthat (>= 3.0.0),
     knitr,
     quarto,
     rmarkdown,
-    litedown,
     dplyr
 Remotes: vincentarelbundock/tinytable
 Config/testthat/edition: 3
