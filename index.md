@@ -8,6 +8,7 @@ assessment of trending ability.
 You can install BAtrending from [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("JohannesNE/BAtrending")
 ```
@@ -15,6 +16,7 @@ pak::pak("JohannesNE/BAtrending")
 or
 
 ``` r
+
 devtools::install_github("JohannesNE/BAtrending")
 ```
 
@@ -30,6 +32,7 @@ Research 8, 135-160](https://doi.org/10.1177/096228029900800204).
 The `CO` dataset has 60 measurements in 12 subjects.
 
 ``` r
+
 library(BAtrending)
 
 BA_CO <- compare_methods(CO, ref_col = "rv", alt_col = "ic", id_col = "sub")
@@ -38,6 +41,7 @@ BA_CO <- add_confint(BA_CO)
 ```
 
 ``` r
+
 BA_plot_combine(BA_CO, aspect_ratio = 1)
 ```
 
@@ -50,6 +54,7 @@ analysis and for assessing trending ability. The
 [`print()`](https://rdrr.io/r/base/print.html) method gives an overview:
 
 ``` r
+
 BA_CO
 #> 60 paired measurements in 12 subjects
 #> 
@@ -80,6 +85,7 @@ BA_CO
 ## Citation
 
 ``` r
+
 citation("BAtrending")
 ```
 

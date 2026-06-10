@@ -8,6 +8,7 @@ or `remotes::install_github("JohannesNE/BAtrending")`.
 Load the package (this tutorial also uses the package `dplyr`):
 
 ``` r
+
 library(BAtrending)
 library(dplyr)
 ```
@@ -24,6 +25,7 @@ Research 8, 135-160](https://doi.org/10.1177/096228029900800204).
 The `CO` dataset contains 60 measurements from 12 subjects.
 
 ``` r
+
 head(CO)
 #>   sub   rv   ic
 #> 1   1 7.83 6.57
@@ -50,6 +52,7 @@ extract relevant
 features](#manually-fit-the-mixed-model-and-extract-features).
 
 ``` r
+
 BA_CO <- compare_methods(
   CO,
   ref_col = rv,
@@ -67,6 +70,7 @@ It is generally recommended to set the aspect ratio to 1 for easy
 comparison between the methods.
 
 ``` r
+
 BA_plot_scatter(BA_CO, aspect_ratio = 1)
 ```
 
@@ -76,6 +80,7 @@ A standard Bland-Altman plot is created with
 [`BA_plot()`](https://johannesne.github.io/BAtrending/reference/BA_plot.md).
 
 ``` r
+
 BA_plot(BA_CO, aspect_ratio = 1)
 ```
 
@@ -95,6 +100,7 @@ compare the within-subject variation (right panel) to the total
 variation shown in the Bland-Altman analysis (middle panel).
 
 ``` r
+
 BA_plot_combine(BA_CO, aspect_ratio = 1, equal_scales = TRUE)
 ```
 
@@ -105,7 +111,7 @@ within-subject variation in the difference between simultaneous
 measurements, especially compared to the total variation (Y-axis of the
 middle panel). By itself, this suggests good trending agreement, but we
 must also consider how much CO acutally varied in the study. The average
-CO ($(rv + ic)/2$) represents our best guess of the true CO and is
+CO ($`(rv+ic)/2`$) represents our best guess of the true CO and is
 plotted on the X-axis of the middle and right panels. The middle panel
 shows that a wide range of CO values are included in the study, but the
 right panel reveals that the within-subject variation in CO is very
@@ -118,61 +124,63 @@ The results from the analysis can be shown in table form in the console
 with `print(BA_CO)` or by simply calling the object name:
 
 ``` r
+
 BA_CO
 #> 60 paired measurements in 12 subjects
 #> 
 #>                                    est      [95% CI] 
 #> === Distribution ===
-#> Mean                           :   5.035 [ 4.351;  5.718] 
-#> Between-subject variation (SD) :   1.210 [ 0.723;  1.685] 
-#> Within-subject variation (SD)  :   0.283 [ 0.230;  0.340] 
-#> Total variation (SD)           :   1.243 [ 0.778;  1.705] 
+#> Mean                           :   5.035 [ 4.344;  5.692] 
+#> Between-subject variation (SD) :   1.210 [ 0.707;  1.676] 
+#> Within-subject variation (SD)  :   0.283 [ 0.227;  0.338] 
+#> Total variation (SD)           :   1.243 [ 0.763;  1.701] 
 #> 
 #> === Method comparison ===
-#> Bias (alt - ref)               :  -0.705 [-1.223; -0.159] 
-#> Between-subject variation (SD) :   0.934 [ 0.542;  1.319] 
-#> Within-subject variation (SD)  :   0.413 [ 0.321;  0.494] 
-#> Total variation (SD)           :   1.022 [ 0.679;  1.385] 
+#> Bias (alt - ref)               :  -0.705 [-1.252; -0.152] 
+#> Between-subject variation (SD) :   0.934 [ 0.515;  1.356] 
+#> Within-subject variation (SD)  :   0.413 [ 0.327;  0.496] 
+#> Total variation (SD)           :   1.022 [ 0.652;  1.411] 
 #> Intraclass correlation
-#> └ Between/Total variance       :   0.836 [ 0.623;  0.924] 
+#> └ Between/Total variance       :   0.836 [ 0.582;  0.923] 
 #> Limits of agreement (95%)
-#> ├ Upper limit                  :   1.298 [ 0.403;  2.127] 
-#> └ Lower limit                  :  -2.707 [-3.588; -1.843] 
-#> Percentage error               :   0.398 [ 0.265;  0.541] 
+#> ├ Upper limit                  :   1.298 [ 0.394;  2.204] 
+#> └ Lower limit                  :  -2.707 [-3.643; -1.734] 
+#> Percentage error               :   0.398 [ 0.254;  0.550] 
 #> 
 #> --- Trending ---
-#> Within-subject perc. error     :   0.161 [ 0.125;  0.193] 
-#> Change LoA [±] (95%)           :   1.146 [ 0.891;  1.368]
+#> Within-subject perc. error     :   0.161 [ 0.128;  0.194] 
+#> Change LoA [±] (95%)           :   1.146 [ 0.907;  1.376]
 ```
 
 A publication-ready table is created with:
 
 ``` r
+
 BA_table(BA_CO)
 ```
 
-|                                                                                    | Estimate \[95% CI\]               |
-|------------------------------------------------------------------------------------|-----------------------------------|
-| **Distribution**¹                                                                  | **Distribution**                  |
-| Mean                                                                               | 5.03 \[4.35; 5.72\]               |
-| Between-subject SD                                                                 | 1.21 \[0.72; 1.69\]               |
-| Within-subject SD                                                                  | 0.28 \[0.23; 0.34\]               |
-| Total SD                                                                           | 1.24 \[0.78; 1.70\]               |
-| **Method comparison (alt - ref)**                                                  | **Method comparison (alt - ref)** |
-| Bias (\\bias_D\\)                                                                  | -0.70 \[-1.22; -0.16\]            |
-| Between-subject SD (\\\sigma\_{between,D}\\)                                       | 0.93 \[0.54; 1.32\]               |
-| Within-subject SD (\\\sigma\_{within,D}\\)                                         | 0.41 \[0.32; 0.49\]               |
-| Total SD (\\\sigma\_{total,D}\\)                                                   | 1.02 \[0.68; 1.39\]               |
-| Limits of agreement (95%)                                                          | Limits of agreement (95%)         |
-|   Upper limit                                                                      | 1.30 \[0.40; 2.13\]               |
-|   Lower limit                                                                      | -2.71 \[-3.59; -1.84\]            |
-| Percentage error²                                                                  | 39.8 \[26.5; 54.1\] %             |
-| Within-subject percentage error²                                                   | 16.1 \[12.5; 19.3\] %             |
-| Change limits of agreement (95%)³                                                  | ±1.15 \[0.89; 1.37\]              |
-| ¹ Distribution of the averages of simultaneous measurements (alt + ref)/2.         |                                   |
-| ² Percentage error = 1.96 · \\\sigma\_{total,D}\\ (or \\\sigma\_{within,D}\\)/mean |                                   |
-| ³ Change limits of agreement (95%) = 1.96 · √2 · \\\sigma\_{within,D}\\.           |                                   |
-|  SD: standard deviation; alt: alternative method; ref: reference method            |                                   |
+|  | Estimate \[95% CI\] |
+|----|----|
+| **Distribution**¹ | **Distribution** |
+| Mean | 5.03 \[4.34; 5.69\] |
+| Between-subject SD | 1.21 \[0.71; 1.68\] |
+| Within-subject SD | 0.28 \[0.23; 0.34\] |
+| Total SD | 1.24 \[0.76; 1.70\] |
+| **Method comparison (alt - ref)** | **Method comparison (alt - ref)** |
+| Bias (\\bias_D\\) | -0.70 \[-1.25; -0.15\] |
+| Between-subject SD (\\\sigma\_{between,D}\\) | 0.93 \[0.51; 1.36\] |
+| Within-subject SD (\\\sigma\_{within,D}\\) | 0.41 \[0.33; 0.50\] |
+| Total SD (\\\sigma\_{total,D}\\) | 1.02 \[0.65; 1.41\] |
+| Limits of agreement (95%) | Limits of agreement (95%) |
+|   Upper limit | 1.30 \[0.39; 2.20\] |
+|   Lower limit | -2.71 \[-3.64; -1.73\] |
+| Percentage error² | 39.8 \[25.4; 55.0\] % |
+| Within-subject percentage error² | 16.1 \[12.8; 19.4\] % |
+| Change limits of agreement (95%)³ | ±1.15 \[0.91; 1.38\] |
+| ¹ Distribution of the averages of simultaneous measurements (alt + ref)/2. |  |
+| ² Percentage error = 1.96 · \\\sigma\_{total,D}\\ (or \\\sigma\_{within,D}\\)/mean |  |
+| ³ Change limits of agreement (95%) = 1.96 · √2 · \\\sigma\_{within,D}\\. |  |
+|  SD: standard deviation; alt: alternative method; ref: reference method |  |
 
 [`BA_table()`](https://johannesne.github.io/BAtrending/reference/BA_table.md)
 uses
@@ -203,6 +211,7 @@ provides a convenience function,
 for this purpose.
 
 ``` r
+
 set.seed(1)
 
 sim_CO <- simulate_repeated_data(
@@ -233,6 +242,7 @@ Now, we simulate measurements of the true CO using the function
 [`simulate_measurement()`](https://johannesne.github.io/BAtrending/reference/simulate_measurement.md):
 
 ``` r
+
 sim_CO <- sim_CO |>
   mutate(
     # Reference method
@@ -272,6 +282,7 @@ head(sim_CO)
 We first perform a Bland-Altman analysis on an absolute (non-log) scale.
 
 ``` r
+
 BA_sim_abs <- compare_methods(
   sim_CO,
   ref_col = ref,
@@ -295,9 +306,12 @@ corresponds to an assumption that measurement errors are proportional to
 the true CO. Specifically, that the *ratios* between simultaneous
 measurements from two methods are independent of the true CO.
 
-$$\log(alt) - \log(ref) = \log\left( \frac{alt}{ref} \right)$$
+``` math
+\log(alt) - \log(ref) = \log\left(\frac{alt}{ref} \right)
+```
 
 ``` r
+
 BA_sim_log <- compare_methods(
   sim_CO,
   ref_col = ref,
@@ -315,6 +329,7 @@ BA_plot_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = TRUE)
 ![](BAtrending_files/figure-html/unnamed-chunk-11-1.png)
 
 ``` r
+
 # aspect_ratio only affects the scatter plot (left panel) for
 # log-transformed data.
 ```
@@ -331,13 +346,14 @@ estimate ratios between the measurements instead of absolute
 differences.
 
 ``` r
+
 BA_plot_combine(BA_sim_log, aspect_ratio = 1, keep_log_scale = FALSE)
 ```
 
 ![](BAtrending_files/figure-html/unnamed-chunk-12-1.png)
 
-A ratio of 1 signifies “no bias” ($alt = ref$). The Y-axis is shown with
-logarithmic intervals to appropriately balance the ratios visually
+A ratio of 1 signifies “no bias” ($`alt = ref`$). The Y-axis is shown
+with logarithmic intervals to appropriately balance the ratios visually
 (i.e. an increase of 25% is balanced by a decrease of 20%).
 
 A relative bias of 1.08 indicates that the alternative method measures
@@ -350,6 +366,7 @@ We can also show the results of the log-transformed Bland-Altman
 analysis on the non-transformed data with:
 
 ``` r
+
 BA_plot_normalized_log(BA_sim_log, aspect_ratio = 1)
 ```
 
@@ -359,31 +376,32 @@ Again, we can generate a table of the back-transformed (exponentiated)
 results:
 
 ``` r
+
 BA_table(BA_sim_log, keep_log_scale = FALSE)
 ```
 
-|                                                                                                     | Estimate \[95% CI\]                                   |
-|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
-| **Distribution**¹                                                                                   | **Distribution**                                      |
-| Mean                                                                                                | 5.58 \[5.28; 5.87\]                                   |
-| Between-subject SD                                                                                  | 0.67 \[0.19; 0.98\]                                   |
-| Within-subject SD                                                                                   | 1.73 \[1.57; 1.90\]                                   |
-| Total SD                                                                                            | 1.86 \[1.70; 2.04\]                                   |
-| **Method comparison, exp(log-analysis), (alt / ref)**                                               | **Method comparison, exp(log-analysis), (alt / ref)** |
-| Bias (\\bias_D\\)                                                                                   | 1.08 \[1.05; 1.11\]                                   |
-| Between-subject SD (\\\sigma\_{between,D}\\)                                                        | 1.12 \[1.09; 1.15\]                                   |
-| Within-subject SD (\\\sigma\_{within,D}\\)                                                          | 1.08 \[1.07; 1.09\]                                   |
-| Total SD (\\\sigma\_{total,D}\\)                                                                    | 1.14 \[1.12; 1.17\]                                   |
-| Limits of agreement (95%)                                                                           | Limits of agreement (95%)                             |
-|   Upper limit                                                                                       | 1.41 \[1.34; 1.47\]                                   |
-|   Lower limit                                                                                       | 0.83 \[0.79; 0.87\]                                   |
-| Percentage error²                                                                                   | –                                                     |
-| Within-subject percentage error²                                                                    | –                                                     |
-| Change limits of agreement (95%)³                                                                   | ×/÷1.23 \[1.21; 1.26\]                                |
-| ¹ Distribution of the averages of simultaneous measurements (alt + ref)/2.                          |                                                       |
-| ² Percentage error = 1.96 · \\\sigma\_{total,D}\\ (or \\\sigma\_{within,D}\\)/mean                  |                                                       |
-| ³ Change limits of agreement (95%) = 1.96 · √2 · \\\sigma\_{within,D}\\.                            |                                                       |
-|  SD: standard deviation; alt: alternative method; ref: reference method; ×/÷: multiply or divide by |                                                       |
+|  | Estimate \[95% CI\] |
+|----|----|
+| **Distribution**¹ | **Distribution** |
+| Mean | 5.58 \[5.28; 5.87\] |
+| Between-subject SD | 0.67 \[0.19; 0.98\] |
+| Within-subject SD | 1.73 \[1.57; 1.90\] |
+| Total SD | 1.86 \[1.70; 2.04\] |
+| **Method comparison, exp(log-analysis), (alt / ref)** | **Method comparison, exp(log-analysis), (alt / ref)** |
+| Bias (\\bias_D\\) | 1.08 \[1.05; 1.11\] |
+| Between-subject SD (\\\sigma\_{between,D}\\) | 1.12 \[1.09; 1.15\] |
+| Within-subject SD (\\\sigma\_{within,D}\\) | 1.08 \[1.07; 1.09\] |
+| Total SD (\\\sigma\_{total,D}\\) | 1.14 \[1.12; 1.17\] |
+| Limits of agreement (95%) | Limits of agreement (95%) |
+|   Upper limit | 1.41 \[1.34; 1.47\] |
+|   Lower limit | 0.83 \[0.79; 0.87\] |
+| Percentage error² | – |
+| Within-subject percentage error² | – |
+| Change limits of agreement (95%)³ | ×/÷1.23 \[1.21; 1.26\] |
+| ¹ Distribution of the averages of simultaneous measurements (alt + ref)/2. |  |
+| ² Percentage error = 1.96 · \\\sigma\_{total,D}\\ (or \\\sigma\_{within,D}\\)/mean |  |
+| ³ Change limits of agreement (95%) = 1.96 · √2 · \\\sigma\_{within,D}\\. |  |
+|  SD: standard deviation; alt: alternative method; ref: reference method; ×/÷: multiply or divide by |  |
 
 The back-transformed *change limits of agreement* is 1.23. This is
 interpreted as: if we measure a change in CO with both methods
@@ -398,22 +416,23 @@ value.
 To compare results from an analysis on log-transformed measurements with
 an analysis on absolute (non-transformed) measurements, the SD of
 differences between log-transformed measurements
-($D_{\log} = \log\left( CO_{alt} \right) - \log\left( CO_{ref} \right)$)
-is approximately equal to the SD of differences on the original
-measurements ($D$) relative to the mean of these measurements:
+($`D_{\log} = \log(CO_{alt}) - \log(CO_{ref})`$) is approximately equal
+to the SD of differences on the original measurements ($`D`$) relative
+to the mean of these measurements:
 
-$$SD\left( D_{\log} \right) \approx \frac{SD(D)}{mean\left( CO_{alt},CO_{ref} \right)},$$
+``` math
+SD(D_{\log}) \approx \frac{SD(D)}{mean(CO_{alt}, CO_{ref})},
+```
 
-when $SD\left( D_{\log} \right)$ is less than approximately 0.3. Note
-that $\log$ must be the natural logarithm (base $e$) for this
-approximate equality to hold.
+when $`SD(D_{\log})`$ is less than approximately 0.3. Note that $`\log`$
+must be the natural logarithm (base $`e`$) for this approximate equality
+to hold.
 
-Thus, $1.96*SD_{total}$ on the log scale is approximately equal to the
-“percentage error” that would be calculated on the original scale.
+Thus, $`1.96 * SD_{total}`$ on the log scale is approximately equal to
+the “percentage error” that would be calculated on the original scale.
 
 This is analogous to how the coefficient of variation
-($CV = SD(x)/mean(x)$) is approximately equal to
-$SD\left( log(x) \right)$[¹](#fn1).
+($`CV = SD(x)/mean(x)`$) is approximately equal to $`SD(log(x))`$[^1].
 
 ## Manually fit the mixed model and extract features
 
@@ -429,6 +448,7 @@ First, we calculate the difference and average for each pair of
 simultaneous measurements.
 
 ``` r
+
 CO_diff_avg <- mutate(CO, diff = ic - rv, avg = (ic + rv) / 2)
 head(CO_diff_avg)
 #>   sub   rv   ic  diff   avg
@@ -441,6 +461,7 @@ head(CO_diff_avg)
 ```
 
 ``` r
+
 library(lme4)
 
 mod <- lmer(diff ~ 1 + (1 | sub), data = CO_diff_avg)
@@ -472,6 +493,7 @@ between-subject SD is 0.93 and within-subject (Residual) SD is 0.41.
 To extract these values programmatically, use:
 
 ``` r
+
 bias <- fixef(mod)[[1]] # Get intercept from model
 # Get variance components (SD)
 sd_components <- as.data.frame(VarCorr(mod))[['sdcor']]
@@ -480,6 +502,7 @@ sd_components <- as.data.frame(VarCorr(mod))[['sdcor']]
 Most Bland-Altman statistics are calculated from these values:
 
 ``` r
+
 calc_BA_stats_from_model <- function(m) {
   bias <- fixef(m)[[1]] # Get intercept from model
   # Get variance components (SD)
@@ -521,6 +544,7 @@ ba_stats
 Percentage errors also require knowing the mean of the measurements.
 
 ``` r
+
 mean_val <- mean(CO_diff_avg$avg)
 
 percentage.error <- 1.96 * ba_stats["sd.total"] / mean_val
@@ -547,6 +571,7 @@ To calculate confidence intervals (CI) for the Bland-Altman statistics,
 we can use a parametric bootstrap on the model.
 
 ``` r
+
 lme4::confint.merMod(
   mod,
   FUN = calc_BA_stats_from_model,
@@ -574,8 +599,6 @@ scaling the CI for `sd.total`, treating the mean CO as a known value.
 Ideally, the uncertainty of the mean CO should be included in the CI for
 the percentage error.
 
-------------------------------------------------------------------------
-
-1.  R. C. Lewontin, On the Measurement of Relative Variability,
+[^1]: R. C. Lewontin, On the Measurement of Relative Variability,
     Systematic Biology, Volume 15, Issue 2, June 1966, Pages 141–142,
     https://doi.org/10.2307/sysbio/15.2.141
